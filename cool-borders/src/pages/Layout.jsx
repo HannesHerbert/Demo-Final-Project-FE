@@ -18,12 +18,36 @@ function Layout() {
 
     return (
         <>
-            <nav className='mb-10 '>
+            <header className='fixed top-0 left-0'>
+                <Link>
+                    <img src="../assets/boardergram-logo.png" alt="logo" />
+                </Link>
+            </header>
+
+            <nav className='mb-10 fixed bottom-0 left-0'>
                 <ul 
                 className='flex gap-5 justify-center text-3xl font-bold text-gray-400 '
                 >
-                    <li className='hover:text-white'><Link to='/'>Home</Link></li>
-                    <li className='hover:text-white transition-colors duration-300'><Link to='/todolists'>Todos</Link></li>
+                    <li className='hover:text-white'>
+                        <Link to='/'>
+                            News
+                        </Link>
+                    </li>
+                    <li className='hover:text-white transition-colors duration-300'>
+                        <Link to='/blogs'>
+                            Blogs
+                        </Link>
+                    </li>
+                    <li className='hover:text-white transition-colors duration-300'>
+                        <Link to='/chats'>
+                            Chats
+                        </Link>
+                    </li>
+                    <li className='hover:text-white transition-colors duration-300'>
+                        <Link to='/reviews'>
+                            Reviews
+                        </Link>
+                    </li>
                 </ul>
             </nav>
 
