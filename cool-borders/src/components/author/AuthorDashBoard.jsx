@@ -8,6 +8,9 @@ function AuthorDashboard() {
 
     return (
         <>
+            <button>
+                <ArticleErstellen />
+            </button>
         </>
     )
 }
