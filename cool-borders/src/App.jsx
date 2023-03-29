@@ -1,5 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Chats from './pages/Chats';
 import Layout from './pages/Layout';
+import Management from './pages/Management';
+import News from './pages/News';
+import Regitster from './pages/Register';
+import Reviews from './pages/Reviews';
+import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
 
 
@@ -15,14 +21,19 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Layout />}>
-              {/* <Route index element={}/>
+              <Route index element={<News />}/>
 
-              <Route path='/auth/register' element={} />
-              <Route path='/auth/login' element={} /> */}
+              <Route path='/auth/register' element={<Regitster />} />
+              <Route path='/auth/login' element={<Login />} />
 
               <Route element={<PrivateRoute />}>
-                {/* <Route path='/todolists' element={} />
-                <Route path='/users/user' element={} /> */}
+                <Route path='/blogs' element={<Blogs />} />
+                <Route path='/reviews' element={<Reviews />} />
+                <Route path='/chat' element={<Chats />} />
+
+                <Route path='/management' element={<Management />} />
+
+                <Route path='/user' element={<UserProfile />} />
               </Route>
             </Route>
             
