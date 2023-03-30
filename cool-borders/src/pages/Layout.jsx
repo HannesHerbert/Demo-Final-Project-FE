@@ -1,5 +1,6 @@
 import {Link, Outlet} from 'react-router-dom';
 import { useEffect } from 'react';
+import Header from '../components/Header';
 
 
 
@@ -18,11 +19,8 @@ function Layout() {
 
     return (
         <>
-            <header className='fixed top-0 left-0'>
-                <Link>
-                    <img src="../assets/boardergram-logo.png" alt="logo" />
-                </Link>
-            </header>
+
+            <Header />
 
             <nav className='mb-10 fixed bottom-0 left-0'>
                 <ul 

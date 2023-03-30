@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App bg-zinc-800 text-white py-5">
       <div className='container mx-auto min-h-screen relative  w-5/6'>
-        <h1 className='text-4xl text-center py-9 mb-3 font-bold text-gray-300'>Timur's Todo App</h1>
+
 
         <BrowserRouter>
           <Routes>
