@@ -7,9 +7,9 @@ import Regitster from './pages/Register';
 import Reviews from './pages/Reviews';
 import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
+import Login from './pages/Login'
 
-
-
+import Blogs from './pages/Blogs'
 function App() {
 
 
@@ -29,6 +29,7 @@ function App() {
               <Route element={<PrivateRoute />}>
                 <Route path='/blogs' element={<Blogs />} />
                 <Route path='/reviews' element={<Reviews />} />
+           
                 <Route path='/chat' element={<Chats />} />
 
                 <Route path='/management' element={<Management />} />

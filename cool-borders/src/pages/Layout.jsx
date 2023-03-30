@@ -23,8 +23,9 @@ function Layout() {
             <Header />
 
             <nav className='mb-10 fixed bottom-0 left-0'>
+                <hr className=' p-2'/>
                 <ul 
-                className='flex gap-5 justify-center text-3xl font-bold text-gray-400 '
+                className='flex gap-10 justify-center text-1xl font-bold text-gray-400 p-2'
                 >
                     <li className='hover:text-white'>
                         <Link to='/'>
@@ -36,14 +37,15 @@ function Layout() {
                             Blogs
                         </Link>
                     </li>
+                    <Link to='/createblog' >+</Link>
                     <li className='hover:text-white transition-colors duration-300'>
-                        <Link to='/chats'>
-                            Chats
+                        <Link to='/reviews'>
+                            Favs
                         </Link>
                     </li>
                     <li className='hover:text-white transition-colors duration-300'>
-                        <Link to='/reviews'>
-                            Reviews
+                        <Link to='/chats'>
+                            Chats
                         </Link>
                     </li>
                 </ul>

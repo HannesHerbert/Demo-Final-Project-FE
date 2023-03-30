@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    color: rgb(240, 132, 45);
+}
+h2 , i{
+    font-family: 'Delicious Handrawn', cursive;
+
+
+    color: rgb(240, 132, 45);
+
+}
+
+i{
+    font-size: 25px;
+}
