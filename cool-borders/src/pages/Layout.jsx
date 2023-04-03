@@ -24,7 +24,7 @@ function Layout() {
 
     return (
         <>  
-            <div >
+        
             <Header  />
 
                 <nav className='fixed bottom-0 left-0 w-full'>
@@ -84,7 +84,6 @@ function Layout() {
                     </ul>
                 </nav>
 
-            </div>
             
 
             {/* {<h2 style={{textAlign: 'center', fontSize: '18sp'}}>Welcome aboard, {isAuthenticated ? user.fullname : 'Anonymous'}!</h2>} */}
