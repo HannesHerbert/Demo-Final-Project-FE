@@ -18,8 +18,8 @@ function Login() {
         <div className="container  font-mono" id="login">
 
             <div className="flex justify-around my-20">
-                <button className="bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Login</button>
-                <Link to='/register'> <button className="bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Register</button> </Link>
+                <button className="w-32 bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300">Login</button>
+                <Link to='/register'> <button className="w-32 bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300">Register</button> </Link>
 
             </div>
 
@@ -38,7 +38,7 @@ function Login() {
                     required
                     />
                 </div>
-                <div className="mb-6">
+                <div className="mb-4">
                     <label
                     htmlFor="password"
                     className="block text-orange-500  font-bold mb-2"
@@ -58,7 +58,7 @@ function Login() {
                 <div className="flex items-center justify-between">
                     <button
                     type="submit"
-                    className="bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="w-34 bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300"
                     >
                     Sign In
                     </button>
