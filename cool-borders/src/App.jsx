@@ -8,8 +8,9 @@ import Reviews from './pages/Reviews';
 import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
 import Login from './pages/Login'
-
 import Blogs from './pages/Blogs'
+
+
 function App() {
 
 
