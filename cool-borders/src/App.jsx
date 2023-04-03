@@ -3,12 +3,12 @@ import Chats from './pages/Chats';
 import Layout from './pages/Layout';
 import Management from './pages/Management';
 import News from './pages/News';
-import Regitster from './pages/Register';
 import Reviews from './pages/Reviews';
 import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
 import Login from './pages/Login'
 import Blogs from './pages/Blogs'
+import Register from './pages/Register';
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route index element={<News />}/>
 
-              <Route path='/auth/register' element={<Regitster />} />
+              <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/login' element={<Login />} />
 
               <Route element={<PrivateRoute />}>
