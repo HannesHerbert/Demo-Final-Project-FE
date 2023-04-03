@@ -10,14 +10,14 @@ function Header() {
 
     return(
         
-            <header className='fixed top-0 left-0 flex justify-between w-full' >
+            <header className='fixed top-0 left-0 flex justify-between items-center w-full h-24 '  >
                 <Link to= '/'>
-                    <img src={Logo} alt="logo" width={'90px'}/>
+                    <img src={Logo} alt="logo" width={'90px'}  />
                    {/*  <img src={Logo} alt="logo" width={'150px'}/> */}
                 </Link>
         
-                <h2 className="text-5xl p-8 mt-5">NEWS</h2>
-                <Link to='/auth/login' > <FiUserPlus size="25px" className="mt-16 mr-2 "
+                <Link to='/news'> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500'>NEWS</h2></Link>
+                <Link to='/auth/login' > <FiUserPlus size="25px" className="mr-5 hover:text-orange-300"
                />
                 </Link>
                 

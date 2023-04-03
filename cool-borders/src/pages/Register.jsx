@@ -1,7 +1,7 @@
 
 
 
-function Regitster() {
+function Register() {
     
 
 
@@ -12,4 +12,4 @@ function Regitster() {
 }
 
 
-export default Regitster;
+export default Register;
