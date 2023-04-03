@@ -2,74 +2,65 @@ import { HiOutlineNewspaper } from 'react-icons/hi';
 import {BsPencilSquare}  from 'react-icons/bs';
 import {AiOutlineStar}  from 'react-icons/ai';
 import {BsChatText}from 'react-icons/bs';
-import {HiPlusCircle} from 'react-icons/hi';
-import{AiOutlineMail} from 'react-icons/ai';
+import {BsPlusCircleFill} from 'react-icons/bs';
 import {Link} from 'react-router-dom';
 
 
 
 function Nav() {
   return (
-    <nav className="fixed bottom-0 left-0 w-full h-24 ">
+    <nav className="fixed bottom-0 left-0 w-full h-24 bg-orange-500 font-mono">
       <ul className="flex justify-around items-center h-full text-1xl font-bold text-gray-400">
-        <li className="hover:text-orange-400 duration-300">
+        <li className="hover:text-white duration-300 text-amber-900">
           <Link to="/">
             <HiOutlineNewspaper
-              size="25px"
+              size="30px"
+              className='mx-auto'
+            />
+            <p className="title-nav p-2 text-xs">News</p>
+          </Link>
+        </li>
+        <li className="hover:text-white duration-300 text-amber-900">
+          <Link to="/">
+            <BsPencilSquare
+              size="30px "
               className='mx-auto '
-            //   onMouseOver={({ target }) => (target.style.color = "orange")}
-            //   onMouseOut={({ target }) => (target.style.color = "white")}
             />
-            <p className="title-nav ">News</p>
+            <p className="title-nav p-2 text-xs">Blog</p>
           </Link>
         </li>
-        <li className="text transition-colors duration-300">
-          <Link to="/blogs">
-            <div className="icondiv">
-              <BsPencilSquare
-                size="25px"
-                onMouseOver={({ target }) => (target.style.color = "orange")}
-                onMouseOut={({ target }) => (target.style.color = "white")}
-              />
-              <p className="title-nav">Blogs</p>
-            </div>
-          </Link>
-        </li>
-        <li>
+        
+        <li className=" text-amber-100 duration-300 hover:text-amber-900 ">
           <Link to="/createblog">
-            <div className="icondiv">
-              {/* <AiOutlinePlusCircle className='fa-circle-plus'/> */}
-              <HiPlusCircle
-                className="circle-plus"
-                size="60px"
-                onMouseOver={({ target }) =>
-                  (target.style.color = "rgba(253,181,45,1)")
-                }
+   
+              <BsPlusCircleFill
+                className="circle-plus "
+                size="50px"
+                
+                
               />
-            </div>
+         
           </Link>
         </li>
-
-        <li className="text transition-colors duration-300">
-          <Link to="/favs">
+        <li className="hover:text-white duration-300 text-amber-900">
+          <Link to="/">
             <AiOutlineStar
-              size="25px"
-              onMouseOver={({ target }) => (target.style.color = "orange")}
-              onMouseOut={({ target }) => (target.style.color = "white")}
+              size="30px"
+              className='mx-auto '
             />
-            <p className="title-nav">Favs</p>
+            <p className="title-nav p-2 text-xs">Favs</p>
           </Link>
         </li>
-        <li className="text transition-colors duration-300">
-          <Link to="/chats">
+        <li className="hover:text-white duration-300 text-amber-900">
+          <Link to="/">
             <BsChatText
-              size="25px"
-              onMouseOver={({ target }) => (target.style.color = "orange")}
-              onMouseOut={({ target }) => (target.style.color = "white")}
+              size="30px"
+              className='mx-auto '
             />
-            <p className="title-nav">Chat</p>
+            <p className="title-nav p-2 text-xs">Chat</p>
           </Link>
         </li>
+      
       </ul>
     </nav>
   );

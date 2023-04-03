@@ -18,11 +18,10 @@ function Layout() {
 
     return (
         <>  
-
+        
             <Header  />
 
             <Nav  />
-
             {/* {<h2 style={{textAlign: 'center', fontSize: '18sp'}}>Welcome aboard, {isAuthenticated ? user.fullname : 'Anonymous'}!</h2>} */}
 
             {/* <Notification /> */}

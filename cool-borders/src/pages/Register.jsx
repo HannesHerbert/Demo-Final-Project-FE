@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 
 function Register(props) {
@@ -29,36 +30,91 @@ function Register(props) {
             .catch(error => {
                 console.error(error);
             });
-    }
+    };
 
     return (
 
-        <div id="register" className="flex flex-col justify-center items-center ">
-            <h3>Register now!</h3>
-            <form id='register-form' className="flex flex-col justify-start items-center" onSubmit={submitHandler}>
-                <label>Username
-                    <input type="text" value={username} onChange={evt => setUsername(evt.target.value)} />
+        <div id="register" className=" container font-mono flex flex-col justify-center items-center ">
+
+            <h2 className="text-lg">Register now!</h2>
+
+            <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start items-center" onSubmit={submitHandler}>
+
+                <label
+                    className="block text-orange-500 font-bold mb-4"
+                >Username
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        value={username}
+                        onChange={evt => setUsername(evt.target.value)} />
                 </label>
-                <label>Fullname
-                    <input type="text" value={fullname} onChange={evt => setFullname(evt.target.value)} />
+
+                <label
+                    className="block text-orange-500 font-bold mb-4"
+                >Fullname
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        value={fullname}
+                        onChange={evt => setFullname(evt.target.value)} />
                 </label>
-                <label>E-mail
-                    <input type="text" value={email} onChange={evt => setEmail(evt.target.value)} />
+
+                <label
+                    htmlFor="email"
+                    className="block text-orange-500 font-bold mb-4"
+                >E-mail
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="email"
+                        value={email}
+                        onChange={evt => setEmail(evt.target.value)} />
                 </label>
-                <label>City (optional)
-                    <input type="text" value={city} onChange={evt => setCity(evt.target.value)} />
+
+                <label
+                    className="block text-orange-500 font-bold mb-4"
+                >City (optional)
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="text"
+                        value={city}
+                        onChange={evt => setCity(evt.target.value)} />
                 </label>
-                <label>Password
-                    <input type="password" value={password} onChange={evt => setPassword(evt.target.value)} />
+
+                <label
+                    htmlFor="password"
+                    className="block text-orange-500 font-bold mb-4"
+                >Password
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="password"
+                        value={password}
+                        onChange={evt => setPassword(evt.target.value)}
+                    />
                 </label>
-                <label>Password again
-                    <input type="password" value={password} onChange={evt => setPassword(evt.target.value)} />
+
+                <label
+                    htmlFor="password"
+                    className="block text-orange-500 font-bold mb-4"
+                >Password again
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="password"
+                        value={password}
+                        onChange={evt => setPassword(evt.target.value)}
+                    />
                 </label>
-                <button type='submit' className="self-end">Register</button>
+
+                <button
+                    type='submit'
+                    className="self-start bg-orange-500 hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >Register
+                </button>
+
             </form>
         </div>
 
     );
-}
+};
 
 export default Register;
