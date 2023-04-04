@@ -31,7 +31,7 @@ function Nav() {
         </li>
         
         <li className=" text-amber-100 duration-300 hover:text-amber-900 ">
-          <Link to="/createblog">
+          <Link to='/create'>
    
               <BsPlusCircleFill
                 className="circle-plus transition ease-in delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300"

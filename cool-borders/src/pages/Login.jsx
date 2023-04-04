@@ -19,11 +19,11 @@ function Login() {
     };
 
     return (
-        <div className="container flex flex-col font-mono" id="login">
+        <div className="container flex flex-col font-mono  shadow-lg shadow-indigo-500/20 p-4" id="login">
            
             <div className="flex flex-col items-center ">
                 
-                <h2 className="text-2xl mb-4 font-bold">LOGIN</h2>
+                <h2 className="text-4xl mb-10 font-bold text-orange-300">LOGIN</h2>
             </div>
            
             <form onSubmit={handleSubmit} className="max-w-xs mx-auto w-full">
@@ -62,10 +62,9 @@ function Login() {
 
                 
 
-                <div className="flex flex-col">
-
-                    <button className="w-40 bg-orange-500 font-bold hover:bg-orange-700 text-orange-100  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300 " >Sign in</button>
-
+                <div className="flex flex-col items-center">
+              
+                    <button className=" w-40 bg-orange-500 font-bold hover:bg-orange-700 text-orange-100  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300 " >Sign in</button>
                     <p className="text-xs text-gray-400 mt-6">Not registred?<Link to='/auth/register'><span className="text-orange-500 hover:text-orange-300"> Create an account </span></Link></p> 
                 </div>
                 
