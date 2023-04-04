@@ -34,11 +34,11 @@ function Register(props) {
 
     return (
 
-        <div id="register" className=" container font-mono flex flex-col justify-center items-center ">
+        <div id="register" className=" container font-mono flex flex-col justify-center">
 
-            <h2 className="text-lg">Register now!</h2>
+            <h2 className="text-xl mb-2 font-bold text-center ">Register now!</h2>
 
-            <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start items-center" onSubmit={submitHandler}>
+            <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start" onSubmit={submitHandler}>
 
                 <label
                     className="block text-orange-500 font-bold mb-4"
