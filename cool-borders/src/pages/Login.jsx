@@ -3,6 +3,10 @@ import { useState } from "react";
 import {Link} from 'react-router-dom';
 import Register from "./Register";
 
+
+import {FaRegUserCircle} from 'react-icons/fa';
+
+
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,60 +19,57 @@ function Login() {
     };
 
     return (
-        <div className="container  font-mono" id="login">
-
-            <div className="flex justify-around my-20">
-                <button className="w-32 bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300">Login</button>
-                <Link to='/register'> <button className="w-32 bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300">Register</button> </Link>
-
-            </div>
-
+        <div className="container flex flex-col font-mono" id="login">
            
-            <form onSubmit={handleSubmit} className="max-w-xs mx-auto">
+            <div className="flex flex-col items-center ">
+                
+                <h2 className="text-2xl mb-4 font-bold">LOGIN</h2>
+            </div>
+           
+            <form onSubmit={handleSubmit} className="max-w-xs mx-auto w-full">
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-orange-500 font-bold mb-2">
-                    Email/User
-                    </label>
+                   
                     <input
+                    
                     type="email"
                     name="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Email"
+                    
                     required
                     />
                 </div>
                 <div className="mb-4">
-                    <label
-                    htmlFor="password"
-                    className="block text-orange-500  font-bold mb-2"
-                    >
-                    Password
-                    </label>
+                  
                     <input
                     type="password"
                     name="password"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Password"
                     required
                     />
                 </div>
-                
-                <div className="flex items-center justify-between">
-                    <button
-                    type="submit"
-                    className="w-34 bg-orange-500  hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300"
-                    >
-                    Sign In
-                    </button>
                     <a
                     href="/forgot-password"
-                    className="inline-block align-baseline font-bold text-sm text-orange-500  hover:text-orange-300 "
+                    className="inline-block align-baseline text-xs text-gray-400  hover:text-orange-300  mb-4"
                     >
                     Forgot Password?
                     </a>
+
+                
+
+                <div className="flex flex-col">
+
+                    <button className="w-40 bg-orange-500 font-bold hover:bg-orange-700 text-orange-100  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300 " >Sign in</button>
+
+                    <p className="text-xs text-gray-400 mt-6">Not registred?<Link to='/auth/register'><span className="text-orange-500 hover:text-orange-300"> Create an account </span></Link></p> 
                 </div>
+                
+
             </form>
         </div>
     )

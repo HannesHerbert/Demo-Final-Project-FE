@@ -16,7 +16,7 @@ function Header() {
                    {/*  <img src={Logo} alt="logo" width={'150px'}/> */}
                 </Link>
         
-                <Link to='/news'> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500'>NEWS</h2></Link>
+              {/*   <Link to='/news'> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500'>NEWS</h2></Link> */}
                 <Link to='/auth/login' > <FiUserPlus size="25px" className="mr-5 hover:text-orange-300"
                />
                 </Link>
