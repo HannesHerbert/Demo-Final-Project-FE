@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.text-title {
+    font-family: 'Caveat', cursive;
+}
+
+.layout {
+    background-image: url(https://w0.peakpx.com/wallpaper/740/198/HD-wallpaper-big-air-cold-extreme-holidays-night-graphy-snowboard-snowboarding-sport-sports-winter.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}

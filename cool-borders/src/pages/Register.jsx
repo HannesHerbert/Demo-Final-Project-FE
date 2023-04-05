@@ -34,14 +34,14 @@ function Register(props) {
 
     return (
 
-        <div id="register" className=" container font-mono flex flex-col justify-center">
+        <div id="register" className=" container font-mono flex flex-col justify-center ">
 
-            <h2 className="text-2xl mb-2 font-bold text-center ">Register now!</h2>
+            <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">REGISTER NOW!</h2>
 
-            <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start" onSubmit={submitHandler}>
+            <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start shadow-lg shadow-indigo-500/50 rounded-md bg-gray-900 w-full p-4" onSubmit={submitHandler}>
 
                 <input
-                    className="mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Username"
                     value={username}
@@ -49,7 +49,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Fullname"
                     value={fullname}
@@ -57,7 +57,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="email"
                     placeholder="E-mail"
                     value={email}
@@ -65,7 +65,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="City (optional)"
                     value={city}
@@ -73,7 +73,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="password"
                     placeholder="Password"
                     value={password}
@@ -81,7 +81,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="mb-6 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-6 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="password"
                     placeholder="Password again"
                     value={password}
@@ -165,7 +165,7 @@ function Register(props) {
 
                 <button
                     type='submit'
-                    className="self-center bg-orange-500 hover:bg-orange-700 text-orange-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="self-center w-40 bg-orange-900 font-bold hover:bg-orange-700 text-orange-100  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300 mb-6"
                 >Register
                 </button>
 

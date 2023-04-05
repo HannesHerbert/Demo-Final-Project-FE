@@ -9,12 +9,13 @@ import Login from './pages/Login'
 import Blogs from './pages/Blogs'
 import Register from './pages/Register';
 import Create from './pages/Create';
+import Favs from './pages/Favs';
 
 function App() {
 
 
   return (
-    <div className="App bg-zinc-800 text-white py-5">
+    <div className="App bg-zinc-800 text-white py-5 layout">
       <div className='container mx-auto min-h-screen relative  w-5/6'>
 
 
@@ -31,6 +32,7 @@ function App() {
 
               {/*  <Route element={<PrivateRoute />}> */}
               <Route path='/blogs' element={<Blogs />} />
+              <Route path='/favs' element={<Favs />} />
               <Route path='/news' element={<News />} />
 
               <Route path='/chat' element={<Chats />} />
