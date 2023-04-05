@@ -9,7 +9,7 @@ import { useState } from "react";
 
 function Header() {
 
-    const [isNews, setIsNews] = useState(isNews);
+    
     
 
     return (
@@ -20,12 +20,7 @@ function Header() {
                 {/*  <img src={Logo} alt="logo" width={'150px'}/> */}
             </Link>
 
-            <div>
-                {isNews
-                    ? <Link to='/news' isNews={isNews}> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500 text-center'>NEWS</h2></Link>
-                    : <Link to='/blogs'> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500 text-center'>BLOGS</h2></Link>
-                }
-            </div>
+    
             
             
 
