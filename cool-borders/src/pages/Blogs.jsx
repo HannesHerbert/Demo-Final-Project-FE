@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import PrivateRoute from "../services/PrivateRoute";
 import { HiUserCircle } from 'react-icons/hi';
+import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineStar } from 'react-icons/ai';
 import blogImage from '../assets/boardergram-logo.png';
 
@@ -11,8 +12,7 @@ function Blogs(props) {
 
     return (
         <>
-       {/*  <PrivateRoute /> */}
-            <Link to='/auth/blogs'> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500 text-center'>BLOGS</h2></Link>
+            
 
             <select name="blog-options" id="blog-options" className="form-select p-3 rounded-full">
                 <option value="stories">Stories</option>
@@ -25,7 +25,7 @@ function Blogs(props) {
             <div className="flex flex-col justify-between items-center w-full h-full mt-2 p-3 bg-neutral-700  rounded">
 
                 <div className="self-end flex flex-row justify-end items-center">
-                  {/*   <span>{(blog-options.target.value)}</span> */}
+                   {/*  <span>{(blog-options.target.value)}</span> */}
                     <h3 className="text-xl mr-3">Author</h3>
                     <HiUserCircle className="text-2xl" />
                 </div>
@@ -58,9 +58,8 @@ function Blogs(props) {
                         debitis inventore. Nostrum, eos numquam.
                     </p>
 
-                    <div className="w-10 h-10 bg-red-600 rounded-full"></div>
-                    {/* TODO: Icon */}
-                    <AiOutlineStar className="text-2xl self-end" />
+                    <RiAlarmWarningLine className=" text-2xl text-red-600 active:ring-red-600 self-end" />
+                    <AiOutlineStar className="text-2xl self-center hover:text-yellow-400" />
                 </section>
 
             </div>

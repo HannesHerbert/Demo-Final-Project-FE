@@ -10,8 +10,7 @@ function News(props) {
 
   return (
     <>
-      <Link to='/news'> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500 text-center'>NEWS</h2></Link>
-
+     
       <div className="flex flex-col justify-between items-center w-full h-full mt-2 p-3 bg-neutral-700  rounded">
 
         <div className="self-end flex flex-row justify-end items-center">

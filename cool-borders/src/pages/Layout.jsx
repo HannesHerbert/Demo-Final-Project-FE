@@ -17,7 +17,7 @@ function Layout() {
     // }, []);
 
     return (
-        <>  
+        <div >  
         
             <Header  />
 
@@ -30,7 +30,7 @@ function Layout() {
             <div className='h-full mt-24 mb-24'> 
                 <Outlet />
             </div>
-        </>
+        </div>
     );
 }
 
