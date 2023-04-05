@@ -21,7 +21,7 @@ function Nav() {
           </Link>
         </li>
         <li className="hover:text-white duration-300 text-amber-900">
-          <Link to="/">
+          <Link to="/blogs">
             <BsPencilSquare
               size="30px "
               className='mx-auto transition ease-in-out delay-150 bg-orange-500 hover:-translate-y-1 hover:scale-110 duration-300'
