@@ -9,7 +9,7 @@ import PrivateRoute from './services/PrivateRoute';
 import Login from './pages/Login'
 import Blogs from './pages/Blogs'
 import Register from './pages/Register';
-
+import Create from './pages/Create';
 
 function App() {
 
@@ -26,6 +26,9 @@ function App() {
 
               <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/login' element={<Login />} />
+              <Route path='/create' element={<Create />} />
+              
+              <Route path='/user' element={<UserProfile />} />
 
               <Route element={<PrivateRoute />}>
                 <Route path='/blogs' element={<Blogs />} />
@@ -35,7 +38,6 @@ function App() {
 
                 <Route path='/management' element={<Management />} />
 
-                <Route path='/user' element={<UserProfile />} />
               </Route>
             </Route>
             

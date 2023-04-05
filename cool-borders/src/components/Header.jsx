@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 /* import Logo1 from '../assets/LOgoW.png'; */
 import Logo from '../assets/logo2.png';
 
-import{FiUserPlus} from 'react-icons/fi'
+import{RiLoginBoxLine} from 'react-icons/ri'
+
+import{FaUserAlt} from 'react-icons/fa'
 
 function Header() {
     
@@ -15,11 +17,12 @@ function Header() {
                     <img src={Logo} alt="logo" width={'90px'}  />
                    {/*  <img src={Logo} alt="logo" width={'150px'}/> */}
                 </Link>
-        
-              {/*   <Link to='/news'> <h2 className='text-5xl font-mono font-black tracking-widest text-orange-500'>NEWS</h2></Link> */}
-                <Link to='/auth/login' > <FiUserPlus size="25px" className="mr-5 hover:text-orange-300"
-               />
-                </Link>
+                <div className="flex">
+                    <Link to='/user'> <FaUserAlt size="20px" className="mr-5 hover:text-orange-300"/> </Link>
+                    
+                    <Link to='/auth/login' > <RiLoginBoxLine size="22px" className="mr-5 hover:text-orange-300"/></Link>
+
+                </div>
                 
             
             {/*   <div><i className="fa-solid fa-user-plus p-2"></i></div> */}
