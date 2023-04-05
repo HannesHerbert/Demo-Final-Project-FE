@@ -9,8 +9,8 @@ import {Link} from 'react-router-dom';
 
 function Nav() {
   return (
-    <nav className="fixed bottom-0 left-0 w-full h-24  font-mono">
-      <ul className="flex justify-around items-center h-full text-1xl font-bold text-gray-600">
+    <nav className="fixed bottom-0 left-0 w-full h-24 font-mono">
+      <ul className="flex justify-around items-center h-full text-1xl font-bold text-gray-600 bg-gray-700">
         <li className="hover:text-orange-500 duration-300 ">
           <Link to="/">
             <HiOutlineNewspaper
@@ -20,8 +20,8 @@ function Nav() {
             <p className="title-nav p-2 text-xs ">News</p>
           </Link>
         </li>
-        <li className="hover:text-orange-500  duration-300">
-          <Link to="/">
+        <li className="hover:text-white duration-300 ">
+          <Link to="/blogs">
             <BsPencilSquare
               size="30px "
               className='mx-auto transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300'

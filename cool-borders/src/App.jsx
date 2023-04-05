@@ -30,7 +30,7 @@ function App() {
               
               <Route path='/user' element={<UserProfile />} />
 
-              <Route element={<PrivateRoute />}>
+         {/*      <Route element={<PrivateRoute />}> */}
                 <Route path='/blogs' element={<Blogs />} />
                 <Route path='/reviews' element={<Reviews />} />
            
@@ -38,7 +38,7 @@ function App() {
 
                 <Route path='/management' element={<Management />} />
 
-              </Route>
+             {/*  </Route> */}
             </Route>
             
           </Routes>
