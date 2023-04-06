@@ -19,7 +19,7 @@ function News(props) {
           <HiUserCircle className="text-2xl" />
         </div>
 
-        <ImageSlider key={SliderData} slides={SliderData} />
+        <ImageSlider slides={SliderData} />
 
         <section className="text-justify flex flex-col">
           <p>
