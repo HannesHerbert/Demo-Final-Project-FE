@@ -15,8 +15,9 @@ function App() {
 
 
   return (
-    <div className="App bg-zinc-800 text-white py-5 layout">
-      <div className='container mx-auto min-h-screen relative  w-5/6'>
+    <div className="App bg-zinc-800 text-white py-2 layout">
+    {/* TODO: height anpassen */}
+      <div className='container mx-auto min-h-full relative  w-5/6'>
 
 
         <BrowserRouter>
