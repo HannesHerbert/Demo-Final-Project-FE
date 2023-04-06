@@ -2,7 +2,8 @@
 import { Link } from "react-router-dom";
 import { HiUserCircle } from 'react-icons/hi';
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiFillStar } from 'react-icons/ai';
-import background from '../assets/border.png';
+import ImageSlider from '../components/ImageSlider.jsx';
+import { SliderData } from '../components/SliderData.js';
 
 
 function News(props) {
@@ -10,7 +11,7 @@ function News(props) {
 
   return (
     <>
-     
+
       <div className="flex flex-col justify-between items-center w-full h-full mt-2 p-3 bg-black rounded">
 
         <div className="self-end flex flex-row justify-end items-center">
@@ -18,25 +19,7 @@ function News(props) {
           <HiUserCircle className="text-2xl" />
         </div>
 
-        <div
-          className="mb-3"
-          style={{
-            backgroundImage: `url(${background})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            width: '300px',
-            height: '250px',
-            borderRadius: '7px'
-          }}>
-
-          <div className="flex flex-row justify-between items center relative mt-28">
-            <AiOutlineArrowLeft className="text-2xl text-black" />
-            <AiOutlineArrowRight className="text-2xl text-black" />
-          </div>
-
-        </div>
-
+        <ImageSlider key={SliderData} slides={SliderData} />
 
         <section className="text-justify flex flex-col">
           <p>

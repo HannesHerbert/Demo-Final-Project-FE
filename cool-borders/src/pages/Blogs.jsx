@@ -4,8 +4,9 @@ import PrivateRoute from "../services/PrivateRoute";
 import { HiUserCircle } from 'react-icons/hi';
 import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiFillStar } from 'react-icons/ai';
-import blogImage from '../assets/boardergram-logo.png';
 import { useState } from "react";
+import ImageSlider from '../components/ImageSlider.jsx';
+import { SliderData } from '../components/SliderData.js';
 
 
 function Blogs(props) {
@@ -48,28 +49,10 @@ function Blogs(props) {
                     </div>
                 </div>
 
-                <div
-                    className="mb-3"
-                    style={{
-                        backgroundImage: `url(${blogImage})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
-                        backgroundSize: 'cover',
-                        width: '300px',
-                        height: '250px',
-                        borderRadius: '7px'
-                    }}>
-
-                    <div className="flex flex-row justify-between items center relative mt-28">
-                        <AiOutlineArrowLeft className="text-2xl text-black" />
-                        <AiOutlineArrowRight className="text-2xl text-black" />
-                    </div>
-
-                </div>
-
+                <ImageSlider key={SliderData} slides={SliderData} />
 
                 <section className="text-justify flex flex-col">
-                    <p>
+                    <p className="text-xs">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nobis, voluptas dignissimos culpa ullam commodi
                         magnam numquam. Recusandae sed quod adipisci ipsa illum odit aliquid! Eius ipsam explicabo modi esse tempora.
                     </p>
