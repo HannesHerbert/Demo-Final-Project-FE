@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import useAuthStore from "../store/useAuthStore";
+import useNotificationStore from "../store/useNotificationStore";
+import axios from "axios";
 
 
 function Register(props) {
@@ -9,8 +13,33 @@ function Register(props) {
     const [city, setCity] = useState('');
     const [password, setPassword] = useState('');
 
-    function submitHandler(evt) {
+    const isAuthenticated = useAuthStore(state => state.isAuthenticated());
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const notificationHandler = useNotificationStore(state => state.notificationHandler);
+
+
+
+
+    function alertSuccessHandler(msg) {
+        notificationHandler('success', msg)
+    }
+    function alertFailHandler(msg) {
+        notificationHandler('fail', msg)
+    }
+
+    async function submitHandler(evt) {
         evt.preventDefault();
+
+        if (username.trim().length < 3) {
+
+            return  //Todo erstelle ein Fehlermeldung für User
+        }
+        if (password.trim().length < 5) {
+
+            return //Todo erstelle ein Fehlermeldung für User
+        }
 
         // Erstelle Objekt fuer den Body des Requests
         let registrationData = {
@@ -23,16 +52,27 @@ function Register(props) {
         };
 
         // Sende Request an /register endpoint der API
-        axios.post('http://localhost:8080/auth/register', registrationData)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        try {
+            const response = await axios.post('http://localhost:8080/public/register', registrationData);
+            console.log(response);
+            alertSuccessHandler('Thank you for registration!');
+
+            navigate('/auth/login');
+
+        } catch (error) {
+            console.log(error);
+            alertFailHandler(error.response.data.message);
+        }
+        // axios.post('http://localhost:8080/auth/register', registrationData)
+        //     .then(response => {
+        //         console.log(response);
+        //     })
+        //     .catch(error => {
+        //         console.error(error);
+        //     });
     };
 
-    return (
+    return ( !isAuthenticated ?
 
         <div id="register" className=" container font-mono flex flex-col justify-center ">
 
@@ -171,6 +211,8 @@ function Register(props) {
 
             </form>
         </div>
+        :
+        <Navigate to={'/news'} replace state={{from: location}} />
 
     );
 };
