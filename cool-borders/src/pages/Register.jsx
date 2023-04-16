@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore";
 import useNotificationStore from "../store/useNotificationStore";
@@ -7,11 +7,15 @@ import axios from "axios";
 
 function Register(props) {
 
-    const [username, setUsername] = useState('');
-    const [fullname, setFullname] = useState('');
-    const [email, setEmail] = useState('');
-    const [city, setCity] = useState('');
-    const [password, setPassword] = useState('');
+    // const [username, setUsername] = useState('');
+    const usernameRef = useRef();
+    const fullnameRef = useRef();
+    
+    const emailRef = useRef();
+    const cityRef = useRef();
+    const passwordRef = useRef();
+    const passwordRepeatRef = useRef();
+
 
     const isAuthenticated = useAuthStore(state => state.isAuthenticated());
     const navigate = useNavigate();
@@ -32,23 +36,28 @@ function Register(props) {
     async function submitHandler(evt) {
         evt.preventDefault();
 
-        if (username.trim().length < 3) {
+        console.log(usernameRef);
+
+        if (usernameRef.current.value.trim().length < 3) {
 
             return  //Todo erstelle ein Fehlermeldung für User
         }
-        if (password.trim().length < 5) {
+        if (passwordRef.current.value.trim().length < 5) {
 
             return //Todo erstelle ein Fehlermeldung für User
+        }
+        if (passwordRepeatRef.current.value !== passwordRef.current.value) {
+            return // Todo erstelle ne Meldung für user, dass passwörter nicht stimmen
         }
 
         // Erstelle Objekt fuer den Body des Requests
         let registrationData = {
-            username: username,
-            fullname: fullname,
-            email: email,
-            city: city,
-            password: password,
-            authentication: password
+            username: usernameRef.current.value,
+            fullname: fullnameRef.current.value,
+            email: emailRef.current.value,
+            city: cityRef.current.value,
+            password: passwordRef.current.value,
+            // authentication: passwordRef.current.value
         };
 
         // Sende Request an /register endpoint der API
@@ -84,48 +93,48 @@ function Register(props) {
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Username"
-                    value={username}
-                    onChange={evt => setUsername(evt.target.value)}
+                    ref={usernameRef}
+                    // onChange={evt => setUsername(evt.target.value)}
                 />
 
                 <input
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Fullname"
-                    value={fullname}
-                    onChange={evt => setFullname(evt.target.value)}
+                    ref={fullnameRef}
+                    // onChange={evt => setFullname(evt.target.value)}
                 />
 
                 <input
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="email"
                     placeholder="E-mail"
-                    value={email}
-                    onChange={evt => setEmail(evt.target.value)}
+                    ref={emailRef}
+                    // onChange={evt => setEmail(evt.target.value)}
                 />
 
                 <input
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="City (optional)"
-                    value={city}
-                    onChange={evt => setCity(evt.target.value)}
+                    ref={cityRef}
+                    // onChange={evt => setCity(evt.target.value)}
                 />
 
                 <input
                     className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="password"
                     placeholder="Password"
-                    value={password}
-                    onChange={evt => setPassword(evt.target.value)}
+                    ref={passwordRef}
+                    // onChange={evt => setPassword(evt.target.value)}
                 />
 
                 <input
                     className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-6 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="password"
                     placeholder="Password again"
-                    value={password}
-                    onChange={evt => setPassword(evt.target.value)}
+                    ref={passwordRepeatRef}
+                    // onChange={evt => setPassword(evt.target.value)}
                 />
 
 
