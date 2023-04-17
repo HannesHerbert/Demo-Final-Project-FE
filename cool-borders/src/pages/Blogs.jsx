@@ -33,7 +33,7 @@ function Blogs(props) {
                     <option value="Filter: "> - Filter your Blog - </option>
 
                     {optionValues.map((filter) => (
-                        <option value={filter.value} className="rounded-md">{filter.label}</option>
+                        <option key={filter.value}  value={filter.value} className="rounded-md">{filter.label}</option>
                     ))}
                 </select>
             </div>
@@ -41,15 +41,15 @@ function Blogs(props) {
             <div className="flex flex-col justify-between items-center w-full h-full mt-2 p-3 bg-black  rounded">
 
                 <div className="self-end flex flex-row justify-between items-center w-full">
-                    {/* zeigt den value des ausgewählten Filters */}
+                  
                     <span className="text-lg bg-green-500 rounded-md mb-1 p-1">{filter}</span>
                     <div className="flex flex-row justify-center items-center">
                         <h3 className="text-xl mr-3">Author</h3>
                         <HiUserCircle className="text-2xl" />
                     </div>
                 </div>
-
-                <ImageSlider key={SliderData} slides={SliderData} />
+               
+                <ImageSlider slides={SliderData.map(slide => ({ ...slide, key: slide.id }))} />
 
                 <section className="text-justify flex flex-col">
                     <p className="text-xs">
