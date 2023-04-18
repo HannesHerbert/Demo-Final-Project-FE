@@ -9,7 +9,7 @@ function AuthorDashboard() {
     return (
         <>
             <button>
-                <ArticleErstellen />
+                Create Article
             </button>
         </>
     )

@@ -1,11 +1,15 @@
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiFillStar } from 'react-icons/ai';
 import { HiUserCircle } from 'react-icons/hi';
+import UserManagement from "../../pages/UserManagement";
+import {Link} from 'react-router-dom';
+
 
 function AdminDashboard() {
     
 
     return (
+
         <>
             <div className="flex justify-between">
                 <button className='text-xs w-20 bg-indigo-900 font-bold hover:bg-orange-700 text-orange-100  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'>
@@ -17,7 +21,7 @@ function AdminDashboard() {
                 {/*   <VerwaltenContent /> */}
                 </button>
                 <button className='text-xs w-20 p-2 bg-indigo-900 font-bold hover:bg-orange-700 text-orange-100  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'>
-                    Manage Users
+                <Link to='/usermanagement'>Manage Users</Link>
                 {/*  <VerwaltenUsers /> */}
                 </button>
 
@@ -54,6 +58,7 @@ function AdminDashboard() {
 
 
         </>
+
     )
 }
 
