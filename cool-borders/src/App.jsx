@@ -10,6 +10,7 @@ import Blogs from './pages/Blogs'
 import Register from './pages/Register';
 import Create from './pages/Create';
 import Favs from './pages/Favs';
+import UserManagement from './pages/UserManagement';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
               <Route path='/chat' element={<Chats />} />
 
               <Route path='/management' element={<Management />} />
+              <Route path='/usermanagement' element={<UserManagement />} />
 
               {/*  </Route> */}
             </Route>

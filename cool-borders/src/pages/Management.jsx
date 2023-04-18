@@ -23,8 +23,10 @@ function Management() {
 
     return (
         <>
-            {isUser && <Navigate to="/news"/>}
-            {isAdmin ? <AdminDashboard /> : <AuthorDashboard />}
+          {/*   {isUser && <Navigate to="/news"/>} */}
+           {/*  {isAdmin ? <AdminDashboard /> : <AuthorDashboard />} */}
+
+           <AdminDashboard />
 
         </>
     )
