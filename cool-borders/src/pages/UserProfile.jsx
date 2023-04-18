@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-
+import AdminDashboard from "../components/admin/AdminDashboard";
+import AuthorDashboard  from "../components/admin/AdminDashboard";
 
 
 function UserProfile() {
     // todo Store mit Zustand schreiben
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [isAuthor, setIsAuthor] = useState();
-    const [isUser, setIsUser] = useState();
+    const [isAdmin, setIsAdmin] = useState(true);
+    const [isAuthor, setIsAuthor] = useState(false);
+    const [isUser, setIsUser] = useState(false);
 
 
     // todo im authStore gucken ob admin oder author wenn 
@@ -15,17 +16,19 @@ function UserProfile() {
     //todo wenn author - 
     // todo wenn admin - 
 
-    
+    useEffect(() => {
+        
+       
+       
+    }, []);
 
     
     return (
         <>
 
-
             {isAdmin && <AdminDashboard />}
             {isAuthor && <AuthorDashboard />}
-            
-            <div className="bg-gray-900 pb-6 w-full  justify-center items-center overflow-hidden md:max-w-sm rounded-lg mx-auto shadow-lg shadow-indigo-500/50 ">
+            {isUser && <div className="bg-gray-900 pb-6 w-full  justify-center items-center overflow-hidden md:max-w-sm rounded-lg mx-auto shadow-lg shadow-indigo-500/50 ">
                 <div className="relative h-40">
                     <img className="absolute h-full w-full object-cover" src="https://picjumbo.com/wp-content/uploads/snowboards-and-skis-leaning-against-wooden-fence.jpg" alt="" />
                     
@@ -50,10 +53,8 @@ function UserProfile() {
                    
                     <button className="mt-4 w-40 bg-orange-900 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300">Edit</button>
                 </div>
-            </div>
+            </div> }
             
-           
-    
 
         </>
     )

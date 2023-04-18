@@ -48,8 +48,10 @@ function Blogs(props) {
                         <HiUserCircle className="text-2xl" />
                     </div>
                 </div>
-               
-                <ImageSlider slides={SliderData.map(slide => ({ ...slide, key: slide.id }))} />
+
+
+                <ImageSlider slides={SliderData} />
+
 
                 <section className="text-justify flex flex-col">
                     <p className="text-xs">
