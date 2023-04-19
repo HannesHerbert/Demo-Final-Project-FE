@@ -1,0 +1,200 @@
+import { useState, useEffect, useRef } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import useAuthStore from "../../store/useAuthStore";
+import useNotificationStore from "../../store/useNotificationStore";
+import axios from "axios";
+import defaultImage from "../../assets/anonym.png";
+
+
+function UserForm({setIsEdit}) {
+
+    // Auth
+    const user = useAuthStore(state => state.user);
+    const isAuthenticated = useAuthStore(state => state.isAuthenticated());
+    const token = useAuthStore(state => state.getToken());
+
+    const [username, setUsername] = useState(user.username);
+    const [fullname, setFullname] = useState(user.fullname);
+    const [email, setEmail] = useState(user.email);
+    const [city, setCity] = useState(user.city);
+    const [bday, setBday] = useState(user.bday);
+    
+    // refs zu Formdaten
+    const usernameRef = useRef();
+    const fullnameRef = useRef();
+    const emailRef = useRef();
+    const cityRef = useRef();
+    const imageRef = useRef();
+    const bdayRef = useRef();
+    const [profileImage, setProfileImage] = useState("")
+
+    // State für Fehlermeldung
+    const [errormessage, setErrormessage] = useState({
+        username: '',
+        password: '',
+        passwordRepeat: ''
+    });
+
+    // Notification Handler function
+    const notificationHandler = useNotificationStore(state => state.notificationHandler);
+
+    // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
+    function alertSuccessHandler(msg) {
+        notificationHandler('success', msg)
+    }
+    // Wenn bei register ein Fehler, wird ein Alert mit Fehlermeldung erzeugt
+    function alertFailHandler(msg) {
+        notificationHandler('fail', msg)
+    }
+
+
+    // Form Submitt
+    async function submitHandler(evt) {
+        evt.preventDefault();
+
+        // Wenn ist kürzer als 3 Zeichen, dann Fehlermeldung und early return
+        if (usernameRef.current.value.trim().length < 3) {
+            setErrormessage(prev => {
+                return {
+                    username: 'Username should be longer than 3 letters'
+                }
+            });
+            return;
+        }
+        
+
+        // Erstelle User-Objekt fuer den Body des Requests
+        let updatedUser = {
+            username: username,
+            fullname: fullname,
+            email: email,
+            city: city,
+            birthday: bday,
+            image: profileImage
+        };
+
+        // Sende Request an /register endpoint der API
+        try {
+            const response = await axios.put('http://localhost:8080/protected/userprofile', updatedUser, {
+                headers: {
+                    "Authorization" : `Bearer ${token}`
+                }
+            });
+            console.log(response);
+            // display eine 'SUCCESS' Meldung und navigiere zu Login
+            alertSuccessHandler(`Your profile was successfully updated!`);
+
+            setIsEdit(false);
+
+        } catch (error) {
+            console.log(error);
+            // Display eine Fehlermeldung
+            // alertFailHandler(error.response.message);
+        }
+    };
+
+
+    function setImage(evt) {
+
+        const inputId = evt.target.id
+
+        console.log(inputId);
+
+        const file = evt.target.files[0];
+
+        const fileReader = new FileReader();
+
+        fileReader.readAsDataURL(file)
+
+        fileReader.onloadend = (evt) => {
+            
+            const fileData = fileReader.result;
+
+            //Je nach Input (evt.target) wird Front- oder Backimage gesetet
+            setProfileImage(fileData);
+        }
+    };
+
+
+    // Wenn user ist nicht eingelogt, dann wird eine Form erzeugt, ansonsten wird der user zu Loginpage navigiert
+    return (
+
+        <div id="register" className=" container font-mono flex flex-col justify-center ">
+
+            <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">EDIT YOUR PROFILE</h2>
+
+            <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start shadow-lg shadow-indigo-500/50 rounded-md bg-gray-900 w-full p-4" onSubmit={submitHandler}>
+
+                {/* PROFILEIMAGE */}
+                <input  type="file"
+                        accept="image/*"
+                        className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="image-file"
+                        onChange={(evt) => setImage(evt)}/>
+
+                {/* USERNAME */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="Username"
+                    ref={usernameRef}
+                    value={username}
+                    onChange={(evt) => setUsername(evt.target.value)}
+                />
+                {/* Wenn username kürzer als 3 Zeichen dann Fehlermeldung */}
+                {errormessage.username && <p className="text-red-600">{errormessage.username}</p>}
+
+                {/* FULLNAME */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="Fullname"
+                    ref={fullnameRef}
+                    value={fullname}
+                    onChange={(evt) => setFullname(evt.target.value)}
+                />
+
+                {/* EMAIL */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="email"
+                    placeholder="E-mail"
+                    ref={emailRef}
+                    value={email}
+                    onChange={(evt) => setEmail(evt.target.value)}
+                />
+
+                {/* CITY */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="City (optional)"
+                    ref={cityRef}
+                    value={city}
+                    onChange={(evt) => setCity(evt.target.value)}
+                />
+
+                {/* BIRTHDAY */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="date"
+                    ref={bdayRef}
+                    value={bday}
+                    onChange={(evt) => setBday(evt.target.value)}
+                />
+
+                {/* Submit Button */}
+                <button
+                    type='submit'
+                    className="self-center w-40 bg-orange-900 font-bold hover:bg-orange-700 text-orange-100  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300 mb-6"
+                >Apply
+                </button>
+
+            </form>
+        </div>
+
+    );
+};
+
+
+export default UserForm;

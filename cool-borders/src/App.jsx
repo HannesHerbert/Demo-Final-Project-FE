@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App bg-zinc-800 text-white py-2 layout">
-    {/* TODO: height anpassen */}
+      {/* TODO: height anpassen */}
       <div className='container mx-auto min-h-screen relative  w-5/6'>
 
         <BrowserRouter>
@@ -26,20 +26,20 @@ function App() {
 
               <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/login' element={<Login />} />
-              <Route path='/create' element={<Create />} />
 
-              <Route path='/user' element={<UserProfile />} />
 
-              {/*  <Route element={<PrivateRoute />}> */}
-              <Route path='/blogs' element={<Blogs />} />
-              <Route path='/favs' element={<Favs />} />
-              <Route path='/news' element={<News />} />
+              <Route element={<PrivateRoute />}>
+                <Route path='/user' element={<UserProfile />} />
+                <Route path='/create' element={<Create />} />
+                <Route path='/blogs' element={<Blogs />} />
+                <Route path='/favs' element={<Favs />} />
+                <Route path='/news' element={<News />} />
 
-              <Route path='/chat' element={<Chats />} />
+                <Route path='/chat' element={<Chats />} />
 
-              <Route path='/management' element={<Management />} />
+                <Route path='/management' element={<Management />} />
 
-              {/*  </Route> */}
+              </Route>
             </Route>
 
           </Routes>
