@@ -6,11 +6,12 @@ import axios from "axios";
 import defaultImage from "../../assets/anonym.png";
 
 
-function UserForm({setIsEdit}) {
+function UserForm({ setIsEdit }) {
 
     // Auth
     const user = useAuthStore(state => state.user);
     const isAuthenticated = useAuthStore(state => state.isAuthenticated());
+    const authenticate = useAuthStore((state) => state.authenticate);
     const token = useAuthStore(state => state.getToken());
 
     const [username, setUsername] = useState(user.username);
@@ -18,15 +19,13 @@ function UserForm({setIsEdit}) {
     const [email, setEmail] = useState(user.email);
     const [city, setCity] = useState(user.city);
     const [bday, setBday] = useState(user.bday);
-    
-    // refs zu Formdaten
-    const usernameRef = useRef();
-    const fullnameRef = useRef();
-    const emailRef = useRef();
-    const cityRef = useRef();
-    const imageRef = useRef();
-    const bdayRef = useRef();
-    const [profileImage, setProfileImage] = useState("")
+    // für Description-Sub-Object
+    const [prefStance, setPrefStance] = useState(user.description.prefStance);
+    const [favLocations, setFavLocations] = useState(user.description.favLocations);
+    const [style, setStyle] = useState(user.description.style);
+    const [equipment, setEquipment] = useState(user.description.equipment);
+    const [text, setText] = useState(user.description.text);
+    const [profileImage, setProfileImage] = useState(user.image);
 
     // State für Fehlermeldung
     const [errormessage, setErrormessage] = useState({
@@ -48,12 +47,12 @@ function UserForm({setIsEdit}) {
     }
 
 
-    // Form Submitt
+    // Form Submit
     async function submitHandler(evt) {
         evt.preventDefault();
 
         // Wenn ist kürzer als 3 Zeichen, dann Fehlermeldung und early return
-        if (usernameRef.current.value.trim().length < 3) {
+        if (username.trim().length < 3) {
             setErrormessage(prev => {
                 return {
                     username: 'Username should be longer than 3 letters'
@@ -61,7 +60,7 @@ function UserForm({setIsEdit}) {
             });
             return;
         }
-        
+
 
         // Erstelle User-Objekt fuer den Body des Requests
         let updatedUser = {
@@ -70,6 +69,13 @@ function UserForm({setIsEdit}) {
             email: email,
             city: city,
             birthday: bday,
+            // description: {
+            //     prefStance: prefStance,
+            //     favLocations: favLocations,
+            //     style: style,
+            //     equipment: equipment,
+            //     text: text,
+            // },
             image: profileImage
         };
 
@@ -77,12 +83,18 @@ function UserForm({setIsEdit}) {
         try {
             const response = await axios.put('http://localhost:8080/protected/userprofile', updatedUser, {
                 headers: {
-                    "Authorization" : `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`
                 }
             });
             console.log(response);
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`Your profile was successfully updated!`);
+
+            const response = await axios.post('http://localhost:8080/public/login', loginData);
+
+            console.log(response);
+
+            authenticate(response.data.user, response.data.token);
 
             setIsEdit(false);
 
@@ -107,7 +119,7 @@ function UserForm({setIsEdit}) {
         fileReader.readAsDataURL(file)
 
         fileReader.onloadend = (evt) => {
-            
+
             const fileData = fileReader.result;
 
             //Je nach Input (evt.target) wird Front- oder Backimage gesetet
@@ -126,18 +138,17 @@ function UserForm({setIsEdit}) {
             <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start shadow-lg shadow-indigo-500/50 rounded-md bg-gray-900 w-full p-4" onSubmit={submitHandler}>
 
                 {/* PROFILEIMAGE */}
-                <input  type="file"
-                        accept="image/*"
-                        className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="image-file"
-                        onChange={(evt) => setImage(evt)}/>
+                <input type="file"
+                    accept="image/*"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="image-file"
+                    onChange={(evt) => setImage(evt)} />
 
                 {/* USERNAME */}
                 <input
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Username"
-                    ref={usernameRef}
                     value={username}
                     onChange={(evt) => setUsername(evt.target.value)}
                 />
@@ -149,7 +160,6 @@ function UserForm({setIsEdit}) {
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Fullname"
-                    ref={fullnameRef}
                     value={fullname}
                     onChange={(evt) => setFullname(evt.target.value)}
                 />
@@ -159,7 +169,6 @@ function UserForm({setIsEdit}) {
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="email"
                     placeholder="E-mail"
-                    ref={emailRef}
                     value={email}
                     onChange={(evt) => setEmail(evt.target.value)}
                 />
@@ -169,7 +178,6 @@ function UserForm({setIsEdit}) {
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="City (optional)"
-                    ref={cityRef}
                     value={city}
                     onChange={(evt) => setCity(evt.target.value)}
                 />
@@ -178,10 +186,55 @@ function UserForm({setIsEdit}) {
                 <input
                     className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="date"
-                    ref={bdayRef}
                     value={bday}
                     onChange={(evt) => setBday(evt.target.value)}
                 />
+
+                {/* PREFERRED POSITION */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="preferred stance"
+                    value={prefStance}
+                    onChange={(evt) => setPrefStance(evt.target.value)}
+                />
+
+                {/* FAVORITE LOCATIONS */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="favorite locations"
+                    value={favLocations}
+                    onChange={(evt) => setFavLocations(evt.target.value)}
+                />
+
+                {/* RIDING STYLE */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="riding style (f.e.: park/freestyle)"
+                    value={style}
+                    onChange={(evt) => setStyle(evt.target.value)}
+                />
+
+                {/* EQUIPMENT */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="your equipment"
+                    value={equipment}
+                    onChange={(evt) => setEquipment(evt.target.value)}
+                />
+
+                {/* TEXT */}
+                <input
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text"
+                    placeholder="your description"
+                    value={text}
+                    onChange={(evt) => setText(evt.target.value)}
+                />
+
 
                 {/* Submit Button */}
                 <button
