@@ -38,7 +38,7 @@ function UserProfile() {
                     
                 </div>
                 <div className="mt-16">
-                    <h1 className="text-lg text-center font-semibold text-orange-700">
+                    <h1 className="text-lg text-center font-semibold text-orange-500">
                     Hua 
                     </h1>
                     <p className="text-sm text-gray-600 text-center">

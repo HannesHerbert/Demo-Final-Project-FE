@@ -10,9 +10,9 @@ function News(props) {
 
 
   return (
-    <>
+    <div className="min-h-full flex flex-col justify-center items-center">
 
-      <div className="flex flex-col justify-between items-center w-full h-full mt-2 p-3 bg-black rounded">
+      <div className="flex flex-col justify-between items-center w-full md:w-3/4 h-full mt-2 p-3 bg-gray-900 rounded">
 
         <div className="self-end flex flex-row justify-end items-center">
           <h3 className="text-xl mr-3">Author</h3>
@@ -21,8 +21,8 @@ function News(props) {
 
         <ImageSlider slides={SliderData} />
 
-        <section className="text-justify flex flex-col">
-          <p>
+        <section className="text-justify flex flex-col mt-4">
+          <p className="text-xs md:text-sm">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nobis, voluptas dignissimos culpa ullam commodi
             magnam numquam. Recusandae sed quod adipisci ipsa illum odit aliquid! Eius ipsam explicabo modi esse tempora
             perspiciatis odit rerum, fugiat numquam placeat architecto facere, doloribus sapiente ea eligendi eveniet cupiditate
@@ -31,9 +31,10 @@ function News(props) {
 
           <AiFillStar className="text-2xl self-end hover:text-yellow-400 active:text-yellow-400 cursor-pointer" />
         </section>
-
       </div>
-    </>
+
+    </div>
+
   );
 };
 

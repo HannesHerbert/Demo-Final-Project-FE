@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-function Register(props) {
+function Registertwo(props) {
 
     const [username, setUsername] = useState('');
     const [fullname, setFullname] = useState('');
@@ -34,14 +34,14 @@ function Register(props) {
 
     return (
 
-        <div id="register" className=" container font-sans flex flex-col justify-center ">
+        <div id="register" className=" container flex flex-col justify-center items-center">
 
-            <h2 className="text-4xl mb-2 mt-4 text-title font-bold text-center text-orange-500">Register now!</h2>
+           {/*  <h2 className="text-2xl md:text-4xl mb-2 mt-4 text-center text-black">Register now!</h2> */}
 
-            <form id='register-form' className="w-full md:w-1/3 mx-auto flex flex-col justify-start shadow-lg shadow-indigo-500/50 rounded-md bg-gray-900 p-4" onSubmit={submitHandler}>
+            <form id='register-form' className="w-full md:w-1/3 mt-10 flex flex-col justify-start p-4" onSubmit={submitHandler}>
 
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-5 appearance-none border-b-2 border-inherit max-w-full py-2 px-3 text-black leading-relaxed focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Username"
                     value={username}
@@ -49,7 +49,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-5 appearance-none border-b-2 border-inherit max-w-full py-2 px-3 text-black leading-relaxed focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Fullname"
                     value={fullname}
@@ -57,7 +57,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-5 appearance-none border-b-2 border-inherit max-w-full py-2 px-3 text-black leading-relaxed focus:outline-none focus:shadow-outline"
                     type="email"
                     placeholder="E-mail"
                     value={email}
@@ -65,7 +65,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-5 appearance-none border-b-2 border-inherit max-w-full py-2 px-3 text-black leading-relaxed focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="City (optional)"
                     value={city}
@@ -73,7 +73,7 @@ function Register(props) {
                 />
 
                 <input
-                    className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-5 appearance-none border-b-2 border-inherit max-w-full py-2 px-3 text-black leading-relaxed focus:outline-none focus:shadow-outline"
                     type="password"
                     placeholder="Password"
                     value={password}
@@ -81,16 +81,16 @@ function Register(props) {
                 />
 
                 <input
-                    className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-6 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="mb-5 appearance-none border-b-2 border-inherit max-w-full py-2 px-3 text-black leading-relaxed focus:outline-none focus:shadow-outline"
                     type="password"
                     placeholder="Password again"
                     value={password}
                     onChange={evt => setPassword(evt.target.value)}
                 />
-
+ 
                 <button
                     type='submit'
-                    className="self-center w-40 bg-orange-500 font-bold hover:bg-orange-600 text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-500  hover:-translate-y-1 hover:scale-110 duration-300 mb-6"
+                    className="self-center w-40  bg-green-600 hover:bg-white hover:border-green-600 text-white hover:text-green-600 py-2 px-4 rounded-full mb-6"
                 >Register
                 </button>
 
@@ -101,4 +101,4 @@ function Register(props) {
 };
 
 
-export default Register;
+export default Registertwo;

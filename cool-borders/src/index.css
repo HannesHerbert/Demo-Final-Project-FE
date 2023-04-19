@@ -5,70 +5,13 @@
 
 
 .text-title {
-    font-family: 'Caveat', cursive;
+   /*  font-family: 'Caveat', cursive; */
+   font-family: 'DM Mono', monospace;
 }
 
-.layout {
-    background-image: url(https://w0.peakpx.com/wallpaper/740/198/HD-wallpaper-big-air-cold-extreme-holidays-night-graphy-snowboard-snowboarding-sport-sports-winter.jpg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+.background {
 
-}
+  /*   background-image: url(https://wallpaperaccess.com/full/419101.jpg); */
+    /* background-image: url(https://w0.peakpx.com/wallpaper/740/198/HD-wallpaper-big-air-cold-extreme-holidays-night-graphy-snowboard-snowboarding-sport-sports-winter.jpg); */
 
-
-/* -------- ImageSlider ------------- */
-
-.slider {
-    position: relative;
-    height: 30vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5em;
-    /* border: 2px solid white; */
-}
-
-.image {
-    width: min-content;
-    height: min-content;
-    border-radius: 10px;
-}
-
-.right-arrow {
-    position: absolute;
-    top: 45%;
-    right: 10px;
-    font-size: 1.5rem;
-    color: #000;
-    z-index: 10;
-    cursor: pointer;
-    user-select: none;
-}
-
-.left-arrow {
-    position: absolute;
-    top: 45%;
-    left: 10px;
-    font-size: 1.5rem;
-    color: #000;
-    z-index: 10;
-    cursor: pointer;
-    user-select: none;
-}
-
-.right-arrow:hover,
-.left-arrow:hover  {
-    color: orange;
-}
-
-.slide {
-    opacity: 0;
-    transition-duration: 1s ease;
-}
-
-.slide.active {
-    opacity: 1;
-    transition-duration: 1s;
-    transform: scale(1.08);
 }
