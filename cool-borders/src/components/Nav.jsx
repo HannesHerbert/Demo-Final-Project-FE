@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 function Nav() {
   return (
     <nav className="fixed bottom-0 left-0 w-full h-20 font-mono">
-      <ul className="flex justify-around items-center h-full text-xl font-bold text-gray-400 bg-gray-900">
+      <ul className="flex justify-around items-center h-full text-xl font-bold text-gray-400 bg-black">
 
         <li className="hover:text-orange-700 duration-300 ">
           <Link to="/">

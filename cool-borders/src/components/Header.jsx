@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 /* import Logo1 from '../assets/LOgoW.png'; */
-import Logo from '../assets/logo2.png';
+import Logo from '../assets/lo11.png';
 
 import { RiLoginBoxLine } from 'react-icons/ri'
 
@@ -24,14 +24,17 @@ function Header() {
 
     return (
 
-        <header className='fixed top-0 left-0 flex justify-between items-center w-full h-24 bg-gray-900'  >
+        <header className='fixed top-4 left-0 flex justify-between items-center w-full h-24'  >
             <Link to='/'>
-                <img src={Logo} alt="logo" width={'90px'} />
+               <img src={Logo} alt="logo" width={'90px'} />
+               {/* <h1 className="absolute bottom-16 left-20 text-s ">BOARDERGRAM</h1> */}
                 {/*  <img src={Logo} alt="logo" width={'150px'}/> */}
+ 
+            {<h2 className="text-orange-500 text-2xl font-bold text-title  ">{text}</h2>}
             </Link>
 
             <div>
-                {<h2 className="text-orange-500 text-4xl font-bold text-title">{text}</h2>}
+                
             </div>
 
 

@@ -13,10 +13,10 @@ function AdminDashboard() {
         <>
             <div className="flex justify-between">
                 <button className='text-xs w-20 bg-indigo-900 font-bold hover:bg-orange-700 text-orange-100  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'>
-                Create Artikel
+                <Link to='/create'>Create Artikel</Link>
                 {/* <ArticleErstellen /> */}
                 </button>
-                <button className='text-xs w-20 p-2 bg-indigo-900 font-bold hover:bg-orange-700 text-orange-100  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'>
+                <button className='text-xs w-20 p-2 bg-indigo-800 font-bold text-orange-100  rounded focus:outline-none focus:shadow-outline '>
                     Manage Content
                 {/*   <VerwaltenContent /> */}
                 </button>
