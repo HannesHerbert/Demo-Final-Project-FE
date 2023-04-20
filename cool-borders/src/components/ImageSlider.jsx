@@ -20,9 +20,9 @@ function ImageSlider ({ slides }) {
     }
 
     return (
-        <section className='relative w-auto h-1/3 flex flex-row justify-center items-center p-2'>
-            <FaArrowAltCircleLeft className='absolute top-1/2 left-2 text-2xl text-black hover:text-orange-500 z-10 cursor-pointer select-none' onClick={prevSlide} />
-            <FaArrowAltCircleRight className='absolute top-1/2 right-2 text-2xl text-black hover:text-orange-500 z-10 cursor-pointer select-none' onClick={nextSlide} />
+        <section className='container relative w-full md:w-3/4 h-full flex flex-row justify-center items-center'>
+            <FaArrowAltCircleLeft className='absolute top-1/2 left-2 text-2xl text-black hover:text-green-600 md:hover:text-3xl z-10 cursor-pointer select-none' onClick={prevSlide} />
+            <FaArrowAltCircleRight className='absolute top-1/2 right-2 text-2xl text-black hover:text-green-600 md:hover:text-3xl z-10 cursor-pointer select-none' onClick={nextSlide} />
             {SliderData.map((slide, index) => {
                 return (
                     <div
@@ -30,7 +30,7 @@ function ImageSlider ({ slides }) {
                         key={index}
                     >
                         {index === current && (
-                            <img src={slide.image} alt='travel image' className='w-full h-full md:h-96 rounded-md' />
+                            <img src={slide.image} alt='travel image' className='w-full h-full md:h-3/4 rounded-md md:scale-100' />
                         )}
                     </div>
                 );

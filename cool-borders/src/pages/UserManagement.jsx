@@ -19,7 +19,7 @@ function UserManagement() {
     return (
 
         <div className="container flex flex-col justify-center items-center min-h-full">
-            <h2 className="text-2xl md:text-4xl mb-2 mt-10 font-bold text-title text-orange-500">Userlist</h2>
+            {/* <h2 className="text-2xl md:text-4xl mb-2 mt-10 font-bold text-title text-orange-500">Userlist</h2> */}
 
             <form method="get" onSubmit={handleSubmit} className="w-xs mx-auto w-full md:w-1/2 flex flex-col md:flex-row justify-center items-center">
 

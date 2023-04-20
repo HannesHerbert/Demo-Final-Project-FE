@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,13 +8,9 @@
 
 
 .text-title {
-   /*  font-family: 'Caveat', cursive; */
-   font-family: 'DM Mono', monospace;
+  font-family: 'DM Mono', monospace;
 }
 
-.background {
-
-  /*   background-image: url(https://wallpaperaccess.com/full/419101.jpg); */
-    /* background-image: url(https://w0.peakpx.com/wallpaper/740/198/HD-wallpaper-big-air-cold-extreme-holidays-night-graphy-snowboard-snowboarding-sport-sports-winter.jpg); */
-
+.headline {
+  font-family: 'Nova Mono', monospace;
 }

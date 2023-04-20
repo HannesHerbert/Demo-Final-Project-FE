@@ -27,7 +27,7 @@ function Create() {
 
     return (
         <>
-            <h1 className="text-center text-3xl mb-6 text-title font-bold text-orange-500">New Post</h1>
+            {/* <h1 className="text-center text-3xl mb-6 text-title font-bold text-orange-500">New Post</h1> */}
             <form onSubmit={handleSubmit} className="mx-auto w-full md:w-1/3 font-sans text-xs md:text-sm shadow-lg shadow-gray-900/50 bg-gray-900 rounded-md p-4">
 
                 <div className="mb-4">

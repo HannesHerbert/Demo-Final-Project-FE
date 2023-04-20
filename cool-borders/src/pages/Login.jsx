@@ -19,12 +19,12 @@ function Login() {
     };
 
     return (
-        <div className="container flex flex-col font-sans  " id="login">
+        <div className="container flex flex-col" id="login">
 
-            <div className="flex flex-col items-center ">
+           {/*  <div className="flex flex-col items-center ">
 
                 <h2 className="text-4xl mb-2 mt-10 text-title font-bold text-orange-500">Login</h2>
-            </div>
+            </div> */}
 
             <form onSubmit={handleSubmit} className="mx-auto w-full md:w-1/3 shadow-lg shadow-indigo-500/50 p-4 bg-gray-900 rounded-md">
                 <div className="mb-4">

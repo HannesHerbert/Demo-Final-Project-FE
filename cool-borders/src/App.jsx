@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+/* ------- PAGES ---------------- */
 import Chats from './pages/Chats';
 import Layout from './pages/Layout';
 import News from './pages/News';
@@ -17,8 +19,8 @@ function App() {
 
   return (
     <div className="App text-black text-title py-2 bg-white">
-    {/* TODO: height anpassen; Background-Image-url als Konstante auslagern? */}
-      <div className='container mx-auto min-h-screen relative  w-5/6'>
+    
+      <div className='container mx-auto min-h-full relative  w-5/6'>
 
         <BrowserRouter>
           <Routes>
@@ -26,6 +28,7 @@ function App() {
               <Route index element={<News />} />
 
               <Route path='/auth/register' element={<Registertwo />} />
+              {/*  <Route path='/auth/register' element={<Register />} /> */}
               <Route path='/auth/login' element={<Login />} />
               <Route path='/create' element={<Create />} />
 
