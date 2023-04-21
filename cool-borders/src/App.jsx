@@ -32,20 +32,20 @@ function App() {
               <Route path='/auth/register' element={<Registertwo />} />
               {/*  <Route path='/auth/register' element={<Register />} /> */}
               <Route path='/auth/login' element={<Login />} />
-              <Route path='/create' element={<Create />} />
 
-              <Route path='/user' element={<UserProfile />} />
 
-              {/*  <Route element={<PrivateRoute />}> */}
-              <Route path='/blogs' element={<Blogs />} />
-              <Route path='/favs' element={<Favs />} />
-              <Route path='/news' element={<News />} />
+              <Route element={<PrivateRoute />}>
+                <Route path='/user' element={<UserProfile />} />
+                <Route path='/create' element={<Create />} />
+                <Route path='/blogs' element={<Blogs />} />
+                <Route path='/favs' element={<Favs />} />
+                <Route path='/news' element={<News />} />
 
-              <Route path='/chat' element={<Chats />} />
+                <Route path='/chat' element={<Chats />} />
 
               <Route path='/usermanagement' element={<UserManagement />} />
 
-              {/*  </Route> */}
+              </Route>
             </Route>
 
           </Routes>

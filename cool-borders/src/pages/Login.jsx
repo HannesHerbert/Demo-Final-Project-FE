@@ -1,21 +1,61 @@
-import { useState } from "react";
-
+import { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
-
-
-
+import Register from "./Register";
 import { FaRegUserCircle } from 'react-icons/fa';
+import useAuthStore from "../store/useAuthStore.js";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 
 function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const usernameRef = useRef();
+    const passwordRef = useRef();
+
+    const authenticate = useAuthStore((state) => state.authenticate);
+    const isAuthenticated = useAuthStore(state => state.isAuthenticated());
+
+    const token = useAuthStore(state => state.getToken());
+    const validateToken = useAuthStore(state => state.validateToken);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (token && !isAuthenticated) {
+            validateToken()
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+        navigate('/news')
+        }
+    }, [isAuthenticated]);
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Email: ", email);
-        console.log("Password: ", password);
+
+        // Erstelle Objekt fuer den Body des Requests
+        const loginData = {
+            username: usernameRef.current.value,
+            password: passwordRef.current.value
+        };
+
+        try {
+            
+            const response = await axios.post('http://localhost:8080/public/login', loginData);
+
+            console.log(response);
+
+            authenticate(response.data.user, response.data.token);
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        console.log("Username: ", loginData.username);
+        console.log("Password: ", loginData.password);
     };
 
     return (
@@ -29,26 +69,26 @@ function Login() {
             <form onSubmit={handleSubmit} className="mx-auto w-full h-full md:w-1/3 p-6  rounded-md">
                 <div className="mb-4">
 
+
                     <input
 
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        className="bg-zinc-700  rounded w-full py-2 px-3 text-gray-200 leading-tight mt-3 hover:outline-green-400"
-                        placeholder="Email"
+                        type="text"
+                        name="username"
+                        ref={usernameRef}
+                        className="bg-slate-900  focus:caret-orange-500 shadow  border rounded w-full py-2 px-3 text-orange-700 leading-tight mt-3"
+                        placeholder="Username"
 
                         required
                     />
                 </div>
                 <div className="mb-4">
 
+
                     <input
                         type="password"
                         name="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        className="bg-zinc-700  rounded w-full py-2 px-3 text-gray-200 leading-tight "
+                        ref={passwordRef}
+                        className="bg-slate-900  focus:caret-orange-500 shadow  border rounded w-full py-2 px-3 text-orange-700 leading-tight"
                         placeholder="Password"
                         required
                     />

@@ -6,7 +6,9 @@ import Logo from '../assets/LOgoW.png';
 
 
 import { RiLoginBoxLine } from 'react-icons/ri'
-import { FaUserAlt } from 'react-icons/fa'
+
+import { FaUserAlt } from 'react-icons/fa';
+import { LoginLogoutButton } from "./buttons/LoginLogoutButton.jsx";
 
 
 function Header() {
@@ -54,9 +56,11 @@ function Header() {
 
 
             <div className="flex">
-                <Link to='/user'> <FaUserAlt className="mr-4 text-lg md:text-2xl text-white hover:text-indigo-600" /> </Link>
+                {/* <button><FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /></button> */}
+                <Link to='/user'> <FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /> </Link>
 
-                <Link to='/auth/login' > <RiLoginBoxLine className="mr-5 text-lg md:text-2xl text-white hover:text-indigo-500" /></Link>
+                <LoginLogoutButton />
+
             </div>
 
         </header>
