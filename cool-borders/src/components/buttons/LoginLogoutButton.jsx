@@ -1,4 +1,4 @@
-import { colors } from "../../services/colors";
+import { styles } from "../../services/styles.js";
 import useAuthStore from "../../store/useAuthStore.js";
 import { useNavigate } from "react-router-dom";
 import { RiLoginBoxLine } from 'react-icons/ri'
