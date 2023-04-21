@@ -13,13 +13,14 @@ const useAuthStore = create( set => ({
     validateToken: async () => {
       const token = localStorage.getItem('token');
       try {
-          let resp = await axios.get('http://localhost:8080/users/user', {
+          let resp = await axios.get('http://localhost:8080/protected/uservalidation', {
             headers: {
               'Authorization': `Bearer ${token}`
             }  
           });
           
-          set({user: resp.data});
+          set({user: resp.data.user});
+
       } catch (error) {
         console.log(error);
         localStorage.removeItem('token');
@@ -45,7 +46,9 @@ const useAuthStore = create( set => ({
   
       // entferne user Objekt aus user Store
       set({user: null});
-    }
+    },
+
+    updateUser: (user) => set({user: user})
 }));
   
 export default useAuthStore;

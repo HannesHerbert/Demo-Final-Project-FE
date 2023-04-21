@@ -17,6 +17,7 @@ function Layout() {
     useEffect(() => {
         if (token && !isAuthenticated) {
             validateToken()
+            console.log(user)
         }
     }, []);
 

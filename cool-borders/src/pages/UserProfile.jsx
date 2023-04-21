@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import UserForm from "../components/forms/UserForm.jsx";
 import useAuthStore from "../store/useAuthStore.js";
@@ -23,6 +23,11 @@ function UserProfile() {
     // const isAuthenticated = useAuthStore(state => state.isAuthenticated());
     // console.log(isAuthenticated);
 
+    // useEffect(() => {
+    //     if(isEdit === false) {
+    //         console.log("get user data");
+    //     }
+    // }, [isEdit])
 
 
     return (

@@ -10,15 +10,16 @@ function UserForm({ setIsEdit }) {
 
     // Auth
     const user = useAuthStore(state => state.user);
-    const isAuthenticated = useAuthStore(state => state.isAuthenticated());
-    const authenticate = useAuthStore((state) => state.authenticate);
+    const updateUser = useAuthStore((state) => state.updateUser);
     const token = useAuthStore(state => state.getToken());
 
     const [username, setUsername] = useState(user.username);
     const [fullname, setFullname] = useState(user.fullname);
     const [email, setEmail] = useState(user.email);
     const [city, setCity] = useState(user.city);
-    const [bday, setBday] = useState(user.bday);
+    const [bday, setBday] = useState(user.birthday);
+    
+
     // für Description-Sub-Object
     const [prefStance, setPrefStance] = useState(user.description.prefStance);
     const [favLocations, setFavLocations] = useState(user.description.favLocations);
@@ -51,6 +52,8 @@ function UserForm({ setIsEdit }) {
     async function submitHandler(evt) {
         evt.preventDefault();
 
+        console.log(typeof profileImage);
+
         // Wenn ist kürzer als 3 Zeichen, dann Fehlermeldung und early return
         if (username.trim().length < 3) {
             setErrormessage(prev => {
@@ -69,32 +72,31 @@ function UserForm({ setIsEdit }) {
             email: email,
             city: city,
             birthday: bday,
-            // description: {
-            //     prefStance: prefStance,
-            //     favLocations: favLocations,
-            //     style: style,
-            //     equipment: equipment,
-            //     text: text,
-            // },
+            description: {
+                prefStance: prefStance,
+                favLocations: favLocations,
+                style: style,
+                equipment: equipment,
+                text: text,
+            },
             image: profileImage
         };
 
+
         // Sende Request an /register endpoint der API
         try {
-            const response = await axios.put('http://localhost:8080/protected/userprofile', updatedUser, {
+            const response = await axios.put(`http://localhost:8080/protected/user/${user._id}`, updatedUser, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
+
             console.log(response);
+
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`Your profile was successfully updated!`);
 
-            const response = await axios.post('http://localhost:8080/public/login', loginData);
-
-            console.log(response);
-
-            authenticate(response.data.user, response.data.token);
+            updateUser(response.data.user)
 
             setIsEdit(false);
 
