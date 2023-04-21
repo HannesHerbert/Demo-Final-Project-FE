@@ -18,7 +18,7 @@ function App() {
 
 
   return (
-    <div className="App text-black text-title py-2 bg-white">
+    <div className="App text-black text-title py-2 bg-gray-100">
     
       <div className='container mx-auto min-h-full relative  w-5/6'>
 

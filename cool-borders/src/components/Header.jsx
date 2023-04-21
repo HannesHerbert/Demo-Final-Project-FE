@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-/* import Logo from '../assets/border.png'; */
-import Logo from '../assets/boardergram-logo.png';
+import Logo from '../assets/border.png';
+/* import Logo from '../assets/boardergram-logo.png'; */
 
 
 import { RiLoginBoxLine } from 'react-icons/ri'
@@ -32,13 +32,15 @@ function Header() {
 
     return (
 
-        <header className='fixed top-0 left-0 flex justify-between items-center w-full h-24 bg-white z-40'  >
+        <header className='fixed top-0 left-0 flex justify-between items-center w-full h-16 md:h-24 bg-white z-40'  >
 
-            <Link to='/'>
-                <img src={Logo} alt="logo" className="md:mt-16 w-20 md:w-44 opacity-80 rounded-full" />
+            <Link to='/' className="flex flex-row justify-center items-center -ml-2 md:-mt-4">
+                {/* <img src={Logo} alt="logo" className="md:mt-16 w-20 md:w-44 opacity-80 rounded-full" /> */}
+                <img src={Logo} alt="logo" className="-mt-2 md:mt-16 w-32 md:w-60 opacity-80 rounded-full" />
+                <span className="absolute headline text-lg text-gray-900 ml-20 mt-3 md:ml-24 md:mt-28">GRAM</span>
             </Link>
 
-            <div className="md:-ml-5">
+            <div className="-ml-4 md:-ml-7">
                 {<h2 className="text-gray-600 headline text-lg tracking-wide md:text-4xl">{text}</h2>}
                 <div className="bg-green-600 h-3 md:h-5 opacity-30 rounded-full -mt-5 md:-mt-7"></div>
             </div>
