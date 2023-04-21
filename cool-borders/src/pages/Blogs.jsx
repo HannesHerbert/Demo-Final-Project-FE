@@ -27,9 +27,9 @@ function Blogs(props) {
     };
 
     return (
-        <div className="min-h-full">
-            <div>
-                <select onChange={handleFilterChange} className="p-3 rounded-md bg-black">
+        <div className="min-h-full flex flex-col justify-center items-center">
+            <div className="self-start">
+                <select onChange={handleFilterChange} className="p-3 rounded-md bg-gray-900">
                     <option value="Filter: "> - Filter your Blog - </option>
 
                     {optionValues.map((filter) => (
@@ -38,7 +38,7 @@ function Blogs(props) {
                 </select>
             </div>
 
-            <div className="flex flex-col justify-between items-center w-full h-full mt-2 p-3 bg-black  rounded">
+            <div className="flex flex-col justify-between items-center w-full md:w-3/4 h-full mt-2 p-3 bg-gray-900 rounded-md">
 
                 <div className="self-end flex flex-row justify-between items-center w-full">
                   
@@ -53,8 +53,8 @@ function Blogs(props) {
                 <ImageSlider slides={SliderData} />
 
 
-                <section className="text-justify flex flex-col">
-                    <p className="text-xs">
+                <section className="text-justify flex flex-col mt-4">
+                    <p className="text-xs md:text-sm">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nobis, voluptas dignissimos culpa ullam commodi
                         magnam numquam. Recusandae sed quod adipisci ipsa illum odit aliquid! Eius ipsam explicabo modi esse tempora.
                     </p>

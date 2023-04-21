@@ -20,17 +20,17 @@ function ImageSlider ({ slides }) {
     }
 
     return (
-        <section className='slider'>
-            <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
-            <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
+        <section className='container relative w-full md:w-3/4 h-full flex flex-row justify-center items-center'>
+            <FaArrowAltCircleLeft className='absolute top-1/2 left-2 text-2xl text-black hover:text-green-600 md:hover:text-3xl z-10 cursor-pointer select-none' onClick={prevSlide} />
+            <FaArrowAltCircleRight className='absolute top-1/2 right-2 text-2xl text-black hover:text-green-600 md:hover:text-3xl z-10 cursor-pointer select-none' onClick={nextSlide} />
             {SliderData.map((slide, index) => {
                 return (
                     <div
-                        className={index === current ? 'slide active' : 'slide'}
+                        className={index === current ? 'opacity-100 transition duration-100 scale-105' : 'opacity-0 transition duration-100 ease-in'}
                         key={index}
                     >
                         {index === current && (
-                            <img src={slide.image} alt='travel image' className='image' />
+                            <img src={slide.image} alt='travel image' className='w-full h-full md:h-3/4 rounded-md md:scale-100' />
                         )}
                     </div>
                 );

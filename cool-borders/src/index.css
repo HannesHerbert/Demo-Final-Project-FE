@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,7 +8,7 @@
 
 
 .text-title {
-    font-family: 'Caveat', cursive;
+  font-family: 'DM Mono', monospace;
 }
 
 
@@ -65,4 +68,7 @@
     opacity: 1;
     transition-duration: 1s;
     transform: scale(1.08);
+}
+.headline {
+  font-family: 'Nova Mono', monospace;
 }
