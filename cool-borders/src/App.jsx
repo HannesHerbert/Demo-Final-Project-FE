@@ -12,7 +12,7 @@ import Blogs from './pages/Blogs'
 import Create from './pages/Create';
 import Favs from './pages/Favs';
 import UserManagement from './pages/UserManagement';
-import Registertwo from './pages/Registertwo';
+import Register from './pages/Register';
 
 function App() {
 
@@ -29,8 +29,8 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route index element={<News />} />
 
-              <Route path='/auth/register' element={<Registertwo />} />
-              {/*  <Route path='/auth/register' element={<Register />} /> */}
+              {/* <Route path='/auth/register' element={<Registertwo />} /> */}
+               <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/login' element={<Login />} />
 
 

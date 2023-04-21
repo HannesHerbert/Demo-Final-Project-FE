@@ -1,8 +1,8 @@
 import {Link, Outlet} from 'react-router-dom';
 import { useEffect } from 'react';
-import Header from '../components/Header';
+import Header from '../components/layout/Header';
 import useAuthStore from '../store/useAuthStore';
-import Nav from '../components/Nav';
+import Nav from '../components/layout/Nav';
 import RegisterNotification from '../components/register/RegisterNotification';
 
 

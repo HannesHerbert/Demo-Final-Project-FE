@@ -3,6 +3,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/useAuthStore";
 import useNotificationStore from "../store/useNotificationStore";
 import axios from "axios";
+import * as Styles from "../services/styles.js";
 
 
 function Register() {
@@ -61,7 +62,7 @@ function Register() {
                 }
             });
             return;
-        }   
+        }
         // Wenn password und wiederhol-password nicht gleich sind, dann Fehlermeldung und early return
         if (passwordRepeatRef.current.value !== passwordRef.current.value) {
             console.log(`Die passwörter stimmen nicht!`);
@@ -96,17 +97,18 @@ function Register() {
             alertFailHandler(error.response.data.message);
         }
     };
-            // Wenn user ist nicht eingelogt, dann wird eine Form erzeugt, ansonsten wird der user zu Loginpage navigiert
-    return ( !isAuthenticated ?
+    // Wenn user ist nicht eingelogt, dann wird eine Form erzeugt, ansonsten wird der user zu Loginpage navigiert
+    return (!isAuthenticated ?
 
-        <div id="register" className=" container font-mono flex flex-col justify-center ">
+        <div id="register" className="container flex flex-col justify-center items-center">
 
             <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">REGISTER NOW!</h2>
 
-            <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start shadow-lg shadow-indigo-500/50 rounded-md bg-gray-900 w-full p-4" onSubmit={submitHandler}>
+            <form id='register-form' className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4" onSubmit={submitHandler}>
+                
                 {/* USERNAME */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={`${Styles.input}`}
                     type="text"
                     placeholder="Username"
                     ref={usernameRef}
@@ -116,7 +118,7 @@ function Register() {
 
                 {/* FULLNAME */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={`${Styles.input}`}
                     type="text"
                     placeholder="Fullname"
                     ref={fullnameRef}
@@ -124,7 +126,7 @@ function Register() {
 
                 {/* EMAIL */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={`${Styles.input}`}
                     type="email"
                     placeholder="E-mail"
                     ref={emailRef}
@@ -132,7 +134,7 @@ function Register() {
 
                 {/* CITY */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={`${Styles.input}`}
                     type="text"
                     placeholder="City (optional)"
                     ref={cityRef}
@@ -140,7 +142,7 @@ function Register() {
 
                 {/* PASSWORD */}
                 <input
-                    className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={`${Styles.input}`}
                     type="password"
                     placeholder="Password"
                     ref={passwordRef}
@@ -150,7 +152,7 @@ function Register() {
 
                 {/* PASSWORD WIEDERGABE*/}
                 <input
-                    className="bg-slate-900 text-orange-700  focus:caret-orange-500  mb-6 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={`${Styles.input}`}
                     type="password"
                     placeholder="Password again"
                     ref={passwordRepeatRef}
@@ -160,7 +162,7 @@ function Register() {
                 {/* Submit Button */}
                 <button
                     type='submit'
-                    className="self-center w-40 bg-orange-900 font-bold hover:bg-orange-700 text-orange-100  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300 mb-6"
+                    className={`${Styles.mainButton} mt-4`}
                 >Register
                 </button>
 
@@ -168,7 +170,7 @@ function Register() {
         </div>
         :
         // wenn user is authenticated - navigate to news
-        <Navigate to={'/news'} replace state={{from: location}} />
+        <Navigate to={'/news'} replace state={{ from: location }} />
 
     );
 };
