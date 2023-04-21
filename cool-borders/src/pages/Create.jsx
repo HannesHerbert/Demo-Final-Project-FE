@@ -28,7 +28,7 @@ function Create() {
     return (
         <>
             {/* <h1 className="text-center text-3xl mb-6 text-title font-bold text-orange-500">New Post</h1> */}
-            <form onSubmit={handleSubmit} className="mx-auto w-full md:w-1/3 font-sans text-xs md:text-sm shadow-lg shadow-gray-900/50 bg-gray-900 rounded-md p-4">
+            <form onSubmit={handleSubmit} className="mx-auto w-full md:w-1/3 font-sans text-xs md:text-sm shadow-lg shadow-gray-900/50 bg-black rounded-md p-4">
 
                 <div className="mb-4">
 
@@ -60,7 +60,7 @@ function Create() {
                     <input type="text" placeholder="Save Urls" className="bg-slate-900  focus:caret-orange-500  shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4" />
                 </div>
                 <div className="flex flex-col items-center">
-                    <button type="submit" className="w-40 bg-orange-500 font-bold hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-500  hover:-translate-y-1 hover:scale-110 duration-300">Create Post</button>
+                    <button type="submit" className="w-full bg-indigo-500 font-bold  text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 duration-300 rounded-full">Create Post</button>
 
                 </div>
 

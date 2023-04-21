@@ -9,8 +9,12 @@ import { Link } from 'react-router-dom';
 
 function Nav() {
   return (
-    <nav className="fixed bottom-0 left-0 w-full h-full md:h-20 z-40">
-      <ul className="flex justify-around items-center h-full text-xl text-gray-500 bg-gray-100">
+   /*  <nav className="fixed bottom-0 left-0 w-full h-full md:h-20 z-40">
+      <ul className="flex justify-around items-center h-full text-xl text-gray-500 bg-gray-100"> */
+
+    <nav className="fixed bottom-0 left-0 w-full h-20 z-40">
+      <ul className="flex justify-around items-center h-full text-xl text-gray-300 bg-black">
+
 
         <li className="hover:text-gray-600">
           <Link to="/">
@@ -32,7 +36,7 @@ function Nav() {
           </Link>
         </li>
 
-        <li className="  text-green-600 hover:text-gray-600 ">
+        <li className="  text-indigo-600 hover:text-gray-600 ">
           <Link to='/create'>
             <AiOutlinePlusCircle
               className=" circle-plus text-4xl"

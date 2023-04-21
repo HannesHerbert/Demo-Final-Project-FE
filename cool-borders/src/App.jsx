@@ -8,7 +8,7 @@ import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
 import Login from './pages/Login'
 import Blogs from './pages/Blogs'
-import Register from './pages/Register';
+
 import Create from './pages/Create';
 import Favs from './pages/Favs';
 import UserManagement from './pages/UserManagement';
@@ -18,9 +18,11 @@ function App() {
 
 
   return (
-    <div className="App text-black text-title py-2 bg-gray-100">
+    <div className="App text-black text-title py-2 bg-black h-full ">
+   {/*  <div className="App text-black text-title py-2 bg-gray-100 h-full "> */}
+
     
-      <div className='container mx-auto min-h-full relative  w-5/6'>
+      <div className='container mx-auto min-h-full relative  w-5/6 '>
 
         <BrowserRouter>
           <Routes>
