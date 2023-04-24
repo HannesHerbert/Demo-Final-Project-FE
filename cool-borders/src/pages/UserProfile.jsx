@@ -48,9 +48,9 @@ function UserProfile() {
 
                     </div>
                     <div className="mt-16">
-                        <h1 className="text-lg text-center font-semibold text-orange-700">
-                            Hua
-                        </h1>
+                        <span className="text-lg text-center font-semibold text-orange-700">
+                            {user.username}
+                        </span>
                         <p className="text-sm text-gray-600 text-center">
                             13 favs
                         </p>
