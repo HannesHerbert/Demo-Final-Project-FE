@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 /* ------- PAGES ---------------- */
-import Chats from './pages/Chats';
+import Search from './pages/Search';
 import Layout from './pages/Layout';
 import News from './pages/News';
 import UserProfile from './pages/UserProfile';
@@ -13,26 +13,23 @@ import Create from './pages/Create';
 import Favs from './pages/Favs';
 import UserManagement from './pages/UserManagement';
 import Register from './pages/Register';
+import UserInfo from './pages/UserInfo';
 
 function App() {
 
 
   return (
-    <div className="App text-black text-title py-2 bg-black h-full ">
-   {/*  <div className="App text-black text-title py-2 bg-gray-100 h-full "> */}
-
+    <div className="App text-black font-mono  bg-black h-screen ">
     
-      <div className='container mx-auto min-h-full relative  w-5/6 '>
+      {/* <div className='container mx-auto h-full relative w-5/6 '> */}
 
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route index element={<News />} />
 
-              {/* <Route path='/auth/register' element={<Registertwo />} /> */}
-               <Route path='/auth/register' element={<Register />} />
+              <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/login' element={<Login />} />
-
 
               <Route element={<PrivateRoute />}>
                 <Route path='/user' element={<UserProfile />} />
@@ -41,7 +38,8 @@ function App() {
                 <Route path='/favs' element={<Favs />} />
                 <Route path='/news' element={<News />} />
 
-                <Route path='/chat' element={<Chats />} />
+                <Route path='/search' element={<Search />} />
+                <Route path='/users/:username' element={<UserInfo />} />
 
               <Route path='/usermanagement' element={<UserManagement />} />
 
@@ -52,7 +50,7 @@ function App() {
         </BrowserRouter>
 
       </div>
-    </div>
+    // </div>
   )
 }
 

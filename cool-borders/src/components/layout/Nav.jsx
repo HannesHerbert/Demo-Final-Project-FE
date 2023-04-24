@@ -1,7 +1,7 @@
 import { HiOutlineNewspaper } from 'react-icons/hi';
 import { BsPencilSquare } from 'react-icons/bs';
 import { AiOutlineStar } from 'react-icons/ai';
-import { HiMagnifyingGlass } from 'react-icons/hi';
+import { ImSearch } from 'react-icons/im';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { navLink, activeNav } from '../../services/styles.js';
@@ -14,12 +14,12 @@ function Nav() {
   let isNews;
   let isBlogs;
   let isFavs;
-  let isChat;
+  let isSearch;
 
   (location.pathname === '/' ? isNews = activeNav : isNews = "");
   (location.pathname === '/blogs' ? isBlogs = activeNav : isBlogs = "");
   (location.pathname === '/favs' ? isFavs = activeNav : isFavs = "");
-  (location.pathname === '/chat' ? isChat = activeNav : isChat = "")
+  (location.pathname === '/search' ? isSearch = activeNav : isSearch = "")
 
 
 
@@ -70,13 +70,13 @@ function Nav() {
           </Link>
         </li>
 
-        <li className={`${navLink} ${isChat}`}>
-          <Link to="/chat">
-            <HiMagnifyingGlass
+        <li className={`${navLink} ${isSearch}`}>
+          <Link to="/search">
+            <ImSearch
               size="24px"
               className='mx-auto'
             />
-            <p className="title-nav p-2 text-xs">Chat</p>
+            <p className="p-2 text-xs">Search</p>
           </Link>
         </li>
 

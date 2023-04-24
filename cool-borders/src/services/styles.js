@@ -22,4 +22,4 @@ export const navLink = "hover:text-gray-600"
 export const activeNav = "text-red-400"
 
 // Inputs
-export const input = "bg-zinc-700 rounded w-full py-2 px-3 text-gray-200 leading-tight mt-3"
+export const input = "bg-zinc-700 rounded-2xl  py-2 px-3 text-gray-200 leading-tight"

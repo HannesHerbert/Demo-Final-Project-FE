@@ -16,23 +16,20 @@ function Layout() {
     //Auto Auth
     useEffect(() => {
         if (token && !isAuthenticated) {
-            validateToken()
-            console.log(user)
+            validateToken();
         }
     }, []);
 
+
     return (
-        <div >  
-        
+        <div className='container mx-auto h-full relative w-5/6 '>  
             <Header  />
 
             <Nav  />
-            {/* {<h2 style={{textAlign: 'center', fontSize: '18sp'}}>Welcome aboard, {isAuthenticated ? user.fullname : 'Anonymous'}!</h2>} */}
 
             <RegisterNotification />
-            {/* <UserAuth /> */}
 
-            <div className='h-full mt-24 mb-24'> 
+            <div className='container h-full py-24'> 
                 <Outlet />
             </div>
         </div>
