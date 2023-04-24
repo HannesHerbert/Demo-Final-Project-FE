@@ -10,14 +10,14 @@ function UserInfo() {
     return (
        <>
          {currUser &&
-            <div className="container w-2/3 mx-auto  p-5 flex flex-col h-full justify-center text-white">
+            <div className="container w-2/3 mx-auto  p-5 flex flex-col min-h-full justify-center text-white mt-44">
 
-                <div className="relative shadow mx-auto h-24 w-24 my- border-white rounded-full overflow-hidden border-4">
+                <div className="relative shadow mx-auto h-24 w-24 my- border-white rounded-full overflow-hidden border-4 ">
                     <img className="object-cover w-full h-full" src={currUser.image} alt="" />
                 </div>
 
                 
-                <div className="mt-16 flex justify-between container">
+                <div className="mt-16 flex flex-col justify-around container gap-5 md:flex-row">
                     
                     <div className="flex flex-col mt-5">
                         <h5 className="font-bold text-lg mt-10 text-gray-500 text-center mb-5">Rider info</h5>

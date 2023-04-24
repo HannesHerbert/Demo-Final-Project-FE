@@ -22,7 +22,7 @@ function Layout() {
 
 
     return (
-        <div className='container mx-auto h-full relative w-5/6 '>  
+        <div className='container mx-auto min-h-full relative w-5/6 '>  
             <Header  />
 
             <Nav  />
