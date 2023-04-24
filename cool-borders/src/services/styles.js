@@ -5,6 +5,8 @@ export const styles = {
     textColor : "text-gray-400"
 }
 
+//blablabla
+
 // Buttons
 export const mainButton = "w-full rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600"
 export const secButton = "m-2 text-xs w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300"
