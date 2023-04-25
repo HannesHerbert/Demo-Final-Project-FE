@@ -20,8 +20,6 @@ function App() {
 
   return (
     <div className="App text-black font-mono  bg-black min-h-screen ">
-    
-      {/* <div className='container mx-auto h-full relative w-5/6 '> */}
 
         <BrowserRouter>
           <Routes>
@@ -50,7 +48,6 @@ function App() {
         </BrowserRouter>
 
       </div>
-    // </div>
   )
 }
 
