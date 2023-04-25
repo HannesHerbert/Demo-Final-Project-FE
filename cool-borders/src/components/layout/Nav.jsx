@@ -1,7 +1,7 @@
 import { HiOutlineNewspaper } from 'react-icons/hi';
 import { BsPencilSquare } from 'react-icons/bs';
 import { AiOutlineStar } from 'react-icons/ai';
-import { HiMagnifyingGlass } from 'react-icons/hi';
+import { TbSearch } from 'react-icons/tb';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { navLink, activeNav } from '../../services/styles.js';
@@ -51,7 +51,7 @@ function Nav() {
           </Link>
         </li>
 
-        <li className={`text-indigo-600 ${navLink}`}>
+        <li className={`text-indigo-400  ${navLink}`}>
           <Link to='/create'>
             <AiOutlinePlusCircle
               className=" circle-plus text-4xl"
@@ -72,7 +72,7 @@ function Nav() {
 
         <li className={`${navLink} ${isChat}`}>
           <Link to="/chat">
-            <HiMagnifyingGlass
+            <TbSearch
               size="24px"
               className='mx-auto'
             />
