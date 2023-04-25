@@ -11,7 +11,7 @@ export function LoginLogoutButton() {
     const navigate = useNavigate();
 
     //const {hoverColor, textColor} = colors;
-    let textColor = isAuthenticated ? "text-red-400" : "text-green-400";
+    let textColor = isAuthenticated ? "text-white" : "text-green-400";
     let hoverColor = isAuthenticated ? "hover:text-red-700" : "hover:text-green-700";
 
     function clickHandler() {

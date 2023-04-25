@@ -10,8 +10,8 @@ import AuthorDashboard  from "../components/admin/AdminDashboard";
 function UserProfile() {
     // todo Store mit Zustand schreiben
     const [isAdmin, setIsAdmin] = useState(false);
-    const [isAuthor, setIsAuthor] = useState();
-    const [isUser, setIsUser] = useState();
+    const [isAuthor, setIsAuthor] = useState(false);
+    const [isUser, setIsUser] = useState(true);
     const [isEdit, setIsEdit] = useState(false);
     const user = useAuthStore(state => state.user)
 
@@ -48,16 +48,16 @@ function UserProfile() {
 
                     </div>
                     <div className="mt-16">
-                        <span className="text-lg text-center font-semibold text-orange-700">
-                            {user.username}
-                        </span>
+                        <p className="text-lg text-center font-semibold text-orange-700">
+                            {user.fullname}
+                        </p>
                         <p className="text-sm text-gray-600 text-center">
-                            13 favs
+                            {user.description}
                         </p>
                     </div>
                     <div className="mt-8 pt-3 mx-6 border-t flex flex-col items-center ">
                         <div className="text-xs my-1 tracking-wider border px-2 text-orange-700 border-gray-400  hover:text-indigo-200 cursor-default">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero non rem nemo sequi dolor fugiat maiores voluptates repellendus beatae ut minus explicabo, culpa reiciendis? Numquam molestiae autem soluta esse harum?</p>
+                            <p>{user.description}</p>
                         </div>
 
 
