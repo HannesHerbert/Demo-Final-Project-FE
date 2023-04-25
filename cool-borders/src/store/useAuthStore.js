@@ -48,7 +48,8 @@ const useAuthStore = create( set => ({
       set({user: null});
     },
 
-    updateUser: (user) => set({user: user})
+    updateUser: (user) => set({user: user}),
+
 }));
   
 export default useAuthStore;
