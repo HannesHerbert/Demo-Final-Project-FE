@@ -11,17 +11,17 @@ import Blogs from './pages/Blogs'
 
 import Create from './pages/Create';
 import Favs from './pages/Favs';
-import UserManagement from './pages/UserManagement';
 import Register from './pages/Register';
+import AdminDashboard from './components/admin/AdminDashboard';
 
 function App() {
 
 
   return (
     <div className="App text-black text-title py-2 bg-black h-full ">
-   {/*  <div className="App text-black text-title py-2 bg-gray-100 h-full "> */}
+      {/*  <div className="App text-black text-title py-2 bg-gray-100 h-full "> */}
 
-    
+
       <div className='container mx-auto min-h-full relative  w-5/6 '>
 
         <BrowserRouter>
@@ -29,10 +29,8 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route index element={<News />} />
 
-              {/* <Route path='/auth/register' element={<Registertwo />} /> */}
-               <Route path='/auth/register' element={<Register />} />
+              <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/login' element={<Login />} />
-
 
               <Route element={<PrivateRoute />}>
                 <Route path='/user' element={<UserProfile />} />
@@ -40,12 +38,11 @@ function App() {
                 <Route path='/blogs' element={<Blogs />} />
                 <Route path='/favs' element={<Favs />} />
                 <Route path='/news' element={<News />} />
-
                 <Route path='/chat' element={<Chats />} />
-
-              <Route path='/usermanagement' element={<UserManagement />} />
-
               </Route>
+
+              <Route path='/admin' element={<AdminDashboard />} />
+
             </Route>
 
           </Routes>

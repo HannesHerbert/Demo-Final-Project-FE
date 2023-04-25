@@ -1,7 +1,7 @@
 import { HiOutlineNewspaper } from 'react-icons/hi';
 import { BsPencilSquare } from 'react-icons/bs';
 import { AiOutlineStar } from 'react-icons/ai';
-import { HiMagnifyingGlass } from 'react-icons/hi';
+// import { HiMagnifyingGlass } from 'react-icons/hi';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { Link, useLocation } from 'react-router-dom';
 import { navLink, activeNav } from '../../services/styles.js';
@@ -72,10 +72,10 @@ function Nav() {
 
         <li className={`${navLink} ${isChat}`}>
           <Link to="/chat">
-            <HiMagnifyingGlass
+            {/* <HiMagnifyingGlass
               size="24px"
               className='mx-auto'
-            />
+            /> */}
             <p className="title-nav p-2 text-xs">Chat</p>
           </Link>
         </li>
