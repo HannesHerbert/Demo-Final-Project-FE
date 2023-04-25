@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import axios from "axios";
 
 
 const useUsersStore = create((set, get) => ({
