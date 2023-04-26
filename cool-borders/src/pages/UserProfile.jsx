@@ -29,7 +29,7 @@ function UserProfile() {
     //         console.log("get user data");
     //     }
     // }, [isEdit])
-    
+console.log(user);
 
     return (
         <>
@@ -53,16 +53,16 @@ function UserProfile() {
                         </p>
 
                         <p className="text-gray-400 text-center mt-3">
-                            {user.birthday}
+                            Date of Birth: {user.birthday}
                         </p>
 
                         <p className="text-gray-400 text-center mt-3">
-                            {user.email}
+                            Email: {user.email}
                         </p>
 
-                        {/* <p className="text-gray-400 text-center mt-3">
-                           Last login {user.lastLogin}
-                        </p> */}
+                        <p className="text-gray-400 text-center mt-3">
+                           Last login:  {user.lastLogin}
+                        </p>
 
 
                     </div>
