@@ -4,19 +4,21 @@ import { AiFillStar } from 'react-icons/ai';
 import ImageSlider from '../../components/ImageSlider.jsx';
 import { SliderData } from '../../components/SliderData.js';
 import useAuthStore from "../../store/useAuthStore.js";
+import { useState } from 'react';
 
 
 function Favorite({fav}) {
     const user = useAuthStore(state => state.user);
+    const [author, setAuthor] = useState('')
 
     return (
 
         // Container
         <div className="flex container justify-center items-center ">
             
-            <div className=" container flex flex-col gap-10 m-10 justify-center items-center w-full md:w-3/4 h-full  rounded-md">
+            <div className=" container flex flex-col gap-10  justify-center items-center w-3/4 md:w-3/4 h-full  rounded-md">
 
-                <ImageSlider slides={SliderData} />
+                <ImageSlider slides={fav.images} />
 
                 {/* Section 2 */}
                 <section className="text-justify flex flex-col ">
@@ -24,8 +26,11 @@ function Favorite({fav}) {
                     <div className="flex flex-row justify-between gap-2 mb-3">
 
                         <div className="flex items-center">
-                            <HiUserCircle className="text-4xl text-white" />
-                            <h3 className="ml-2 text-white text-xs font-bold ">{user.fullname}</h3>
+                            
+                            <div className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
+                                {<img className="object-cover w-full h-full" src={fav.author.image} alt="" />}
+                            </div>
+                            <h3 className="ml-2 text-white text-xs font-bold ">{fav.author.fullname}</h3>
                         </div>
 
                         <span className=" text-xs text-red-500">{fav.category}</span>
