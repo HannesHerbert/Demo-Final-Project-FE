@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import Logo from '../../assets/LOgoW.png';
 import { FaUserAlt } from 'react-icons/fa';
+import { MdAdminPanelSettings } from 'react-icons/md';
 import { LoginLogoutButton } from "../buttons/LoginLogoutButton.jsx";
 
 
@@ -17,6 +18,9 @@ function Header() {
             </Link>
 
             <div className="flex">
+
+                <Link to='/admin'> <MdAdminPanelSettings size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /> </Link>
+
                 {/* <button><FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /></button> */}
                 <Link to='/user'> <FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-indigo-400 " /> </Link>
 
