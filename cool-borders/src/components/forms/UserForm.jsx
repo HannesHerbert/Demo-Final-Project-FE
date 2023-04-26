@@ -52,13 +52,11 @@ function UserForm({ setIsEdit }) {
     async function submitHandler(evt) {
         evt.preventDefault();
 
-        console.log(typeof profileImage);
-
         // Wenn ist kürzer als 3 Zeichen, dann Fehlermeldung und early return
         if (username.trim().length < 3) {
             setErrormessage(prev => {
                 return {
-                    username: 'Username should be longer than 3 letters'
+                    username: 'Username should be longer than 3 characters'
                 }
             });
             return;

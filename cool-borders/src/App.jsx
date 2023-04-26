@@ -8,12 +8,12 @@ import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
 import Login from './pages/Login'
 import Blogs from './pages/Blogs'
-
 import Create from './pages/Create';
 import Favs from './pages/Favs';
-import UserManagement from './pages/UserManagement';
 import Register from './pages/Register';
 import UserInfo from './pages/UserInfo';
+import AdminDashboard from './components/admin/AdminDashboard';
+import UserManagement from './components/admin/UserManagement';
 
 function App() {
 
@@ -26,6 +26,7 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route index element={<News />} />
 
+              <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/register' element={<Register />} />
               <Route path='/auth/login' element={<Login />} />
 
@@ -42,6 +43,9 @@ function App() {
               <Route path='/usermanagement' element={<UserManagement />} />
 
               </Route>
+
+              <Route path='/admin' element={<AdminDashboard />} />
+
             </Route>
 
           </Routes>
