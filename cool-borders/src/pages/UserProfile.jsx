@@ -29,7 +29,7 @@ function UserProfile() {
     //         console.log("get user data");
     //     }
     // }, [isEdit])
-
+    
 
     return (
         <>
@@ -51,13 +51,43 @@ function UserProfile() {
                         <p className="text-lg text-center font-semibold text-orange-700">
                             {user.fullname}
                         </p>
-                        <p className="text-sm text-gray-600 text-center">
-                            {user.description}
+
+                        <p className="text-gray-400 text-center mt-3">
+                            {user.birthday}
                         </p>
+
+                        <p className="text-gray-400 text-center mt-3">
+                            {user.email}
+                        </p>
+
+                        {/* <p className="text-gray-400 text-center mt-3">
+                           Last login {user.lastLogin}
+                        </p> */}
+
+
                     </div>
                     <div className="mt-8 pt-3 mx-6 border-t flex flex-col items-center ">
                         <div className="text-xs my-1 tracking-wider border px-2 text-orange-700 border-gray-400  hover:text-indigo-200 cursor-default">
-                            <p>{user.description}</p>
+
+                            {user.description && 
+                                <>
+                                    <p className="text-sm text-gray-600 text-center">
+                                        {user.description.prefStance}
+                                    </p>
+                                    <p className="text-sm text-gray-600 text-center">
+                                        {user.description.favLocations}
+                                    </p>
+                                    <p className="text-sm text-gray-600 text-center">
+                                        {user.description.style}
+                                    </p>
+                                    <p className="text-sm text-gray-600 text-center">
+                                        {user.description.equipment}
+                                    </p>
+                                    <p className="text-sm text-gray-600 text-center">
+                                        {user.description.text}
+                                    </p>
+                                </>
+                            }
                         </div>
 
 
@@ -72,9 +102,6 @@ function UserProfile() {
 
                 <UserForm setIsEdit={setIsEdit}/>
             }
-
-
-
         </>
     )
 }
