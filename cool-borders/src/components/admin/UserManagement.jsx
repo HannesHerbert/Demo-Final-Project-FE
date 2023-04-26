@@ -33,7 +33,7 @@ function UserManagement() {
 
             setUsersArr(response.data.users);
 
-            setDirArrow(sortVal.upDir === true ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
+            setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 
         } catch (error) {
 
@@ -101,11 +101,11 @@ function UserManagement() {
 
             </form>
 
-            <div className="flex flex-col justify-center items-center w-full md:w-3/4 bg-gray-900 rounded mt-4 p-4">
-                <table className="table-fixed w-full w-full md:text-lg">
+            <div className="flex flex-col justify-center items-center w-full bg-gray-900 rounded mt-4 p-4">
+                <table className="table-fixed w-full w-full md:text-sm">
                     <thead className="text-white">
                         <tr>
-                            <th className=""></th>
+                            <th className="" colSpan="1"></th>
 
                             <th className="border-l" colSpan="2">
                                 <button name="username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
@@ -139,15 +139,6 @@ function UserManagement() {
                     </tbody>
 
                 </table>
-
-                <section className="text-justify flex flex-col justify-center items-center w-full md:w-3/4 h-full mt-2 p-3 rounded-md">
-                    <p className="text-xs md:text-sm text-white">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nobis, voluptas dignissimos culpa ullam commodi
-                        magnam numquam. Recusandae sed quod adipisci ipsa illum odit aliquid! Eius ipsam explicabo modi esse tempora.
-                    </p>
-
-                    <button className="mt-4 text-sm w-32 self-center bg-red-600 font-bold hover:bg-red-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-red-600 duration-300">delete Post</button>
-                </section>
             </div>
 
         </div>
