@@ -6,6 +6,7 @@ import Layout from './pages/Layout';
 import News from './pages/News';
 import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
+import AdminRoute from './services/AdminRoute';
 import Login from './pages/Login'
 import Blogs from './pages/Blogs'
 import Create from './pages/Create';
@@ -27,7 +28,6 @@ function App() {
             <Route index element={<News />} />
 
             <Route path='/auth/register' element={<Register />} />
-            <Route path='/auth/register' element={<Register />} />
             <Route path='/auth/login' element={<Login />} />
 
             <Route element={<PrivateRoute />}>
@@ -42,9 +42,13 @@ function App() {
 
               <Route path='/usermanagement' element={<UserManagement />} />
 
+              <Route element={<AdminRoute />}>
+                <Route path='/protected/admin' element={<AdminDashboard />} />
+              </Route>
+
             </Route>
 
-            <Route path='/admin' element={<AdminDashboard />} />
+
 
           </Route>
 
