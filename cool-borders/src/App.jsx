@@ -14,6 +14,7 @@ import Favs from './pages/Favs';
 import Register from './pages/Register';
 import UserInfo from './pages/UserInfo';
 import AdminDashboard from './components/admin/AdminDashboard';
+import UserManagement from './components/admin/UserManagement';
 
 function App() {
 
