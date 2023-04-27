@@ -12,10 +12,6 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
 
     const user = useAuthStore(state => state.user);
 
-    // useEffect(() => {
-    //     console.log(user);
-    //     console.log(comment);
-    // }, [])
 
      // CLOUDINARY
      const publicId = getImgPublicId(comment.author.image)
