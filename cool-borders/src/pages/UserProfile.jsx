@@ -13,7 +13,8 @@ function UserProfile() {
     const [isAuthor, setIsAuthor] = useState(false);
     const [isUser, setIsUser] = useState(true);
     const [isEdit, setIsEdit] = useState(false);
-    const user = useAuthStore(state => state.user)
+    const user = useAuthStore(state => state.user);
+    const logout = useAuthStore(state => state.logout);
 
 
     // todo im authStore gucken ob admin oder author wenn 
@@ -94,7 +95,16 @@ console.log(user);
 
                         <button
                             onClick={() => setIsEdit(true)}
-                            className="mt-4 w-40 bg-orange-900 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300">Edit</button>
+                            className="mt-4 w-40 bg-indigo-700 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300"
+                        >Edit</button>
+
+                        <button 
+                            className="mt-4 w-40 bg-indigo-700 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300"
+                            onClick={logout}
+                        >
+                            Log out
+                        </button>
+
                     </div>
                 </div>
 

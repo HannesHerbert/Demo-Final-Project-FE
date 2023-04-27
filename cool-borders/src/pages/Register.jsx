@@ -104,7 +104,10 @@ function Register() {
 
             <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">REGISTER NOW!</h2>
 
-            <form id='register-form' className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4" onSubmit={submitHandler}>
+            <form 
+                id='register-form' 
+                className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4" 
+                onSubmit={submitHandler}>
                 
                 {/* USERNAME */}
                 <input

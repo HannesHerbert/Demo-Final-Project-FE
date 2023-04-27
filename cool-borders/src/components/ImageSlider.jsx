@@ -6,13 +6,13 @@ import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 function ImageSlider ({ slides, setCurrSlide }) {
     const [current, setCurrent] = useState(0);
 
-
+    // Next picture
     const nextSlide = () => {
         setCurrent(current === slides.length - 1 ? 0 : current + 1);
         // Slider Anzeige umschalten
         setCurrSlide(prev => current === slides.length - 1 ? 1 :  prev + 1); 
     };
-
+    // Prev picture
     const prevSlide = () => {
         setCurrent(current === 0 ? slides.length - 1 : current - 1);
         // Slider Anzeige umschalten
