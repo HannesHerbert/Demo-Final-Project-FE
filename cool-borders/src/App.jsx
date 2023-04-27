@@ -21,37 +21,37 @@ function App() {
   return (
     <div className="App text-black font-mono  bg-black min-h-screen ">
 
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Layout />}>
-              <Route index element={<News />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<News />} />
 
-              <Route path='/auth/register' element={<Register />} />
-              <Route path='/auth/register' element={<Register />} />
-              <Route path='/auth/login' element={<Login />} />
+            <Route path='/auth/register' element={<Register />} />
+            <Route path='/auth/register' element={<Register />} />
+            <Route path='/auth/login' element={<Login />} />
 
-              <Route element={<PrivateRoute />}>
-                <Route path='/user' element={<UserProfile />} />
-                <Route path='/create' element={<Create />} />
-                <Route path='/blogs' element={<Blogs />} />
-                <Route path='/favs' element={<Favs />} />
-                <Route path='/news' element={<News />} />
+            <Route element={<PrivateRoute />}>
+              <Route path='/user' element={<UserProfile />} />
+              <Route path='/create' element={<Create />} />
+              <Route path='/blogs' element={<Blogs />} />
+              <Route path='/favs' element={<Favs />} />
+              <Route path='/news' element={<News />} />
 
-                <Route path='/search' element={<Search />} />
-                <Route path='/users/:username' element={<UserInfo />} />
+              <Route path='/search' element={<Search />} />
+              <Route path='/users/:username' element={<UserInfo />} />
 
               <Route path='/usermanagement' element={<UserManagement />} />
 
-              </Route>
-
-              <Route path='/admin' element={<AdminDashboard />} />
-
             </Route>
 
-          </Routes>
-        </BrowserRouter>
+            <Route path='/admin' element={<AdminDashboard />} />
 
-      </div>
+          </Route>
+
+        </Routes>
+      </BrowserRouter>
+
+    </div>
   )
 }
 
