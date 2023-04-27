@@ -6,9 +6,12 @@ import ReportManagement from './ReportManagement';
 import CreateArticle from './CreateArticle';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import useAuthStore from '../../store/useAuthStore';
 
 
 function AdminDashboard() {
+
+    const user = useAuthStore(state => state.user);
 
     const displays = {
         users: <UserManagement/>,
