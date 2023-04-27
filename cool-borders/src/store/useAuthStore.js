@@ -31,7 +31,6 @@ const useAuthStore = create( set => ({
     authenticate: (user, token) => {
       // Speichere token im localStorage
       localStorage.setItem('token', token);
-  
       // Speichere user Objekt im store
       set({ user: user }); // setze neuen user
     },

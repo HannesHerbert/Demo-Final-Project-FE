@@ -16,7 +16,7 @@ import Comments from '../comments/Comments.jsx';
 function Favorite({fav}) {
     // States
     const [showComments, setShowComments] = useState(false);
-    const [currSlide, setCurrSlide] = useState(1)
+    const [currSlide, setCurrSlide] = useState(1);
 
     // CLOUDINARY
     const publicId = getImgPublicId(fav.author.image)
@@ -24,8 +24,8 @@ function Favorite({fav}) {
     profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
 
     function getImgPublicId(url) {
-
-        let publicId
+        // CLOUDINARY
+        let publicId;
 
         if (!url || url.length < 1) {
 
@@ -44,11 +44,10 @@ function Favorite({fav}) {
         // Gibt den extrahierten Dateinamen zurück
         return publicId;
     };
-
+    // Schalter für Kommentare zeigen/ausblenden
     function handleComments() {
-        setShowComments(prev => prev = !prev)
+        setShowComments(prev => prev = !prev);
     }
-
 
     return (
 
@@ -60,7 +59,7 @@ function Favorite({fav}) {
                 <span className='text-white'>{currSlide}/{fav.images.length}</span>
                 <ImageSlider slides={fav.images} setCurrSlide={setCurrSlide} />
 
-                {/* Section 2 */}
+                {/* Section 2 Mit Text content*/}
                 <section className="text-justify flex flex-col w-full gap-5">
 
                     <div className="flex flex-row justify-between gap-2 mb-3">
@@ -94,7 +93,7 @@ function Favorite({fav}) {
                             Comments
                         </h5>
 
-                        {showComments && <Comments fav={fav} />}
+                        {showComments && <Comments post={fav} />}
                     </div>
 
                     {/* BUTTONS Zu Favs & REPORT */}

@@ -11,10 +11,6 @@ function RegisterNotification() {
     const showNotification = useNotificationStore(state => state.showNotification);
     const setShowNotification = useNotificationStore(state => state.setShowNotification)
 
-    console.log(showNotification);
-    console.log(type);
-    console.log(message);
-
     useEffect(() => {
         const time = setTimeout(() => {
             setShowNotification(false)
