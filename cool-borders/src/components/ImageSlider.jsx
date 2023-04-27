@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SliderData } from './SliderData.js';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 
 
-function ImageSlider ({ slides }) {
+function ImageSlider ({ slides, setCurrSlide }) {
     const [current, setCurrent] = useState(0);
+
 
     const nextSlide = () => {
         setCurrent(current === slides.length - 1 ? 0 : current + 1);
+        // Slider Anzeige umschalten
+        setCurrSlide(prev => current === slides.length - 1 ? 1 :  prev + 1); 
     };
 
     const prevSlide = () => {
         setCurrent(current === 0 ? slides.length - 1 : current - 1);
+        // Slider Anzeige umschalten
+        setCurrSlide(prev => current === 0 ? slides.length  :  prev - 1);
     };
  
     if (!Array.isArray(slides) || slides.length <= 0) {
@@ -29,12 +34,14 @@ function ImageSlider ({ slides }) {
             {slides.map((slide, index) => {
                 return (
                     <div
-                        className={index === current ? 'opacity-100 transition duration-100 ' : 'opacity-0 transition duration-100 ease-in'}
+                        className={index === current ? 'flex flex-col items-center opacity-100 transition duration-100 w-full h-[50vh] md:h-[60vh]' : 'opacity-0 transition duration-100 ease-in'}
                         key={index}
                     >
+                        
                         {index === current && (
-                            <img src={slide} alt='travel image' className='w-full h-full object-cover rounded-md md:scale-100 hover:opacity-70' />
+                            <img src={slide} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 hover:opacity-70' />
                         )}
+                        
                     </div>
                 );
             })}

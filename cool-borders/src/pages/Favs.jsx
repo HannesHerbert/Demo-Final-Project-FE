@@ -34,7 +34,7 @@ function Favs() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center p-2 w-full h-fit">
+    <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
       {displayFavorites}
     </div>
   );

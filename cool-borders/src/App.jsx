@@ -8,7 +8,6 @@ import UserProfile from './pages/UserProfile';
 import PrivateRoute from './services/PrivateRoute';
 import Login from './pages/Login'
 import Blogs from './pages/Blogs'
-
 import Create from './pages/Create';
 import Favs from './pages/Favs';
 import Register from './pages/Register';
