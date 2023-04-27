@@ -10,7 +10,7 @@ function Comments({post}) {
     const token = useAuthStore(state => state.getToken());
     const commentText = useRef();
     const fetchFavorites = useFavoritesStore(state => state.fetchFavorites);
-    // const user = useAuthStore(state => state.user);
+
 
 
 
