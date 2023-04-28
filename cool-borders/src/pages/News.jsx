@@ -1,10 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { FaUserAlt } from 'react-icons/fa';
-
-import { AiOutlineArrowLeft, AiOutlineArrowRight, AiFillStar } from 'react-icons/ai';
-import ImageSlider from '../components/ImageSlider.jsx';
-import { SliderData } from '../components/SliderData.js';
+import { AiFillStar } from 'react-icons/ai';
 
 
 function News(props) {
@@ -20,7 +17,7 @@ function News(props) {
           <FaUserAlt className="text-lg md:text-2xl" />
         </div>
 
-        <ImageSlider slides={SliderData} />
+        {/* <ImageSlider slides={sliderData} /> */}
 
         <section className="text-justify flex flex-col mt-4 md:mt-10">
           <p className="text-xs md:text-sm text-gray-600">

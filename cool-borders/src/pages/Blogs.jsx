@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import PrivateRoute from "../services/PrivateRoute";
 import { HiUserCircle } from 'react-icons/hi';
 import { RiAlarmWarningLine } from 'react-icons/ri';
-import { AiOutlineArrowLeft, AiOutlineArrowRight, AiFillStar } from 'react-icons/ai';
+import { AiFillStar } from 'react-icons/ai';
 import { useState } from "react";
 import ImageSlider from '../components/ImageSlider.jsx';
-import { SliderData } from '../components/SliderData.js';
 import useAuthStore from "../store/useAuthStore.js";
 
 function Blogs(props) {
@@ -41,7 +40,7 @@ function Blogs(props) {
 
             <div className="flex flex-col justify-between items-center w-full md:w-3/4 h-full mt-2 p-3 rounded-md">
 
-                <ImageSlider slides={SliderData} />
+                {/* <ImageSlider slides={SliderData} /> */}
 
 
                 <section className="text-justify flex flex-col mt-6 mb-20">

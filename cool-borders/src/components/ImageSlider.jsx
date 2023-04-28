@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { SliderData } from './SliderData.js';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 
 
