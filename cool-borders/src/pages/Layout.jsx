@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import Header from '../components/layout/Header';
 import useAuthStore from '../store/useAuthStore';
 import Nav from '../components/layout/Nav';
-import RegisterNotification from '../components/register/RegisterNotification';
+import Notification from '../components/Notification';
 
 
 
@@ -27,7 +27,7 @@ function Layout() {
 
             <Nav  />
 
-            <RegisterNotification />
+            <Notification />
 
             <div className='container min-h-screen py-24'> 
                 <Outlet />

@@ -5,6 +5,8 @@ import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import axios from "axios";
 import useAuthStore from "../../store/useAuthStore";
 import UserTableRow from "./UserTableRow";
+import useDebounce from "../../hooks/debounce";
+import useNotificationStore from "../../store/useNotificationStore.js";
 
 
 function UserManagement() {
@@ -16,8 +18,12 @@ function UserManagement() {
     const [searchString, setSearchString] = useState("")
     const [usersArr, setUsersArr] = useState([]);
     const [isInit, setIsInit] = useState(true);
-    const [sortVal, setSortVal] = useState({ key: "username", upDir: false })
-    const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />)
+    const [sortVal, setSortVal] = useState({ key: "username", upDir: false });
+    const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />);
+    const debounced = useDebounce(searchString);
+
+    // Notification Handler function
+    const notificationHandler = useNotificationStore(state => state.notificationHandler);
 
 
     async function getFilteredAndSortedUsers() {
@@ -33,15 +39,23 @@ function UserManagement() {
 
             setUsersArr(response.data.users);
 
+            console.log(response.data.users);
+
             setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 
         } catch (error) {
 
             console.log(error);
             // Display eine Fehlermeldung
-            // alertFailHandler(error.response.message);
+            alertFailHandler(error.response.data.message);
         }
-    }
+    };
+
+
+    // Wenn bei register ein Fehler, wird ein Alert mit Fehlermeldung erzeugt
+    function alertFailHandler(msg) {
+        notificationHandler('fail', msg)
+    };
 
 
     useEffect(() => {
@@ -54,7 +68,7 @@ function UserManagement() {
 
     useEffect(() => {
         getFilteredAndSortedUsers();
-    }, [sortVal, searchString]);
+    }, [sortVal, debounced]);
 
 
     function handleSortClick(evt) {
@@ -128,8 +142,10 @@ function UserManagement() {
                                 </button>
                             </th>
 
-                            <th className="border-l">
-                                <span className="flex align-middle pl-1">Reports</span>
+                            <th className="border-l" colSpan="2">
+                                <span className="flex align-middle pl-1">
+                                    Reports
+                                </span>
                             </th>
                         </tr>
                     </thead>

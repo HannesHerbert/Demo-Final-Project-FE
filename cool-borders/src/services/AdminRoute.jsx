@@ -8,9 +8,6 @@ function AdminRoute() {
     const isAuthenticated = useAuthStore(state => state.isAuthenticated())
     const location = useLocation();
 
-    console.log(user.role);
-    console.log(user.role === "admin" ? "You are admin" : "You are not an admin");
-
     return (
         user.role === "admin" ? <Outlet /> : <Navigate to='/news' replace state={{from: location}} />
     )

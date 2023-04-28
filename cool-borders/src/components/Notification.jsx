@@ -1,10 +1,8 @@
-// import { useContext } from "react";
-// import { NotificationContext } from "../context/NotificationContext";
 
 import { useEffect } from "react";
-import useNotificationStore from "../../store/useNotificationStore";
+import useNotificationStore from "../store/useNotificationStore";
 
-function RegisterNotification() {
+function Notification() {
 
     const type = useNotificationStore(state => state.type);
     const message = useNotificationStore(state => state.message);
@@ -65,4 +63,4 @@ function RegisterNotification() {
     )
 }
 
-export default RegisterNotification;
+export default Notification;
