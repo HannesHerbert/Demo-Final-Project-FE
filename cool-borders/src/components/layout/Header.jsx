@@ -20,11 +20,7 @@ function Header() {
             <div className="flex">
 
                 <Link to='/protected/admin'> <MdAdminPanelSettings size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /> </Link>
-
-                {/* <button><FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /></button> */}
-                <Link to='/user'> <FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-indigo-400 " /> </Link>
-
-                
+                <Link to='/user'> <FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-indigo-400 " /> </Link> 
 
             </div>
 
