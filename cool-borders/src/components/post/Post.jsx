@@ -26,8 +26,10 @@ function Post({post}) {
     const token = useAuthStore(state => state.getToken());
     // fetchFavs
     const fetchFavorites = usePostsStore(state => state.fetchFavorites);
+    // user
+    const updateUser = useAuthStore(state => state.updateUser)
     // const favorites = usePostsStore(state => state.favorites);
-    // const user = useAuthStore(state => state.user);
+    const user = useAuthStore(state => state.user);
     // CLOUDINARY
     const publicId = getImgPublicId(post.author.image)
     const profileImg = CLOUD.image(publicId);
@@ -60,33 +62,30 @@ function Post({post}) {
     }
 
 
-    // useEffect(() => {
+    useEffect(() => {
         
-    //     console.log(favStyleToggle);
-    //     console.log(favorites);
-
-
-
-    //     if (favorites.includes(post._id)) {
-    //         console.log('yes');
-    //         setFavStyle('text-green-500');
-    //     } else {
-    //         console.log('no');
-    //         setFavStyle('text-gray-100');
-    //     }
-    // }, [favStyleToggle]);
+        if (user.favorites.includes(post._id)) {
+            setFavStyle('text-green-500');
+        } else {
+            setFavStyle('text-gray-100');
+        }
+        
+    }, [favStyleToggle]);
 
     async function toggleToFavorites() {
-        console.log('to/from favs');
+
         try {
-            await axios.put('http://localhost:8080/protected/favorites/' + post._id, {}, {
+            let user = await axios.put('http://localhost:8080/protected/favorites/' + post._id, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
             });
+            // update userdata im userStore
+            updateUser(user.data.data)
             // rerender favorites
             fetchFavorites();
-            // setFavStyleToggle(prev => prev = !prev);
+
+            setFavStyleToggle(prev => prev = !prev);
         } catch (error) {
             console.log(error);
         }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Post from "../components/post/Post";
+import useAuthStore from "../store/useAuthStore";
 
 
 function News() {

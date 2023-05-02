@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const useAuthStore = create( set => ({
-    // Speicherort fuer user objekt
+    // Speicherort fuer user objekt ohne population
     user: null,
 
     isAuthenticated: function() {
