@@ -90,8 +90,6 @@ function UserForm(props) {
                 }
             });
 
-            console.log(response);
-
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`Your profile was successfully updated!`);
 

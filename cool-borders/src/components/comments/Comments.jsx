@@ -1,18 +1,31 @@
 import Comment from "./Comment"
-import * as Styles from "../../services/styles.js";
 import { useRef, useState } from "react";
 import axios from "axios";
 import useAuthStore from "../../store/useAuthStore";
-import useFavoritesStore from "../../store/useFavoritesStore";
 
 
 function Comments({post}) {
     const token = useAuthStore(state => state.getToken());
+    // Text aus der Form furs neue Kommentar
     const commentText = useRef();
-    const fetchFavorites = useFavoritesStore(state => state.fetchFavorites);
-
-
-
+    // State
+    const [comments, setComments] = useState(post.comments);
+    
+    // function um zu aktuellste comments zu fetchen
+    async function fetchComments() {
+        try {
+            // Hole comments nach postID
+            const response = await axios.get('http://localhost:8080/protected/comments/' + post._id, {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }  
+            });
+            // speichere Comments
+            setComments(response.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     // Sende neues Kommentar zur DB und fetche favorites neu
     async function addCommentSubmitHandler(e) {
@@ -32,8 +45,8 @@ function Comments({post}) {
                     'Authorization': `Bearer ${token}`
                   }  
             });
-            // rerender favorites
-            fetchFavorites();
+            // rerender aktuelste comments
+            fetchComments()
             // Input feld leer machen
             commentText.current.value = '';
 
@@ -42,13 +55,51 @@ function Comments({post}) {
         }
     }
 
+    async function deleteComment(id) {
+
+        try {
+            // delete comment von server
+            await axios.delete('http://localhost:8080/protected/comments/'+ id, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                  }  
+            });
+            // render aktuelste comments
+            fetchComments()
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function editComment(id, text) {
+        console.log('Edit!');
+        console.log(text);
+        try {
+            // edit comment Anfrage an server
+            await axios.put('http://localhost:8080/protected/comments/'+ id, {text}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                  }  
+            });
+            // render aktuelste comments
+            fetchComments()
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         // Kommentar liste
         <ul className='w-full bg-gray-500 text-gray-400  rounded-xl p-4 flex flex-col gap-5'>
             {/* render alle Kommentare */}
-            {post.comments.map(comment => {
-                return <Comment key={comment._id} comment={comment} c />
+            {comments.map(comment => {
+                return <Comment 
+                    key={comment._id} 
+                    comment={comment} 
+                    deleteCommentCallback={deleteComment} 
+                    editCommentCallback={editComment}
+                />
             })}
+
             {/* Add Komment Form */}
             <form 
                 className="flex flex-col gap-3"

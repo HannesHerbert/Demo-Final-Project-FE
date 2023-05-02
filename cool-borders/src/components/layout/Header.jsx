@@ -14,7 +14,7 @@ function Header() {
 
             <Link to='/' className="flex flex-row justify-center items-center -ml-2 md:-mt-4">
                 {/* <img src={Logo} alt="logo" className="md:mt-16 w-20 md:w-44 opacity-80 rounded-full" /> */}
-                <img src={Logo} alt="logo" className="md:mt-16 w-32 md:w-60 opacity-80 rounded-full p-6" />
+                <img src={Logo} alt="logo" className="md:mt-16 w-32 md:w-48 opacity-80 rounded-full p-6" />
             </Link>
 
             <div className="flex">

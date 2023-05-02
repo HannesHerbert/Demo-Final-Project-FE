@@ -2,7 +2,7 @@ import axios from "axios";
 import { create } from "zustand";
 
 
-const useFavoritesStore = create(set => ({
+const usePostsStore = create(set => ({
     favorites: [],
     fetchFavorites: async () => {
         let token = localStorage.getItem('token');
@@ -18,8 +18,8 @@ const useFavoritesStore = create(set => ({
         } catch (error) {
           console.log(error);
         } 
-    }
+    },
 }))
 
 
-export default useFavoritesStore;
+export default usePostsStore;
