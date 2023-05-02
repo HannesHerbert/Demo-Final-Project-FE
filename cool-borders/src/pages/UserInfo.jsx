@@ -11,7 +11,7 @@ function UserInfo() {
        <>
          {searchUser &&
             <div className="container w-2/3 mx-auto  flex flex-col min-h-full justify-center text-white ">
-                <h2>hallo</h2>
+
                 <div className="relative shadow mx-auto h-36 w-36 my- border-white rounded-full overflow-hidden border-4 ">
                     <img className="object-cover w-full h-full" src={searchUser.image} alt="" />
                 </div>
