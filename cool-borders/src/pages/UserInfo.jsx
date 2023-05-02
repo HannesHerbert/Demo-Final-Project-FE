@@ -1,19 +1,19 @@
-import useUsersStore from "../store/useUsersStore";
+import useUserSearchStore from "../store/useUserSearchStore";
 
 
 
 
 function UserInfo() {
-    const currUser = useUsersStore(state => state.currUser);
+    const searchUser = useUserSearchStore(state => state.searchUser);
     
 
     return (
        <>
-         {currUser &&
+         {searchUser &&
             <div className="container w-2/3 mx-auto  flex flex-col min-h-full justify-center text-white ">
-
+                <h2>hallo</h2>
                 <div className="relative shadow mx-auto h-36 w-36 my- border-white rounded-full overflow-hidden border-4 ">
-                    <img className="object-cover w-full h-full" src={currUser.image} alt="" />
+                    <img className="object-cover w-full h-full" src={searchUser.image} alt="" />
                 </div>
 
                 
@@ -24,32 +24,32 @@ function UserInfo() {
 
                         <p className="text-gray-500 text-center">username</p>
                         <span className="text-lg text-center font-semibold mb-4">
-                            {currUser.username}
+                            {searchUser.username}
                         </span>
 
                         <p className="text-gray-500 text-center">full name</p>
                         <span className="text-lg text-center font-semibold mb-4">
-                            {currUser.fullname}
+                            {searchUser.fullname}
                         </span>
 
                         <p className="text-gray-500 text-center">email</p>
                         <span className="text-lg text-center font-semibold mb-4">
-                            {currUser.email}
+                            {searchUser.email}
                         </span>
 
                         <p className="text-gray-500 text-center">from</p>
                         <span className="text-lg text-center font-semibold mb-4">
-                            {currUser.city}
+                            {searchUser.city}
                         </span>
 
                         <p className="text-gray-500 text-center">date of birth</p>
                         <span className="text-lg text-center font-semibold mb-4">
-                            {currUser.birthday}
+                            {searchUser.birthday}
                         </span>
                     </div>
 
                     {/* Description */}
-                    {currUser.description && 
+                    {searchUser.description && 
                         <>
                             
                             <div className="flex flex-col ">
@@ -57,27 +57,27 @@ function UserInfo() {
 
                                 <p className="text-gray-500 text-center">Stance</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                    {currUser.description.prefStance}
+                                    {searchUser.description.prefStance}
                                 </span>
 
                                 <p className="text-gray-500 text-center">Fav locations</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                    {currUser.description.favLocations}
+                                    {searchUser.description.favLocations}
                                 </span>
 
                                 <p className="text-gray-500 text-center">Riding style</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                     {currUser.description.style}
+                                     {searchUser.description.style}
                                 </span>
                                 
                                 <p className="text-gray-500 text-center">Equipment</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                     {currUser.description.equipment}
+                                     {searchUser.description.equipment}
                                 </span>
 
                                 <p className="text-gray-500 text-center">About me </p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                     {currUser.description.text}
+                                     {searchUser.description.text}
                                 </span>
                             </div>
                         </>

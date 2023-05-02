@@ -138,13 +138,13 @@ function UserForm({ setIsEdit }) {
                 {/* PROFILEIMAGE */}
                 <input type="file"
                     accept="image/*"
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="image-file"
                     onChange={(evt) => setImage(evt)} />
 
                 {/* USERNAME */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Username"
                     value={username}
@@ -155,7 +155,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* FULLNAME */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="Fullname"
                     value={fullname}
@@ -164,7 +164,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* EMAIL */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="email"
                     placeholder="E-mail"
                     value={email}
@@ -173,7 +173,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* CITY */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="City (optional)"
                     value={city}
@@ -182,7 +182,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* BIRTHDAY */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="date"
                     value={bday}
                     onChange={(evt) => setBday(evt.target.value)}
@@ -190,7 +190,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* PREFERRED POSITION */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="preferred stance"
                     value={prefStance}
@@ -199,7 +199,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* FAVORITE LOCATIONS */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="favorite locations"
                     value={favLocations}
@@ -208,7 +208,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* RIDING STYLE */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="riding style (f.e.: park/freestyle)"
                     value={style}
@@ -217,7 +217,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* EQUIPMENT */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="your equipment"
                     value={equipment}
@@ -226,7 +226,7 @@ function UserForm({ setIsEdit }) {
 
                 {/* TEXT */}
                 <input
-                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
                     placeholder="your description"
                     value={text}
