@@ -1,7 +1,6 @@
-
 import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiFillStar } from 'react-icons/ai';
-import ImageSlider from '../ImageSlider.jsx';
+import ImageSlider from '../../components/ImageSlider.jsx';
 // CLOUDINARY
 import CLOUD from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
@@ -9,15 +8,26 @@ import { AdvancedImage } from '@cloudinary/react';
 // Import required actions and qualifiers.
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Comments from '../comments/Comments.jsx';
+import axios from 'axios';
+import usePostsStore from '../../store/usePostsStore.js';
+import useAuthStore from '../../store/useAuthStore.js';
 
 
-function Post({fav: post}) {
+function Post({post}) {
     // States
     const [showComments, setShowComments] = useState(false);
     const [currSlide, setCurrSlide] = useState(1);
-
+    const [favStyleToggle, setFavStyleToggle] = useState(false);
+    const [favStyle, setFavStyle] = useState('text-gray-100');
+    
+    // token
+    const token = useAuthStore(state => state.getToken());
+    // fetchFavs
+    const fetchFavorites = usePostsStore(state => state.fetchFavorites);
+    // const favorites = usePostsStore(state => state.favorites);
+    // const user = useAuthStore(state => state.user);
     // CLOUDINARY
     const publicId = getImgPublicId(post.author.image)
     const profileImg = CLOUD.image(publicId);
@@ -49,14 +59,47 @@ function Post({fav: post}) {
         setShowComments(prev => prev = !prev);
     }
 
+
+    // useEffect(() => {
+        
+    //     console.log(favStyleToggle);
+    //     console.log(favorites);
+
+
+
+    //     if (favorites.includes(post._id)) {
+    //         console.log('yes');
+    //         setFavStyle('text-green-500');
+    //     } else {
+    //         console.log('no');
+    //         setFavStyle('text-gray-100');
+    //     }
+    // }, [favStyleToggle]);
+
+    async function toggleToFavorites() {
+        console.log('to/from favs');
+        try {
+            await axios.put('http://localhost:8080/protected/favorites/' + post._id, {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                  }  
+            });
+            // rerender favorites
+            fetchFavorites();
+            // setFavStyleToggle(prev => prev = !prev);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
 
         // Container
-        <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl ">
+        <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl">
             
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
                 {/* Section 1 mit Bilder */}
-                <span className='text-white'>{currSlide}/{post.images.length}</span>
+                {post.images.length > 0 && <span className='text-white'>{currSlide}/{post.images.length}</span>}
                 <ImageSlider slides={post.images} setCurrSlide={setCurrSlide} />
 
                 {/* Section 2 Mit Text content*/}
@@ -73,11 +116,11 @@ function Post({fav: post}) {
                         </div>
 
                         {/* Category */}
-                        <span className=" text-xs text-red-500">{post.category}</span>
+                        {post.category !== 'article' && <span className=" text-xs text-red-500">{post.category}</span>}
                     </div>
 
                     {/* TITLE */}
-                    <h2 className='font-bold text-xl text-gray-200 ml-1'>{post.title}</h2>
+                    <h2 className='font-bold md:text-xl text-gray-200 ml-1'>{post.title}</h2>
 
                     {/* Text */}
                     <p className="text-xs md:text-lg text-gray-400 ml-1">
@@ -98,8 +141,13 @@ function Post({fav: post}) {
 
                     {/* BUTTONS Zu Favs & REPORT */}
                     <div className="flex flex-row justify-between items-center mt-4 ml-1">
-                        <AiFillStar className="text-2xl self-center text-gray-100 hover:text-yellow-400 active:text-yellow-400 cursor-pointer" />
-                        <RiAlarmWarningLine className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" />
+                        <AiFillStar
+                        onClick={toggleToFavorites}
+                         className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
+                         />
+                        <RiAlarmWarningLine 
+                        className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
+                        />
                     </div>
 
 

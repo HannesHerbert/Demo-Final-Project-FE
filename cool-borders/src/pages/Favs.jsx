@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import Favorite from "../components/fav/Favourite";
-import useFavoritesStore from "../store/useFavoritesStore";
+import usePostsStore from "../store/usePostsStore";
+import Post from "../components/post/Post";
+import useAuthStore from "../store/useAuthStore";
+import axios from "axios";
 
 
 function Favs() {
-  const fetchFavorites = useFavoritesStore(state => state.fetchFavorites);
-  const favorites = useFavoritesStore(state => state.favorites);
+  const fetchFavorites = usePostsStore(state => state.fetchFavorites);
+  const favorites = usePostsStore(state => state.favorites);
 
   useEffect(() => {
     fetchFavorites();
@@ -17,7 +19,7 @@ function Favs() {
     <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
 
       {favorites.map(fav => {
-        return <Favorite key={fav._id} fav={fav} />
+        return <Post key={fav._id} post={fav} fetchFavoritesCallback={fetchFavorites} />
       })}
 
     </div>

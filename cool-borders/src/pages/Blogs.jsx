@@ -4,33 +4,53 @@ import PrivateRoute from "../services/PrivateRoute";
 import { HiUserCircle } from 'react-icons/hi';
 import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiFillStar } from 'react-icons/ai';
-import { useState } from "react";
-import ImageSlider from '../components/ImageSlider.jsx';
+import { useEffect, useState } from "react";
 import useAuthStore from "../store/useAuthStore.js";
+import axios from "axios";
+import Post from "../components/post/Post";
 
-function Blogs(props) {
+function Blogs() {
     const user = useAuthStore(state => state.user)
+    const token = useAuthStore(state => state.getToken());
+    // State
+    const [blogs, setBlogs] = useState([]);
+    const [filter, setFilter] = useState('');
 
     /* Array mit Objekten der Filtermöglichkeiten */
     let optionValues = [
-        { label: 'Stories', value: 'Stories' },
-        { label: 'Reviews', value: 'Reviews' },
-        { label: 'Market', value: 'Market' },
-        { label: 'Friends', value: 'Friends' },
-        { label: 'All', value: 'All' }
+        { label: 'all', value: '' },
+        { label: 'stories', value: 'story' },
+        { label: 'reviews', value: 'review' },
+        { label: 'market', value: 'market' }
     ];
 
-    let [filter, setFilter] = useState('Stories');
+    useEffect(() => {
+        fetchBlogs()
+    }, [filter]);
 
-    let handleFilterChange = (e) => {
-        setFilter(e.target.value);
-    };
+    async function fetchBlogs() {
+        try {
+            let response = await axios.get('http://localhost:8080/protected/blogs?category=' + filter, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                  }  
+            });
+            console.log(response.data);
+            setBlogs(response.data.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        console.log(filter);
+    }, [filter]);
 
     return (
-        <div className="flex flex-col justify-center items-center ">
-            <div className="self-start">
-                <select onChange={handleFilterChange} className="p-1 rounded-md text-white bg-black hover:text-indigo-200 mt-6">
-                    <option value="Filter: "> - Blog - </option>
+        <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
+            <div className="self-end">
+                <select onChange={e => setFilter(e.target.value)} className="p-1 rounded-md text-white bg-black hover:text-indigo-200 mt-6">
+                    {/* <option value="Filter: "> - Blog - </option> */}
 
                     {optionValues.map((filter) => (
                         <option key={filter.value}  value={filter.value} className="rounded-md p-2">{filter.label}</option>
@@ -38,9 +58,18 @@ function Blogs(props) {
                 </select>
             </div>
 
-            <div className="flex flex-col justify-between items-center w-full md:w-3/4 h-full mt-2 p-3 rounded-md">
+            {blogs.length > 0 
+            ? 
+            blogs.map(blog => {
+                return <Post post={blog} key={blog._id} />
+            })
+            :
+            <h3 className="text-white">There aren't  {filter} posts</h3>
+            }
 
-                {/* <ImageSlider slides={SliderData} /> */}
+            {/* <div className="flex flex-col justify-between items-center w-full md:w-3/4 h-full mt-2 p-3 rounded-md">
+
+                <ImageSlider slides={SliderData} />
 
 
                 <section className="text-justify flex flex-col mt-6 mb-20">
@@ -97,7 +126,7 @@ function Blogs(props) {
                     </div>
                 </section>
 
-            </div>
+            </div> */}
         </div>
     )
 }
