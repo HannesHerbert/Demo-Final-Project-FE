@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import UserForm from "../components/forms/UserForm.jsx";
+import UserUserEdit from "../components/user/UserUserEdit.jsx";
 import useAuthStore from "../store/useAuthStore.js";
 
 import AdminDashboard from "../components/admin/AdminDashboard";
@@ -21,6 +21,32 @@ function UserProfile() {
     //todo wenn user - navigate zurück / zur fehlerseite
     //todo wenn author - 
     // todo wenn admin - 
+
+
+    function getDateString(date) {
+
+        const dateObj = new Date(date);
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth() + 1;
+        const day = dateObj.getDay();
+
+        const dateString = `${day < 10 ? 0 : ""}${day}.${month < 10 ? 0 : ""}${month}.${year}`
+
+        return dateString
+    };
+
+
+    function getTimeString(date) {
+
+        const dateObj = new Date(date);
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes();
+        const sec = dateObj.getSeconds();
+
+        const timeString = `${hour < 10 ? 0 : ""}${hour}:${min < 10 ? 0 : ""}${min}:${sec < 10 ? 0 : ""}${sec}`
+
+        return timeString
+    };
 
 
     return (
@@ -53,7 +79,7 @@ function UserProfile() {
                         </p>
 
                         <p className="text-gray-400 text-center mt-3">
-                           Last login:  {user.lastLogin}
+                           Last login:  {`${getDateString(user.lastLogin)} - ${getTimeString(user.lastLogin)}`}
                         </p>
 
 
@@ -101,7 +127,7 @@ function UserProfile() {
 
                 :
 
-                <UserForm user={user} setIsEdit={setIsEdit}/>
+                <UserUserEdit userToEdit={user} setIsEdit={setIsEdit}/>
             }
         </>
     )

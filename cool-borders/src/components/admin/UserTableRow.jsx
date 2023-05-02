@@ -3,19 +3,18 @@ import { useState, useEffect } from 'react';
 import useNotificationStore from "../../store/useNotificationStore";
 import axios from 'axios';
 import useAuthStore from "../../store/useAuthStore";
-import UserForm from '../forms/UserForm';
 
 // Clodinary
 import CLOUD from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import AdminUserEdit from './AdminUserEdit';
 
 
 
-export function UserTableRow(props) {
+export function UserTableRow({ user, refresh }) {
 
-    const user = props.user;
     const token = useAuthStore(state => state.getToken());
     const [isDetailView, setIsDetailView] = useState(false);
     const [chevron, setChevron] = useState(<BsChevronDown />);
@@ -83,7 +82,7 @@ export function UserTableRow(props) {
     async function deleteUser() {
 
         try {
-            const response = await axios.delete(`http://localhost:8080/protected/user/${user._id}`, {
+            const response = await axios.delete(`http://localhost:8080/admin/user/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -91,7 +90,7 @@ export function UserTableRow(props) {
 
             toggleDeleteModal();
 
-            props.updateTable()
+            refresh()
 
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`User ${user.username} was deleted!`);
@@ -111,7 +110,7 @@ export function UserTableRow(props) {
 
 
     function getDateString(date) {
-        
+
         const dateObj = new Date(date);
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth() + 1;
@@ -124,7 +123,7 @@ export function UserTableRow(props) {
 
 
     function getTimeString(date) {
-        
+
         const dateObj = new Date(date);
         const hour = dateObj.getHours();
         const min = dateObj.getMinutes();
@@ -134,7 +133,6 @@ export function UserTableRow(props) {
 
         return timeString
     };
-
 
     return (
         <>
@@ -208,7 +206,7 @@ export function UserTableRow(props) {
                         }
 
                         {isEdit &&
-                            <UserForm setIsEdit={setIsEdit}/>
+                            <AdminUserEdit userToEdit={user} setIsEdit={setIsEdit} refresh={refresh} />
                         }
 
 

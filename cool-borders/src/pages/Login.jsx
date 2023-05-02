@@ -74,7 +74,6 @@ function Login() {
                         ref={usernameRef}
                         className={`${Styles.input}`}
                         placeholder="Username"
-
                         required
                     />
                 </div>

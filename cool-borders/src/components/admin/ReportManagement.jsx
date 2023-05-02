@@ -5,6 +5,7 @@ import useAuthStore from "../../store/useAuthStore";
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import ReportTableRow from "./ReportTableRow";
 import useDebounce from "../../hooks/debounce";
+import useNotificationStore from "../../store/useNotificationStore";
 
 
 
@@ -14,16 +15,30 @@ function ReportManagement() {
     const [searchString, setSearchString] = useState("");
     const [reportsArr, setReportsArr] = useState([]);
     const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />);
-    const [sortVal, setSortVal] = useState({ key: "username", upDir: false })
+    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false })
     const [isInit, setIsInit] = useState(true);
     const debounced = useDebounce(searchString);
+
+    // Notification Handler function
+    const notificationHandler = useNotificationStore(state => state.notificationHandler);
+
+    // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
+    function alertSuccessHandler(msg) {
+        notificationHandler('success', msg)
+    };
+    // Wenn bei register ein Fehler, wird ein Alert mit Fehlermeldung erzeugt
+    function alertFailHandler(msg) {
+        notificationHandler('fail', msg)
+    };
+
+
 
     async function getFilteredAndSortedReports() {
 
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`http://localhost:8080/protected/report?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`http://localhost:8080/admin/report?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -39,7 +54,7 @@ function ReportManagement() {
 
             console.log(error);
             // Display eine Fehlermeldung
-            alertFailHandler(error.response.message);
+            alertFailHandler(error.message);
         }
     };
 

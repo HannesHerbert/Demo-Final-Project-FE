@@ -31,7 +31,7 @@ function UserManagement() {
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`http://localhost:8080/protected/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`http://localhost:8080/admin/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -89,7 +89,7 @@ function UserManagement() {
     };
 
 
-    function updateTable() {
+    function refresh() {
         getFilteredAndSortedUsers()
     };
 
@@ -97,7 +97,7 @@ function UserManagement() {
     const userTable = usersArr.map(user => {
 
         return (
-            <UserTableRow user={user} key={user._id} updateTable={updateTable} />
+            <UserTableRow user={user} key={user._id} refresh={refresh}/>
         )
     });
 
