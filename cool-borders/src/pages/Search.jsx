@@ -30,7 +30,6 @@ function Search() {
                 'Authorization': `Bearer ${token}`
               }  
             });
-            console.log(resp.data);
             setUsers(resp.data.users);
         } catch (error) {
           console.log(error);
