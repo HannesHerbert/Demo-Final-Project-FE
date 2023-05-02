@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import useNotificationStore from "../../store/useNotificationStore";
 import axios from 'axios';
 import useAuthStore from "../../store/useAuthStore";
+import UserForm from '../forms/UserForm';
 
 // Clodinary
 import CLOUD from "../../services/cloudinary.js";
@@ -19,6 +20,9 @@ export function UserTableRow(props) {
     const [isDetailView, setIsDetailView] = useState(false);
     const [chevron, setChevron] = useState(<BsChevronDown />);
     const [isDelete, setIsDelete] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const date = getDateString(user.lastLogin);
+    const time = getTimeString(user.lastLogin);
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
@@ -87,6 +91,8 @@ export function UserTableRow(props) {
 
             toggleDeleteModal();
 
+            props.updateTable()
+
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`User ${user.username} was deleted!`);
 
@@ -96,7 +102,38 @@ export function UserTableRow(props) {
             // Display eine Fehlermeldung
             alertFailHandler(error.response.data.message);
         }
+    };
+
+
+    function toggleEditMode() {
+        setIsEdit(isEdit => !isEdit)
     }
+
+
+    function getDateString(date) {
+        
+        const dateObj = new Date(date);
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth() + 1;
+        const day = dateObj.getDay();
+
+        const dateString = `${day < 10 ? 0 : ""}${day}.${month < 10 ? 0 : ""}${month}.${year}`
+
+        return dateString
+    };
+
+
+    function getTimeString(date) {
+        
+        const dateObj = new Date(date);
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes();
+        const sec = dateObj.getSeconds();
+
+        const timeString = `${hour < 10 ? 0 : ""}${hour}:${min < 10 ? 0 : ""}${min}:${sec < 10 ? 0 : ""}${sec}`
+
+        return timeString
+    };
 
 
     return (
@@ -116,11 +153,14 @@ export function UserTableRow(props) {
             <tr className={`even:bg-gray-100 odd:bg-white ${isDetailView ? null : 'hidden'}`}>
                 <td className="table-span" colSpan="7">
                     <div className="w-full p-3 text-left">
+
                         <div className="w-full flex justify-between">
                             <p>Fullname: {user.fullname}</p>
-                            <p>Last Login: {user.lastLogin === undefined ? "n/a" : user.lastLogin}</p>
+                            <p>Last Login: {user.lastLogin === undefined ? "n/a" : (`${date}, ${time}`)}</p>
                         </div>
+
                         <p>eMail: {user.email}</p>
+
                         <p className="underline mt-3">Description:</p>
 
                         <div className="w-full flex justify-between">
@@ -161,13 +201,15 @@ export function UserTableRow(props) {
                             ) :
                             (
                                 <div className="w-full flex justify-end mt-3">
-                                    <button className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Edit</button>
+                                    <button onClick={toggleEditMode} className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Edit</button>
                                     <button onClick={toggleDeleteModal} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Delete</button>
                                 </div>
                             )
                         }
 
-
+                        {isEdit &&
+                            <UserForm setIsEdit={setIsEdit}/>
+                        }
 
 
 

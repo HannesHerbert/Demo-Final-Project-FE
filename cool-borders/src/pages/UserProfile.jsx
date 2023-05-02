@@ -110,7 +110,7 @@ console.log(user);
 
                 :
 
-                <UserForm setIsEdit={setIsEdit}/>
+                <UserForm user={user} setIsEdit={setIsEdit}/>
             }
         </>
     )

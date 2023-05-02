@@ -6,10 +6,11 @@ import axios from "axios";
 import defaultImage from "../../assets/anonym.png";
 
 
-function UserForm({ setIsEdit }) {
+function UserForm(props) {
 
     // Auth
-    const user = useAuthStore(state => state.user);
+    const user = props.user;
+    setIsEdit = props.setIsEdit();
     const updateUser = useAuthStore((state) => state.updateUser);
     const token = useAuthStore(state => state.getToken());
 
