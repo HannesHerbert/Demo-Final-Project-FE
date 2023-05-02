@@ -22,15 +22,6 @@ function UserProfile() {
     //todo wenn author - 
     // todo wenn admin - 
 
-    // const isAuthenticated = useAuthStore(state => state.isAuthenticated());
-    // console.log(isAuthenticated);
-
-    // useEffect(() => {
-    //     if(isEdit === false) {
-    //         console.log("get user data");
-    //     }
-    // }, [isEdit])
-console.log(user);
 
     return (
         <>
