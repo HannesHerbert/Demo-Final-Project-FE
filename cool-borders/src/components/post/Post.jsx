@@ -26,6 +26,8 @@ function Post({post}) {
     const token = useAuthStore(state => state.getToken());
     // fetchFavs
     const fetchFavorites = usePostsStore(state => state.fetchFavorites);
+    // Auth?
+    const isAuthenticated = useAuthStore(state => state.isAuthenticated());
     // user
     const updateUser = useAuthStore(state => state.updateUser)
     // const favorites = usePostsStore(state => state.favorites);
@@ -63,13 +65,13 @@ function Post({post}) {
 
 
     useEffect(() => {
-        
-        if (user.favorites.includes(post._id)) {
-            setFavStyle('text-green-500');
-        } else {
-            setFavStyle('text-gray-100');
+        if (isAuthenticated) {
+            if (user.favorites.includes(post._id)) {
+                setFavStyle('text-green-500');
+            } else {
+                setFavStyle('text-gray-100');
+            }
         }
-        
     }, [favStyleToggle]);
 
     async function toggleToFavorites() {
@@ -127,27 +129,31 @@ function Post({post}) {
                     </p>
 
                     {/* KOMMENTARE */}
-                    <div className='w-full bg-gray-500 rounded-xl'>
-                        <h5 
-                            className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
-                            onClick={handleComments}
-                        >
-                            Comments
-                        </h5>
-
-                        {showComments && <Comments post={post} />}
-                    </div>
+                    {  isAuthenticated &&
+                        <div className='w-full bg-gray-500 rounded-xl'>
+                            <h5
+                                className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
+                                onClick={handleComments}
+                            >
+                                Comments
+                            </h5>
+                            {showComments && <Comments post={post} />}
+                        </div>
+                    }
 
                     {/* BUTTONS Zu Favs & REPORT */}
-                    <div className="flex flex-row justify-between items-center mt-4 ml-1">
-                        <AiFillStar
-                        onClick={toggleToFavorites}
-                         className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
-                         />
-                        <RiAlarmWarningLine 
-                        className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
-                        />
-                    </div>
+                    {
+                        isAuthenticated &&
+                        <div className="flex flex-row justify-between items-center mt-4 ml-1">
+                            <AiFillStar
+                            onClick={toggleToFavorites}
+                            className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
+                            />
+                            <RiAlarmWarningLine
+                            className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer"
+                            />
+                        </div>
+                        }
 
 
                 </section>

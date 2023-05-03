@@ -73,8 +73,6 @@ function UserManagement() {
 
     function handleSortClick(evt) {
 
-        console.log(evt.target.name);
-
         if (evt.target.name === sortVal.key) {
             setSortVal({ key: sortVal.key, upDir: !sortVal.upDir })
         } else {

@@ -22,6 +22,8 @@ export function UserTableRow({ user, refresh }) {
     const [isEdit, setIsEdit] = useState(false);
     const date = getDateString(user.lastLogin);
     const time = getTimeString(user.lastLogin);
+    const [postAmount, setPostAmount] = useState(0);
+    const [reportAmount, setReportAmount] = useState(0)
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
@@ -34,6 +36,47 @@ export function UserTableRow({ user, refresh }) {
         setChevron(isDetailView ? <BsChevronUp /> : <BsChevronDown />)
     }, [isDetailView]);
 
+
+    async function getPostAmount() {
+
+        try {
+            const response = await axios.get(`http://localhost:8080/admin/posts/amount/${user._id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            setPostAmount(response.data.postAmount);
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.response.data.message);
+        }
+    };
+
+    async function getReportAmount() {
+
+        try {
+            const response = await axios.get(`http://localhost:8080/admin/reports/amount/${user._id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            setReportAmount(response.data.reportAmount);
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.response.data.message);
+        }
+    };
+
+    getPostAmount();
+    getReportAmount();
 
 
     // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
@@ -134,14 +177,15 @@ export function UserTableRow({ user, refresh }) {
         return timeString
     };
 
+
     return (
         <>
             <tr className="even:bg-gray-100 odd:bg-white border-b" key={user._id}>
                 <td className="p-1 flex justify-center bg-opacity-0"><AdvancedImage cldImg={profileImg} /></td>
                 <td className="border-l text-left p-1 " colSpan="2"><b>{user.username}</b></td>
                 <td className="border-l">{user.role}</td>
-                <td className="border-l">1</td>
-                <td className="border-l">1</td>
+                <td className="border-l">{postAmount}</td>
+                <td className="border-l">{reportAmount}</td>
                 <td className="border-l">
                     <button onClick={handleShowDetails} className="flex align-middle justify-center w-full">
                         {chevron}

@@ -7,7 +7,6 @@ import UserForm from "../forms/UserForm";
 function UserUserEdit({ userToEdit, setIsEdit }) {
 
     // Auth
-    const user = useAuthStore(state => state.user)
     const updateUser = useAuthStore((state) => state.updateUser);
     const token = useAuthStore(state => state.getToken());
 

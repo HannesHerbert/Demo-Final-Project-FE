@@ -1,9 +1,10 @@
-import {Link, Outlet} from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 import Header from '../components/layout/Header';
 import useAuthStore from '../store/useAuthStore';
 import Nav from '../components/layout/Nav';
 import Notification from '../components/Notification';
+import ReportModal from '../components/user/ReportModal';
 
 
 
@@ -22,15 +23,20 @@ function Layout() {
 
 
     return (
-        <div className='container mx-auto min-h-screen relative w-5/6 '>  
-            <Header  />
+        <div className='container mx-auto min-h-screen relative w-5/6 '>
+            
+            <Header />
 
-            <Nav  />
+            <Nav />
 
             <Notification />
 
-            <div className='container min-h-screen py-24'> 
+            <div className='container min-h-screen py-24'>
+
                 <Outlet />
+
+                <ReportModal />
+
             </div>
         </div>
     );

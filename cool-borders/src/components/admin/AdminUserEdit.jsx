@@ -25,7 +25,7 @@ function AdminUserEdit({ userToEdit, setIsEdit, refresh }) {
 
     async function sendRequest(updatedUser) {
 
-        // Sende Request an /register endpoint der API
+        // Sende Request an  API
         try {
             const response = await axios.put(`http://localhost:8080/admin/user/${userToEdit._id}`, updatedUser, {
                 headers: {
