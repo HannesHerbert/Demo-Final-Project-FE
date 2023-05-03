@@ -1,5 +1,6 @@
-import { RiAlarmWarningLine } from 'react-icons/ri';
+// import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiFillStar } from 'react-icons/ai';
+import {VscWarning} from 'react-icons/vsc';
 import ImageSlider from '../../components/ImageSlider.jsx';
 // CLOUDINARY
 import CLOUD from "../../services/cloudinary.js";
@@ -13,6 +14,7 @@ import Comments from '../comments/Comments.jsx';
 import axios from 'axios';
 import usePostsStore from '../../store/usePostsStore.js';
 import useAuthStore from '../../store/useAuthStore.js';
+import useReportStore from '../../store/useReportStore.js';
 
 
 function Post({post}) {
@@ -21,6 +23,9 @@ function Post({post}) {
     const [currSlide, setCurrSlide] = useState(1);
     const [favStyleToggle, setFavStyleToggle] = useState(false);
     const [favStyle, setFavStyle] = useState('text-gray-100');
+
+    // report Store
+    const sendReport = useReportStore(state => state.sendReport);
     
     // token
     const token = useAuthStore(state => state.getToken());
@@ -150,7 +155,8 @@ function Post({post}) {
                             onClick={toggleToFavorites}
                             className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
                             />
-                            <RiAlarmWarningLine 
+                            <VscWarning 
+                            onClick={() => sendReport(post.type, post._id)}
                             className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
                             />
                         </div>

@@ -28,9 +28,6 @@ function Register() {
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
 
-
-
-
     // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
     function alertSuccessHandler(msg) {
         notificationHandler('success', msg)
