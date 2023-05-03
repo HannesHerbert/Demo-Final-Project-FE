@@ -29,7 +29,7 @@ function Login() {
 
     useEffect(() => {
         if (isAuthenticated) {
-        navigate('/news')
+        navigate('/')
         }
     }, [isAuthenticated]);
 

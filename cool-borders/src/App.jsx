@@ -15,6 +15,7 @@ import Register from './pages/Register';
 import UserInfo from './pages/UserInfo';
 import AdminDashboard from './components/admin/AdminDashboard';
 import UserManagement from './components/admin/UserManagement';
+import { Navigate } from 'react-router-dom';
 
 function App() {
 
@@ -35,7 +36,6 @@ function App() {
               <Route path='/create' element={<Create />} />
               <Route path='/blogs' element={<Blogs />} />
               <Route path='/favs' element={<Favs />} />
-              <Route path='/news' element={<News />} />
 
               <Route path='/search' element={<Search />} />
               <Route path='/users/:username' element={<UserInfo />} />
@@ -47,6 +47,8 @@ function App() {
               </Route>
 
             </Route>
+
+            <Route path="*" element={<Navigate to="/" replace />} />
 
           </Route>
 
