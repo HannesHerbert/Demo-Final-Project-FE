@@ -129,28 +129,29 @@ function Post({post}) {
                     </p>
 
                     {/* KOMMENTARE */}
-                    {  isAuthenticated &&
+                    {  isAuthenticated &&                  
                         <div className='w-full bg-gray-500 rounded-xl'>
-                            <h5
+                            <h5 
                                 className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
                                 onClick={handleComments}
                             >
                                 Comments
                             </h5>
+
                             {showComments && <Comments post={post} />}
                         </div>
                     }
 
                     {/* BUTTONS Zu Favs & REPORT */}
-                    {
-                        isAuthenticated &&
+                        {     
+                        isAuthenticated &&               
                         <div className="flex flex-row justify-between items-center mt-4 ml-1">
                             <AiFillStar
                             onClick={toggleToFavorites}
                             className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
                             />
-                            <RiAlarmWarningLine
-                            className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer"
+                            <RiAlarmWarningLine 
+                            className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
                             />
                         </div>
                         }
