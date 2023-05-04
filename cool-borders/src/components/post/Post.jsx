@@ -15,6 +15,8 @@ import axios from 'axios';
 import usePostsStore from '../../store/usePostsStore.js';
 import useAuthStore from '../../store/useAuthStore.js';
 import useReportStore from '../../store/useReportStore.js';
+import useUserSearchStore from '../../store/useUserSearchStore.js'
+import { Link } from 'react-router-dom';
 
 
 function Post({post}) {
@@ -26,6 +28,8 @@ function Post({post}) {
 
     // report Store
     const sendReport = useReportStore(state => state.sendReport);
+    // search user by avatar click
+    const setSearchUser = useUserSearchStore(state => state.setSearchUser);
     
     // token
     const token = useAuthStore(state => state.getToken());
@@ -98,6 +102,7 @@ function Post({post}) {
         }
     }
 
+
     return (
 
         // Container
@@ -112,11 +117,17 @@ function Post({post}) {
                 <section className="text-justify flex flex-col w-full gap-5">
 
                     <div className="flex flex-row justify-between gap-2 mb-3">
-                        {/* Profil image */}
+                        {/* Profil image klickbar*/}
                         <div className="flex items-center">
                             
-                            <div className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
-                                <AdvancedImage cldImg={profileImg} />
+                            <div 
+                                className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4"
+                                onClick={() => setSearchUser(post.author)}
+                            >
+                                <Link to={`/users/${post.author.username}`} >
+                                    <AdvancedImage cldImg={profileImg} />
+                                </Link>
+
                             </div>
                             <h3 className="ml-2 text-white text-xs font-bold ">{post.author.fullname}</h3>
                         </div>

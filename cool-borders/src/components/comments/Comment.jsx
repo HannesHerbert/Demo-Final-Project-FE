@@ -9,6 +9,8 @@ import {VscClose, VscSettings, VscWarning} from 'react-icons/vsc';
 import { useState } from "react";
 import CommentEditForm from "./CommentEditForm.jsx";
 import useReportStore from "../../store/useReportStore.js";
+import { Link } from "react-router-dom";
+import useUserSearchStore from "../../store/useUserSearchStore.js";
 
 
 
@@ -17,6 +19,7 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
     const user = useAuthStore(state => state.user);
     const [isEdit, setIsEdit] = useState(false)
     const sendReport = useReportStore(state => state.sendReport);
+    const setSearchUser = useUserSearchStore(state => state.setSearchUser);
 
     // CLOUDINARY
     const publicId = getImgPublicId(comment.author.image)
@@ -44,9 +47,14 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
         <li className="relative px-5 py-3 bg-gray-800 rounded-xl flex flex-col gap-5 text-xs md:text-lg">
 
             <div className="flex items-center gap-3">
-                {/* author image */}
-                <div className="h-8 w-8 border-white rounded-full overflow-hidden border-4">
-                    <AdvancedImage cldImg={profileImg} />
+                {/* author image klickbar */}
+                <div 
+                    className="h-8 w-8 border-white rounded-full overflow-hidden border-4"
+                    onClick={() => setSearchUser(comment.author)}
+                    >
+                        <Link to={`/users/${comment.author.username}`} >
+                            <AdvancedImage cldImg={profileImg} />
+                        </Link>
                 </div>
                 {/*  author name */}
                 <span className="text-gray-500">{comment.author.fullname}</span>
