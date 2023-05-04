@@ -121,7 +121,7 @@ function Post({post}) {
                         <div className="flex items-center">
                             
                             <div 
-                                className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4"
+                                className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
                                 onClick={() => setSearchUser(post.author)}
                             >
                                 <Link to={`/users/${post.author.username}`} >
