@@ -34,6 +34,7 @@ function ReportModal() {
     useEffect(() => {
         if (showReport === false) {
             setShowModal('hidden');
+            // setReportText('');
         } else {
             setShowModal('');
         }
@@ -52,20 +53,23 @@ function ReportModal() {
         };
 
         try {
-            const response = await axios.post(`http://localhost:8080/protected/report`, report, {
+            await axios.post(`http://localhost:8080/protected/report`, report, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
+            // setReportText('');
+            closeReport();   // todo funktioniert nicht korrekt! mus gefixt werden
+            setReportText('');
+            
             // display eine 'SUCCESS' Meldung
             alertSuccessHandler(`Your report was successfully sended`);
-            closeReport();
-            setReportText('');
+
 
         } catch (error) {
             console.log(error);
             // Display eine Fehlermeldung
-            // alertFailHandler(error.message);
+            alertFailHandler(error.message);
         }
     };
 
@@ -84,7 +88,7 @@ function ReportModal() {
 
                     <p><b>Report on: </b>{reportType}</p>
 
-                    <textarea onChange={evt => setReportText(evt.target.value)} className="text-left text-black w-full self-center mt-3" placeholder="Write your Report" id="reportinput" cols="30" rows="6"></textarea>
+                    <textarea value={reportText} onChange={evt => setReportText(evt.target.value)} className="text-left text-black w-full self-center mt-3" placeholder="Write your Report" id="reportinput" cols="30" rows="6"></textarea>
 
                     <div className="flex justify-evenly mt-2">
                         <button

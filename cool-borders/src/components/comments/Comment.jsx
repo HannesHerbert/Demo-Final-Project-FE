@@ -10,7 +10,7 @@ import { useState } from "react";
 import CommentEditForm from "./CommentEditForm.jsx";
 import useReportStore from "../../store/useReportStore.js";
 import { Link } from "react-router-dom";
-import useUserSearchStore from "../../store/useUserSearchStore.js";
+import useSearchStore from "../../store/useSearchStore.js";
 
 
 
@@ -19,7 +19,7 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
     const user = useAuthStore(state => state.user);
     const [isEdit, setIsEdit] = useState(false)
     const sendReport = useReportStore(state => state.sendReport);
-    const setSearchUser = useUserSearchStore(state => state.setSearchUser);
+    const setSearchUser = useSearchStore(state => state.setSearchUser);
 
     // CLOUDINARY
     const publicId = getImgPublicId(comment.author.image)
