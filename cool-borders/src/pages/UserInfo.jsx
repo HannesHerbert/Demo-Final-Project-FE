@@ -1,13 +1,14 @@
 import useReportStore from "../store/useReportStore";
-import useUserSearchStore from "../store/useUserSearchStore";
+import useSearchStore from "../store/useSearchStore";
+
 
 
 
 
 function UserInfo() {
-    const searchUser = useUserSearchStore(state => state.searchUser);
+    const searchUser = useSearchStore(state => state.searchUser);
     const sendReport = useReportStore(state => state.sendReport);
-
+    console.log(searchUser);
     return (
        <>
          {searchUser &&

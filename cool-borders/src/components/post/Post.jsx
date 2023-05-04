@@ -15,8 +15,8 @@ import axios from 'axios';
 import usePostsStore from '../../store/usePostsStore.js';
 import useAuthStore from '../../store/useAuthStore.js';
 import useReportStore from '../../store/useReportStore.js';
-import useUserSearchStore from '../../store/useUserSearchStore.js'
 import { Link } from 'react-router-dom';
+import useSearchStore from '../../store/useSearchStore.js';
 
 
 function Post({post}) {
@@ -29,7 +29,7 @@ function Post({post}) {
     // report Store
     const sendReport = useReportStore(state => state.sendReport);
     // search user by avatar click
-    const setSearchUser = useUserSearchStore(state => state.setSearchUser);
+    const setSearchUser = useSearchStore(state => state.setSearchUser);
     
     // token
     const token = useAuthStore(state => state.getToken());
@@ -45,6 +45,7 @@ function Post({post}) {
     const publicId = getImgPublicId(post.author.image)
     const profileImg = CLOUD.image(publicId);
     profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+
 
     function getImgPublicId(url) {
         // CLOUDINARY
