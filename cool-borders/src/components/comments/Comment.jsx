@@ -49,7 +49,7 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
             <div className="flex items-center gap-3">
                 {/* author image klickbar */}
                 <div 
-                    className="h-8 w-8 border-white rounded-full overflow-hidden border-4"
+                    className="h-8 w-8 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
                     onClick={() => setSearchUser(comment.author)}
                     >
                         <Link to={`/users/${comment.author.username}`} >
@@ -73,13 +73,13 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
                     <VscSettings 
                         onClick={() => setIsEdit(true)}
                         size={22} 
-                        className="text-blue-500 absolute top-3 right-12 cursor-pointer"
+                        className="hover:text-blue-500 absolute top-3 right-12 cursor-pointer"
                     />
 
                     < VscClose
                         onClick={() => deleteCommentCallback(comment._id)} 
                         size={24} 
-                        className="text-red-500 absolute top-3 right-3 cursor-pointer"
+                        className="hover:text-red-500 absolute top-3 right-3 cursor-pointer"
                     />
                 </>
             }
