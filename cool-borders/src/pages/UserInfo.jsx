@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import useReportStore from "../store/useReportStore";
 import useSearchStore from "../store/useSearchStore";
+import useLocationStore from "../store/useLocationStore";
 
 
 
@@ -8,12 +10,20 @@ import useSearchStore from "../store/useSearchStore";
 function UserInfo() {
     const searchUser = useSearchStore(state => state.searchUser);
     const sendReport = useReportStore(state => state.sendReport);
-    console.log(searchUser);
+    // const prevLocationId = useLocationStore(state => state.prevLocationId);
+    // const locationPage = useLocationStore(state => state.locationPage);
+
+console.log(locationPage);
     return (
        <>
+        {/* <button className="text-gray-400 mt-20">
+            <Link to={`/${locationPage}`}><a href={`#${prevLocationId}`}>Back</a></Link>
+            
+        </button> */}
          {searchUser &&
-            <div className="container w-2/3 mx-auto items-center flex flex-col gap-16 min-h-full justify-center text-white ">
 
+            <div className="container w-2/3 mx-auto items-center flex flex-col gap-16 min-h-full justify-center text-white ">
+                
                 <div className="relative shadow mx-auto h-36 w-36 my- border-white rounded-full overflow-hidden border-4 ">
                     <img className="object-cover w-full h-full" src={searchUser.image} alt="" />
                 </div>

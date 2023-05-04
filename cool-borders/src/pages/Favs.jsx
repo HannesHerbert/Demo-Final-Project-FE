@@ -19,7 +19,7 @@ function Favs() {
     <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
 
       {favorites.map(fav => {
-        return <Post key={fav._id} post={fav} fetchFavoritesCallback={fetchFavorites} />
+        return <Post key={fav._id} post={fav} fromLocation={'/favs'} />
       })}
 
     </div>
