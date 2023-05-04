@@ -28,9 +28,6 @@ function Register() {
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
 
-
-
-
     // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
     function alertSuccessHandler(msg) {
         notificationHandler('success', msg)
@@ -65,10 +62,9 @@ function Register() {
         }
         // Wenn password und wiederhol-password nicht gleich sind, dann Fehlermeldung und early return
         if (passwordRepeatRef.current.value !== passwordRef.current.value) {
-            console.log(`Die passwörter stimmen nicht!`);
             setErrormessage(prev => {
                 return {
-                    passwordRepeat: `Die passwörter stimmen nicht!`
+                    passwordRepeat: `Passwords are not identical`
                 }
             });
             return;

@@ -1,5 +1,6 @@
-import { RiAlarmWarningLine } from 'react-icons/ri';
+// import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiFillStar } from 'react-icons/ai';
+import {VscWarning} from 'react-icons/vsc';
 import ImageSlider from '../../components/ImageSlider.jsx';
 // CLOUDINARY
 import CLOUD from "../../services/cloudinary.js";
@@ -13,6 +14,9 @@ import Comments from '../comments/Comments.jsx';
 import axios from 'axios';
 import usePostsStore from '../../store/usePostsStore.js';
 import useAuthStore from '../../store/useAuthStore.js';
+import useReportStore from '../../store/useReportStore.js';
+import useUserSearchStore from '../../store/useUserSearchStore.js'
+import { Link } from 'react-router-dom';
 
 
 function Post({post}) {
@@ -21,11 +25,18 @@ function Post({post}) {
     const [currSlide, setCurrSlide] = useState(1);
     const [favStyleToggle, setFavStyleToggle] = useState(false);
     const [favStyle, setFavStyle] = useState('text-gray-100');
+
+    // report Store
+    const sendReport = useReportStore(state => state.sendReport);
+    // search user by avatar click
+    const setSearchUser = useUserSearchStore(state => state.setSearchUser);
     
     // token
     const token = useAuthStore(state => state.getToken());
     // fetchFavs
     const fetchFavorites = usePostsStore(state => state.fetchFavorites);
+    // Auth?
+    const isAuthenticated = useAuthStore(state => state.isAuthenticated());
     // user
     const updateUser = useAuthStore(state => state.updateUser)
     // const favorites = usePostsStore(state => state.favorites);
@@ -63,13 +74,13 @@ function Post({post}) {
 
 
     useEffect(() => {
-        
-        if (user.favorites.includes(post._id)) {
-            setFavStyle('text-green-500');
-        } else {
-            setFavStyle('text-gray-100');
+        if (isAuthenticated) {
+            if (user.favorites.includes(post._id)) {
+                setFavStyle('text-green-500');
+            } else {
+                setFavStyle('text-gray-100');
+            }
         }
-        
     }, [favStyleToggle]);
 
     async function toggleToFavorites() {
@@ -91,6 +102,7 @@ function Post({post}) {
         }
     }
 
+
     return (
 
         // Container
@@ -105,11 +117,17 @@ function Post({post}) {
                 <section className="text-justify flex flex-col w-full gap-5">
 
                     <div className="flex flex-row justify-between gap-2 mb-3">
-                        {/* Profil image */}
+                        {/* Profil image klickbar*/}
                         <div className="flex items-center">
                             
-                            <div className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
-                                <AdvancedImage cldImg={profileImg} />
+                            <div 
+                                className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4"
+                                onClick={() => setSearchUser(post.author)}
+                            >
+                                <Link to={`/users/${post.author.username}`} >
+                                    <AdvancedImage cldImg={profileImg} />
+                                </Link>
+
                             </div>
                             <h3 className="ml-2 text-white text-xs font-bold ">{post.author.fullname}</h3>
                         </div>
@@ -127,27 +145,33 @@ function Post({post}) {
                     </p>
 
                     {/* KOMMENTARE */}
-                    <div className='w-full bg-gray-500 rounded-xl'>
-                        <h5 
-                            className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
-                            onClick={handleComments}
-                        >
-                            Comments
-                        </h5>
+                    {  isAuthenticated &&                  
+                        <div className='w-full bg-gray-500 rounded-xl'>
+                            <h5 
+                                className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
+                                onClick={handleComments}
+                            >
+                                Comments
+                            </h5>
 
-                        {showComments && <Comments post={post} />}
-                    </div>
+                            {showComments && <Comments post={post} />}
+                        </div>
+                    }
 
                     {/* BUTTONS Zu Favs & REPORT */}
-                    <div className="flex flex-row justify-between items-center mt-4 ml-1">
-                        <AiFillStar
-                        onClick={toggleToFavorites}
-                         className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
-                         />
-                        <RiAlarmWarningLine 
-                        className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
-                        />
-                    </div>
+                        {     
+                        isAuthenticated &&               
+                        <div className="flex flex-row justify-between items-center mt-4 ml-1">
+                            <AiFillStar
+                            onClick={toggleToFavorites}
+                            className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
+                            />
+                            <VscWarning 
+                            onClick={() => sendReport(post.type, post._id)}
+                            className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
+                            />
+                        </div>
+                        }
 
 
                 </section>

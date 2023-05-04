@@ -15,7 +15,7 @@ function UserManagement() {
     const user = useAuthStore(state => state.user);
     const token = useAuthStore(state => state.getToken());
 
-    const [searchString, setSearchString] = useState("")
+    const [searchString, setSearchString] = useState("");
     const [usersArr, setUsersArr] = useState([]);
     const [isInit, setIsInit] = useState(true);
     const [sortVal, setSortVal] = useState({ key: "username", upDir: false });
@@ -31,7 +31,7 @@ function UserManagement() {
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`http://localhost:8080/protected/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`http://localhost:8080/admin/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -72,6 +72,7 @@ function UserManagement() {
 
 
     function handleSortClick(evt) {
+
         if (evt.target.name === sortVal.key) {
             setSortVal({ key: sortVal.key, upDir: !sortVal.upDir })
         } else {
@@ -86,10 +87,15 @@ function UserManagement() {
     };
 
 
+    function refresh() {
+        getFilteredAndSortedUsers()
+    };
+
+
     const userTable = usersArr.map(user => {
 
         return (
-            <UserTableRow user={user} key={user._id} />
+            <UserTableRow user={user} key={user._id} refresh={refresh}/>
         )
     });
 
@@ -122,17 +128,23 @@ function UserManagement() {
                             <th className="" colSpan="1"></th>
 
                             <th className="border-l" colSpan="2">
-                                <button name="username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                    User
+                                <span className="flex">
+                                    <button name="username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        User
+                                    </button>
                                     {sortVal.key === "username" ? dirArrow : null}
-                                </button>
+                                </span>
+
                             </th>
 
                             <th className="border-l">
-                                <button name="role" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                    Role
+                                <span className="flex">
+                                    <button name="role" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        Role
+                                    </button>
                                     {sortVal.key === "role" ? dirArrow : null}
-                                </button>
+                                </span>
+
                             </th>
 
                             <th className="border-l">

@@ -9,16 +9,21 @@ import CLOUD from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
+import AdminUserEdit from './AdminUserEdit';
 
 
 
-export function UserTableRow(props) {
+export function UserTableRow({ user, refresh }) {
 
-    const user = props.user;
     const token = useAuthStore(state => state.getToken());
     const [isDetailView, setIsDetailView] = useState(false);
     const [chevron, setChevron] = useState(<BsChevronDown />);
     const [isDelete, setIsDelete] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const date = getDateString(user.lastLogin);
+    const time = getTimeString(user.lastLogin);
+    const [postAmount, setPostAmount] = useState(0);
+    const [reportAmount, setReportAmount] = useState(0)
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
@@ -31,6 +36,47 @@ export function UserTableRow(props) {
         setChevron(isDetailView ? <BsChevronUp /> : <BsChevronDown />)
     }, [isDetailView]);
 
+
+    async function getPostAmount() {
+
+        try {
+            const response = await axios.get(`http://localhost:8080/admin/posts/amount/${user._id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            setPostAmount(response.data.postAmount);
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.response.data.message);
+        }
+    };
+
+    async function getReportAmount() {
+
+        try {
+            const response = await axios.get(`http://localhost:8080/admin/reports/amount/${user._id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            setReportAmount(response.data.reportAmount);
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.response.data.message);
+        }
+    };
+
+    getPostAmount();
+    getReportAmount();
 
 
     // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
@@ -79,13 +125,15 @@ export function UserTableRow(props) {
     async function deleteUser() {
 
         try {
-            const response = await axios.delete(`http://localhost:8080/protected/user/${user._id}`, {
+            const response = await axios.delete(`http://localhost:8080/admin/user/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
 
             toggleDeleteModal();
+
+            refresh()
 
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`User ${user.username} was deleted!`);
@@ -96,7 +144,38 @@ export function UserTableRow(props) {
             // Display eine Fehlermeldung
             alertFailHandler(error.response.data.message);
         }
+    };
+
+
+    function toggleEditMode() {
+        setIsEdit(isEdit => !isEdit)
     }
+
+
+    function getDateString(date) {
+
+        const dateObj = new Date(date);
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth() + 1;
+        const day = dateObj.getDay();
+
+        const dateString = `${day < 10 ? 0 : ""}${day}.${month < 10 ? 0 : ""}${month}.${year}`
+
+        return dateString
+    };
+
+
+    function getTimeString(date) {
+
+        const dateObj = new Date(date);
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes();
+        const sec = dateObj.getSeconds();
+
+        const timeString = `${hour < 10 ? 0 : ""}${hour}:${min < 10 ? 0 : ""}${min}:${sec < 10 ? 0 : ""}${sec}`
+
+        return timeString
+    };
 
 
     return (
@@ -105,8 +184,8 @@ export function UserTableRow(props) {
                 <td className="p-1 flex justify-center bg-opacity-0"><AdvancedImage cldImg={profileImg} /></td>
                 <td className="border-l text-left p-1 " colSpan="2"><b>{user.username}</b></td>
                 <td className="border-l">{user.role}</td>
-                <td className="border-l">1</td>
-                <td className="border-l">1</td>
+                <td className="border-l">{postAmount}</td>
+                <td className="border-l">{reportAmount}</td>
                 <td className="border-l">
                     <button onClick={handleShowDetails} className="flex align-middle justify-center w-full">
                         {chevron}
@@ -116,11 +195,14 @@ export function UserTableRow(props) {
             <tr className={`even:bg-gray-100 odd:bg-white ${isDetailView ? null : 'hidden'}`}>
                 <td className="table-span" colSpan="7">
                     <div className="w-full p-3 text-left">
+
                         <div className="w-full flex justify-between">
                             <p>Fullname: {user.fullname}</p>
-                            <p>Last Login: {user.lastLogin === undefined ? "n/a" : user.lastLogin}</p>
+                            <p>Last Login: {user.lastLogin === undefined ? "n/a" : (`${date}, ${time}`)}</p>
                         </div>
+
                         <p>eMail: {user.email}</p>
+
                         <p className="underline mt-3">Description:</p>
 
                         <div className="w-full flex justify-between">
@@ -161,13 +243,15 @@ export function UserTableRow(props) {
                             ) :
                             (
                                 <div className="w-full flex justify-end mt-3">
-                                    <button className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Edit</button>
+                                    <button onClick={toggleEditMode} className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Edit</button>
                                     <button onClick={toggleDeleteModal} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Delete</button>
                                 </div>
                             )
                         }
 
-
+                        {isEdit &&
+                            <AdminUserEdit userToEdit={user} setIsEdit={setIsEdit} refresh={refresh} />
+                        }
 
 
 

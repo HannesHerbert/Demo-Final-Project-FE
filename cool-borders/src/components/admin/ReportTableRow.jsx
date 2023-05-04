@@ -19,6 +19,8 @@ export function ReportTableRow(props) {
     const [isDetailView, setIsDetailView] = useState(false);
     const [chevron, setChevron] = useState(<BsChevronDown />);
     const [isDelete, setIsDelete] = useState(false);
+    const date = getDateString(report.createdAt);
+    const time = getTimeString(report.createdAt);
 
     const publicId = getImgPublicId(report.reportedBy.image);
     const profileImg = CLOUD.image(publicId);
@@ -75,27 +77,53 @@ export function ReportTableRow(props) {
     };
 
 
-    // async function deleteUser() {
+    function getDateString(date) {
+        
+        const dateObj = new Date(date);
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth() + 1;
+        const day = dateObj.getDay();
 
-    //     try {
-    //         const response = await axios.delete(`http://localhost:8080/protected/user/${user._id}`, {
-    //             headers: {
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
+        const dateString = `${day < 10 ? 0 : ""}${day}.${month < 10 ? 0 : ""}${month}.${year}`
 
-    //         toggleDeleteModal();
+        return dateString
+    };
 
-    //         // display eine 'SUCCESS' Meldung und navigiere zu Login
-    //         alertSuccessHandler(`User ${user.username} was deleted!`);
 
-    //     } catch (error) {
+    function getTimeString(date) {
+        
+        const dateObj = new Date(date);
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes();
+        const sec = dateObj.getSeconds();
 
-    //         console.log(error);
-    //         // Display eine Fehlermeldung
-    //         // alertFailHandler(error.response.message);
-    //     }
-    // }
+        const timeString = `${hour < 10 ? 0 : ""}${hour}:${min < 10 ? 0 : ""}${min}:${sec < 10 ? 0 : ""}${sec}`
+
+        return timeString
+    };
+
+
+    async function deleteReport() {
+
+        try {
+            const response = await axios.delete(`http://localhost:8080/protected/report/${report._id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            toggleDeleteModal();
+
+            // display eine 'SUCCESS' Meldung und navigiere zu Login
+            alertSuccessHandler(`Report was deleted!`);
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            // alertFailHandler(error.response.message);
+        }
+    }
 
 
     return (
@@ -104,8 +132,8 @@ export function ReportTableRow(props) {
                 <td className="p-1 flex justify-center bg-opacity-0"><AdvancedImage cldImg={profileImg} /></td>
                 <td className="border-l text-left p-1 " colSpan="2"><b>{report.reportedBy.username}</b></td>
                 <td className="border-l">{report.docModel}</td>
-                <td className="border-l">1</td>
-                <td className="border-l">1</td>
+                <td className="border-l">{date} <br/> {time}</td>
+                <td className="border-l"  colSpan="2">{report.reasonText}</td>
                 <td className="border-l">
                     <button onClick={handleShowDetails} className="flex align-middle justify-center w-full">
                         {chevron}
@@ -113,15 +141,15 @@ export function ReportTableRow(props) {
                 </td>
             </tr>
             <tr className={`even:bg-gray-100 odd:bg-white ${isDetailView ? null : 'hidden'}`}>
-                <td className="table-span" colSpan="6">
+                <td className="table-span" colSpan="8">
                     <div className="w-full p-3 text-left">
                         
-                        {/* {isDelete ?
+                        {isDelete ?
                             (
                                 <div className="bg-white w-full flex items-center mt-3">
-                                    <p className="w-full">Are you sure you want to delete this user?</p>
+                                    <p className="w-full">Are you sure you want to delete this report?</p>
                                     <button onClick={toggleDeleteModal} className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Cancel</button>
-                                    <button onClick={deleteUser} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Delete</button>
+                                    <button onClick={deleteReport} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Delete</button>
                                 </div>
 
                             ) :
@@ -131,7 +159,7 @@ export function ReportTableRow(props) {
                                     <button onClick={toggleDeleteModal} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Delete</button>
                                 </div>
                             )
-                        } */}
+                        }
 
                     </div>
                 </td>

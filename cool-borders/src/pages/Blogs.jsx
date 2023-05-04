@@ -59,7 +59,7 @@ function Blogs() {
                     return <Post post={blog} key={blog._id} />
                 })
                 :
-                <h3 className="text-white">There aren't  {filter} posts</h3>
+                <h3 className="text-white">There aren't any {filter} posts</h3>
             }
 
             

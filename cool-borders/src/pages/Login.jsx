@@ -29,7 +29,7 @@ function Login() {
 
     useEffect(() => {
         if (isAuthenticated) {
-        navigate('/news')
+        navigate('/')
         }
     }, [isAuthenticated]);
 
@@ -74,7 +74,6 @@ function Login() {
                         ref={usernameRef}
                         className={`${Styles.input}`}
                         placeholder="Username"
-
                         required
                     />
                 </div>
