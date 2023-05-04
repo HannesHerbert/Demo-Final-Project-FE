@@ -171,8 +171,7 @@ function Post({post}) {
                             className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
                             />
                         </div>
-                        }
-
+                    }
 
                 </section>
 
