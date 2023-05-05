@@ -15,11 +15,12 @@ import axios from 'axios';
 import usePostsStore from '../../store/usePostsStore.js';
 import useAuthStore from '../../store/useAuthStore.js';
 import useReportStore from '../../store/useReportStore.js';
-import useUserSearchStore from '../../store/useUserSearchStore.js'
 import { Link } from 'react-router-dom';
+import useSearchStore from '../../store/useSearchStore.js';
+import useLocationStore from '../../store/useLocationStore.js';
 
 
-function Post({post}) {
+function Post({post, fromLocation}) {
     // States
     const [showComments, setShowComments] = useState(false);
     const [currSlide, setCurrSlide] = useState(1);
@@ -29,8 +30,9 @@ function Post({post}) {
     // report Store
     const sendReport = useReportStore(state => state.sendReport);
     // search user by avatar click
-    const setSearchUser = useUserSearchStore(state => state.setSearchUser);
-    
+    const setSearchUser = useSearchStore(state => state.setSearchUser);
+    // LOCATION
+    const setPrevlocation = useLocationStore(state =>  state.setPrevlocation);
     // token
     const token = useAuthStore(state => state.getToken());
     // fetchFavs
@@ -45,6 +47,7 @@ function Post({post}) {
     const publicId = getImgPublicId(post.author.image)
     const profileImg = CLOUD.image(publicId);
     profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+
 
     function getImgPublicId(url) {
         // CLOUDINARY
@@ -106,7 +109,7 @@ function Post({post}) {
     return (
 
         // Container
-        <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl">
+        <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl" id={post._id}>
             
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
                 {/* Section 1 mit Bilder */}
@@ -122,7 +125,10 @@ function Post({post}) {
                             
                             <div 
                                 className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
-                                onClick={() => setSearchUser(post.author)}
+                                onClick={() => {
+                                    setSearchUser(post.author)
+                                    // setPrevlocation(fromLocation, post._id)
+                                }}
                             >
                                 <Link to={`/users/${post.author.username}`} >
                                     <AdvancedImage cldImg={profileImg} />

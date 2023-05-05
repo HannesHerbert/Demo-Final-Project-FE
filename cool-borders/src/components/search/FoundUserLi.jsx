@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useUserSearchStore from "../../store/useUserSearchStore";
+import useSearchStore from "../../store/useSearchStore";
 
 
 
@@ -7,7 +7,7 @@ import useUserSearchStore from "../../store/useUserSearchStore";
 
 function FoundUserLi({user}) {
 
-    const setSearchUser = useUserSearchStore(state => state.setSearchUser)
+    const setSearchUser = useSearchStore(state => state.setSearchUser)
     
     return (
         <li

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useNotificationStore from "../../store/useNotificationStore";
+import { image } from "@cloudinary/url-gen/qualifiers/source";
 
 
 function UserForm({ userToEdit, sendRequest, isAdminAct }) {
@@ -32,7 +33,6 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
         { label: 'Author', value: 'author' },
         { label: 'Admin', value: 'admin' }
     ];
-
 
     function undefFieldHandler(field) {
         if (field === undefined) return "n/a"
@@ -131,6 +131,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
                 accept="image/*"
                 className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="image-file"
+                // value={}
                 onChange={(evt) => setImage(evt)}
             />
 
