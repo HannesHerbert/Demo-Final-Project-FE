@@ -13,7 +13,7 @@ function UserInfo() {
     // const prevLocationId = useLocationStore(state => state.prevLocationId);
     // const locationPage = useLocationStore(state => state.locationPage);
 
-console.log(locationPage);
+// console.log(locationPage);
     return (
        <>
         {/* <button className="text-gray-400 mt-20">
