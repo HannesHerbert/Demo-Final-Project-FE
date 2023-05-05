@@ -51,7 +51,7 @@ function ReportModal() {
 
 
     return (
-        <div className="w-screen h-screen bg-white/30 fixed top-0 left-0 flex justify-center items-center z-50 backdrop-blur-sm">
+        <div className="hidden w-screen h-screen bg-white/30 fixed top-0 left-0 flex justify-center items-center z-50 backdrop-blur-sm">
             <div className="px-4 text-xs text-white bg-gray-900 pb-6 w-full h-fit flex flex-col items-center overflow-hidden md:max-w-sm rounded-lg mx-auto shadow-lg shadow-indigo-500/50 ">
 
                 <h2 className="text-lg">Create Report</h2>

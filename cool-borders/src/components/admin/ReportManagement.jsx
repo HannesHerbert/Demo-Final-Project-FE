@@ -15,9 +15,10 @@ function ReportManagement() {
     const [searchString, setSearchString] = useState("");
     const [reportsArr, setReportsArr] = useState([]);
     const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />);
-    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false })
+    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false, isClosed: false })
     const [isInit, setIsInit] = useState(true);
     const debounced = useDebounce(searchString);
+    const [isClosed, setIsClosed] = useState(true)
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
@@ -38,7 +39,7 @@ function ReportManagement() {
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`http://localhost:8080/admin/reports?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`http://localhost:8080/admin/reports?search=${searchString}&state=${sortVal.isClosed}&sort=${sortVal.key}&dir=${sortDir}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -80,16 +81,16 @@ function ReportManagement() {
 
     function handleSortClick(evt) {
         if (evt.target.name === sortVal.key) {
-            setSortVal({ key: sortVal.key, upDir: !sortVal.upDir })
+            setSortVal({ ...sortVal, upDir: !sortVal.upDir })
         } else {
-            setSortVal({ key: evt.target.name, upDir: false })
+            setSortVal({ ...sortVal, key: evt.target.name, upDir: false })
         }
     };
 
 
     function handleSubmit(evt) {
         evt.preventDefault()
-        getFilteredAndSortedUsers()
+        getFilteredAndSortedReports()
     };
 
 
@@ -101,8 +102,24 @@ function ReportManagement() {
     });
 
 
+    let optionValues = [,
+        { label: 'Open', value: false },
+        { label: 'Closed', value: true }
+    ];
+
+
+    const reportSelect = <select onChange={evt => setSortVal({ ...sortVal, isClosed: evt.target.value })}
+        className="p-1 absolute right-0 rounded-md text-white bg-black hover:text-indigo-200 justify-self-end">
+        {optionValues.map((state, index) => (
+            <option key={index} value={state.value} className="rounded-md p-2"
+                selected={state.value === sortVal.isClosed}>{state.label}
+            </option>
+        ))}
+    </select>
+
+
     return (
-        <div className="container flex flex-col justify-center items-center min-h-full">
+        <div className="relative container flex flex-col justify-center items-center min-h-full">
 
             <form method="get" onSubmit={handleSubmit} className="w-xs mx-auto w-full md:w-1/2 flex flex-col md:flex-row justify-center items-center">
 
@@ -118,6 +135,10 @@ function ReportManagement() {
                 <button className="w-32 flex justify-center items-center bg-orange-500 font-bold hover:bg-orange-600 text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600 duration-300">
                     <IoMdSearch className="text-2xl" />
                 </button>
+
+                {reportSelect}
+
+
 
             </form>
 

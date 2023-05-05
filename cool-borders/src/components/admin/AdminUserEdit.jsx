@@ -53,7 +53,7 @@ function AdminUserEdit({ userToEdit, setIsEdit, refresh }) {
 
         <div id="register" className=" container font-mono flex flex-col justify-center ">
 
-            <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">EDIT YOUR PROFILE</h2>
+            <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">EDIT USER-PROFILE</h2>
 
             <UserForm userToEdit={userToEdit} sendRequest={sendRequest} isAdminAct={true}/>
 
