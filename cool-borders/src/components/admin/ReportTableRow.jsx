@@ -152,7 +152,6 @@ export function ReportTableRow({report, updateTable}) {
                 break;
 
             case 'User':
-
                 document = <Link className="w-1/2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600 text-center">Go to User-Profile</Link>
                 break;
 

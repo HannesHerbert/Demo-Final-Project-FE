@@ -1,6 +1,6 @@
 // import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiFillStar } from 'react-icons/ai';
-import {VscWarning} from 'react-icons/vsc';
+import { VscWarning } from 'react-icons/vsc';
 import ImageSlider from '../../components/ImageSlider.jsx';
 // CLOUDINARY
 import CLOUD from "../../services/cloudinary.js";
@@ -20,7 +20,7 @@ import useSearchStore from '../../store/useSearchStore.js';
 import useLocationStore from '../../store/useLocationStore.js';
 
 
-function Post({post, fromLocation}) {
+function Post({ post, fromLocation }) {
     // States
     const [showComments, setShowComments] = useState(false);
     const [currSlide, setCurrSlide] = useState(1);
@@ -32,7 +32,7 @@ function Post({post, fromLocation}) {
     // search user by avatar click
     const setSearchUser = useSearchStore(state => state.setSearchUser);
     // LOCATION
-    const setPrevlocation = useLocationStore(state =>  state.setPrevlocation);
+    const setPrevlocation = useLocationStore(state => state.setPrevlocation);
     // token
     const token = useAuthStore(state => state.getToken());
     // fetchFavs
@@ -43,10 +43,19 @@ function Post({post, fromLocation}) {
     const updateUser = useAuthStore(state => state.updateUser)
     // const favorites = usePostsStore(state => state.favorites);
     const user = useAuthStore(state => state.user);
+
     // CLOUDINARY
-    const publicId = getImgPublicId(post.author.image)
-    const profileImg = CLOUD.image(publicId);
-    profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+    let publicId
+    let profileImg
+    if (post.author) {
+        publicId = getImgPublicId(post.author.image)
+        profileImg = CLOUD.image(publicId);
+        profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+    } else {
+        publicId = getImgPublicId("https://res.cloudinary.com/djiwww2us/image/upload/v1683292567/Asset-Images/deleted_user_g6xuqk.png")
+        profileImg = CLOUD.image(publicId);
+        profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+    }
 
 
     function getImgPublicId(url) {
@@ -92,7 +101,7 @@ function Post({post, fromLocation}) {
             let user = await axios.put('http://localhost:8080/protected/favorites/' + post._id, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
-                  }  
+                }
             });
             // update userdata im userStore
             updateUser(user.data.data)
@@ -110,7 +119,7 @@ function Post({post, fromLocation}) {
 
         // Container
         <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl" id={post._id}>
-            
+
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
                 {/* Section 1 mit Bilder */}
                 {post.images.length > 0 && <span className='text-white'>{currSlide}/{post.images.length}</span>}
@@ -122,20 +131,28 @@ function Post({post, fromLocation}) {
                     <div className="flex flex-row justify-between gap-2 mb-3">
                         {/* Profil image klickbar*/}
                         <div className="flex items-center">
-                            
-                            <div 
-                                className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
-                                onClick={() => {
-                                    setSearchUser(post.author)
-                                    // setPrevlocation(fromLocation, post._id)
-                                }}
-                            >
-                                <Link to={`/users/${post.author.username}`} >
-                                    <AdvancedImage cldImg={profileImg} />
-                                </Link>
 
-                            </div>
-                            <h3 className="ml-2 text-white text-xs font-bold ">{post.author.fullname}</h3>
+                            {!post.author ?
+                                <div
+                                    className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
+                                    <AdvancedImage cldImg={profileImg} />
+                                </div>
+                                :
+
+                                <div
+                                    className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                                    onClick={() => {
+                                        setSearchUser(post.author)
+                                        // setPrevlocation(fromLocation, post._id)
+                                    }}
+                                >
+                                    <Link to={`/users/${post.author.username}`} >
+                                        <AdvancedImage cldImg={profileImg} />
+                                    </Link>
+
+                                </div>
+                            }
+                            <h3 className="ml-2 text-white text-xs font-bold ">{!post.author ? "User deleted" : post.author.fullname}</h3>
                         </div>
 
                         {/* Category */}
@@ -147,13 +164,13 @@ function Post({post, fromLocation}) {
 
                     {/* Text */}
                     <p className="text-xs md:text-lg text-gray-400 ml-1">
-                            {post.text}
+                        {post.text}
                     </p>
 
                     {/* KOMMENTARE */}
-                    {  isAuthenticated &&                  
+                    {isAuthenticated &&
                         <div className='w-full bg-gray-500 rounded-xl'>
-                            <h5 
+                            <h5
                                 className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
                                 onClick={handleComments}
                             >
@@ -165,16 +182,16 @@ function Post({post, fromLocation}) {
                     }
 
                     {/* BUTTONS Zu Favs & REPORT */}
-                        {     
-                        isAuthenticated &&               
+                    {
+                        isAuthenticated &&
                         <div className="flex flex-row justify-between items-center mt-4 ml-1">
                             <AiFillStar
-                            onClick={toggleToFavorites}
-                            className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
+                                onClick={toggleToFavorites}
+                                className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
                             />
-                            <VscWarning 
-                            onClick={() => sendReport(post.type, post._id)}
-                            className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer" 
+                            <VscWarning
+                                onClick={() => sendReport(post.type, post._id)}
+                                className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer"
                             />
                         </div>
                     }
