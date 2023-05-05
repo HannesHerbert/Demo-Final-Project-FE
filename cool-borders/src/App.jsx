@@ -16,6 +16,7 @@ import UserInfo from './pages/UserInfo';
 import AdminDashboard from './components/admin/AdminDashboard';
 import UserManagement from './components/admin/UserManagement';
 import { Navigate } from 'react-router-dom';
+import PostInfo from './pages/PostInfo';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
 
               <Route path='/search' element={<Search />} />
               <Route path='/users/:username' element={<UserInfo />} />
+              <Route path='/posts/:title' element={<PostInfo />} />
 
               <Route path='/usermanagement' element={<UserManagement />} />
 
