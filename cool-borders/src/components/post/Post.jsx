@@ -52,7 +52,7 @@ function Post({ post, fromLocation }) {
         profileImg = CLOUD.image(publicId);
         profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
     } else {
-        publicId = getImgPublicId("https://res.cloudinary.com/djiwww2us/image/upload/v1683292567/Asset-Images/deleted_user_g6xuqk.png")
+        publicId = getImgPublicId("https://res.cloudinary.com/djiwww2us/image/upload/v1683293216/Asset-Images/deleted_user_pdfhxh.png")
         profileImg = CLOUD.image(publicId);
         profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
     }
