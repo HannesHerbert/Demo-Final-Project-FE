@@ -4,8 +4,8 @@ import useNotificationStore from "../../store/useNotificationStore";
 import axios from 'axios';
 import useAuthStore from "../../store/useAuthStore";
 import { Link } from 'react-router-dom';
-import Comment from '../comments/Comment';
-import Post from '../post/Post';
+import CommentAdmin from './CommentAdmin';
+import PostAdmin from './PostAdmin';
 
 
 
@@ -17,21 +17,25 @@ import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 
 
 
-export function ReportTableRow({report, updateTable}) {
+export function ReportTableRow({ report, updateTable }) {
 
     const token = useAuthStore(state => state.getToken());
     const [isDetailView, setIsDetailView] = useState(false);
     const [chevron, setChevron] = useState(<BsChevronDown />);
-    const [isClosing, setIsClosing] = useState(false);
+    const [isAction, setIsAction] = useState(false);
+    const [actionType, setActionType] = useState("");
     const date = getDateString(report.createdAt);
     const time = getTimeString(report.createdAt);
+
 
     const publicId = getImgPublicId(report.reportedBy.image);
     const profileImg = CLOUD.image(publicId);
     profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
 
     // Initialisiere Dokumenten-Variable zur Darstellung der Komponente
+    let requestBody = {}
     let document
+    let docSettings
     getDocument(report.docModel, report.doc);
 
     useEffect(() => {
@@ -80,8 +84,9 @@ export function ReportTableRow({report, updateTable}) {
     };
 
 
-    function toggleClosingModal() {
-        setIsClosing(isClosing => !isClosing)
+    function toggleActionModal(evt) {
+        setActionType(evt.target.name)
+        setIsAction(isAction => !isAction)
     };
 
 
@@ -111,7 +116,7 @@ export function ReportTableRow({report, updateTable}) {
     };
 
 
-    async function closeReport() {
+    async function closeReport(evt) {
 
         try {
             const response = await axios.put(`http://localhost:8080/admin/report/${report._id}`, {}, {
@@ -120,7 +125,7 @@ export function ReportTableRow({report, updateTable}) {
                 }
             });
 
-            toggleClosingModal();
+            toggleActionModal(evt);
 
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`Report was closed`);
@@ -136,23 +141,100 @@ export function ReportTableRow({report, updateTable}) {
     };
 
 
+    async function doDocAction(evt) {
+
+        console.log("docAction!!");
+
+        if(report.docModel === "User") {
+            requestBody = {...requestBody, banned: true}
+        }
+
+        try {
+            const response = await axios.put(docSettings.requestUrl, requestBody, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            console.log(response);
+
+            toggleActionModal(evt);
+
+            // display eine 'SUCCESS' Meldung und navigiere zu Login
+            alertSuccessHandler(docSettings.successMsg);
+
+            updateTable();
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.message);
+        }
+    };
+
+
+
+    const actionBtns = isAction ?
+        (
+            <div className="bg-white w-full flex items-center justify-between mt-3">
+                <p className="w-fit">{actionType === "close" ? 'Are you sure you want to close this report?' : docSettings.actionText}</p>
+                <div>
+                    <button onClick={toggleActionModal} className="w-fit px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Cancel</button>
+                    <button onClick={(evt) => (actionType === "close" ? closeReport(evt) : doDocAction(evt))} className="w-fit px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">{actionType === "close" ? "Close Report" : docSettings.btnText}</button>
+                </div>
+            </div>
+
+        ) :
+        (
+            <div className="w-full flex justify-end mt-3">
+                {report.doc && <button name="doc-action" onClick={toggleActionModal} className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">{docSettings.btnText}</button>}
+                <button name="close" onClick={toggleActionModal} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Close Report</button>
+            </div>
+        )
+
+
     function getDocument(docModel, doc) {
+
+        if (!doc) {
+            document = <p>{docModel} already deleted!</p>;
+            return
+        }
 
         switch (docModel) {
 
             case 'Post':
 
-                document = <Post post={doc} />
+                document = <PostAdmin post={doc} />
+                docSettings = {
+                    requestUrl: `http://localhost:8080/admin/post/${doc._id}`,
+                    actionText: 'Are you sure you want to hide this post?',
+                    btnText: "Hide Post",
+                    successMsg: "Post is now hidden"
+                }
 
                 break;
 
             case 'Comment':
 
-                document = <Comment comment={doc} />
+                document = <CommentAdmin comment={doc} />
+                docSettings = {
+                    requestUrl: `http://localhost:8080/admin/comment/${doc._id}`,
+                    actionText: 'Are you sure you want to hide this comment?',
+                    btnText: "Hide Comment",
+                    successMsg: "Comment is now hidden"
+                }
                 break;
 
             case 'User':
+                requestBody = {...doc}
                 document = <Link className="w-1/2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600 text-center">Go to User-Profile</Link>
+                docSettings = {
+                    requestUrl: `http://localhost:8080/admin/post/${doc._id}`,
+                    actionText: 'Are you sure you want to ban this user?',
+                    btnText: "Ban User",
+                    successMsg: "User is now banned"
+                }
                 break;
 
             default:
@@ -183,28 +265,7 @@ export function ReportTableRow({report, updateTable}) {
                             {document}
                         </div>
 
-                        {isClosing ?
-                            (
-                                <div className="bg-white w-full flex items-center justify-between mt-3">
-                                    <p className="w-fit">Are you sure you want to close this report?</p>
-                                    <div>
-                                        <button onClick={toggleClosingModal} className="w-fit px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Cancel</button>
-                                        <button onClick={closeReport} className="w-fit px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Close Report</button>
-                                    </div>
-                                </div>
-
-                            ) :
-                            (
-                                <div className="w-full flex justify-end mt-3">
-                                    {report.docModel !== 'User' ? 
-                                        <button onClick={toggleClosingModal} className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Hide {report.docModel}</button>
-                                    :
-                                        null
-                                    }
-                                    <button onClick={toggleClosingModal} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Close Report</button>
-                                </div>
-                            )
-                        }
+                        {actionBtns}
 
                     </div>
                 </td>

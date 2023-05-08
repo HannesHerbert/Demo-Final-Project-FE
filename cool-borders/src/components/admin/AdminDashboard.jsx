@@ -14,12 +14,12 @@ function AdminDashboard() {
     const user = useAuthStore(state => state.user);
 
     const displays = {
-        users: <UserManagement/>,
-        reports: <ReportManagement/>,
-        article: <CreateArticle/>
+        users: <UserManagement />,
+        reports: <ReportManagement />,
+        article: <CreateArticle />
     }
     const [display, setDisplay] = useState(displays.users);
-    
+
 
     function changeDisplay(evt) {
         setDisplay(displays[evt.target.name]);
@@ -33,25 +33,25 @@ function AdminDashboard() {
 
             <div className="w-full md:w-3/4">
 
-                <button className='w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
-                    name='article'
+                <button className='w-1/3 md:w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
+                    name='users'
                     onClick={changeDisplay}
                 >
-                    Create Article
+                    Manage Users
                 </button>
 
-                <button className='w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
+                <button className='w-1/3 md:w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
                     name='reports'
                     onClick={changeDisplay}
                 >
                     Manage Reports
                 </button>
 
-                <button className='w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
-                    name='users'
+                <button className='w-1/3 md:w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
+                    name='article'
                     onClick={changeDisplay}
                 >
-                    Manage Users
+                    Create Article
                 </button>
 
             </div>

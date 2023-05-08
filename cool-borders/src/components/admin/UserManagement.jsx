@@ -121,7 +121,7 @@ function UserManagement() {
 
             </form>
 
-            <div className="w-full relative bg-gray-900 rounded mt-4 px-4 table-wrp block max-h-96 overflow-y-scroll">
+            <div className="w-full relative bg-gray-900 rounded mt-4 px-4 table-wrp block h-5/6 overflow-y-scroll">
                 <table className="w-full md:text-sm pb-4">
                     <thead className="text-white sticky bg-gray-900 z-50 top-0">
                         <tr>

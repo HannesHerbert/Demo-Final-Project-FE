@@ -2,11 +2,13 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from '../../assets/LOgoW.png';
 import { FaUserAlt } from 'react-icons/fa';
 import { MdAdminPanelSettings } from 'react-icons/md';
+import useAuthStore from "../../store/useAuthStore";
 import { LoginLogoutButton } from "../buttons/LoginLogoutButton.jsx";
 
 
 function Header() {
 
+    const isAdmin = useAuthStore(state => state.isAdmin());
 
     return (
 
@@ -19,7 +21,10 @@ function Header() {
 
             <div className="flex">
 
-                <Link to='/protected/admin'> <MdAdminPanelSettings size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /> </Link>
+                {isAdmin &&
+                    <Link to='/protected/admin'> <MdAdminPanelSettings size="20px" className="mr-5 hover:text-orange-500 text-orange-700 " /> </Link>   
+                }
+                
                 <Link to='/user'> <FaUserAlt size="20px" className="mr-5 hover:text-orange-500 text-indigo-400 " /> </Link> 
 
             </div>

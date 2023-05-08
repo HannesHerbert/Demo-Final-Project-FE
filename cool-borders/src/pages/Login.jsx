@@ -47,8 +47,6 @@ function Login() {
             
             const response = await axios.post('http://localhost:8080/public/login', loginData);
 
-            console.log(response);
-
             authenticate(response.data.user, response.data.token);
 
         } catch (error) {
