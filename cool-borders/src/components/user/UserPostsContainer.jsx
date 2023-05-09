@@ -13,7 +13,6 @@ function UserPostsContainer({userId}) {
     // fetche und speichere posts die user erstellt hat
     useEffect(() => {
         fetchUserPosts()
-        console.log(userPosts);
     }, []);
 
     async function fetchUserPosts() {

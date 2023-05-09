@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useReportStore from "../store/useReportStore";
 import useSearchStore from "../store/useSearchStore";
 import useLocationStore from "../store/useLocationStore";
+import UserPostsContainer from "../components/user/UserPostsContainer";
 
 
 
@@ -10,16 +11,9 @@ import useLocationStore from "../store/useLocationStore";
 function UserInfo() {
     const searchUser = useSearchStore(state => state.searchUser);
     const sendReport = useReportStore(state => state.sendReport);
-    // const prevLocationId = useLocationStore(state => state.prevLocationId);
-    // const locationPage = useLocationStore(state => state.locationPage);
 
-// console.log(locationPage);
     return (
        <>
-        {/* <button className="text-gray-400 mt-20">
-            <Link to={`/${locationPage}`}><a href={`#${prevLocationId}`}>Back</a></Link>
-            
-        </button> */}
          {searchUser &&
 
             <div className="container w-2/3 mx-auto items-center flex flex-col gap-16 min-h-full justify-center text-white ">
@@ -96,6 +90,7 @@ function UserInfo() {
                     }
 
                 </div>
+                <UserPostsContainer userId={searchUser._id} />
                 <button 
                     className='bg-red-500 w-fit px-3 py-1 text-white rounded-md hover:bg-indigo-500 hover:text-black transition-colors duration-150'
                     onClick={() => sendReport(searchUser.type, searchUser._id)}
