@@ -6,6 +6,7 @@ import useAuthStore from "../../store/useAuthStore";
 import { Link } from 'react-router-dom';
 import CommentAdmin from './CommentAdmin';
 import PostAdmin from './PostAdmin';
+import useSearchStore from '../../store/useSearchStore';
 
 
 
@@ -26,6 +27,7 @@ export function ReportTableRow({ report, updateTable }) {
     const [actionType, setActionType] = useState("");
     const date = getDateString(report.createdAt);
     const time = getTimeString(report.createdAt);
+    const setSearchUser = useSearchStore(state => state.setSearchUser);
 
 
     const publicId = getImgPublicId(report.reportedBy.image);
@@ -128,7 +130,7 @@ export function ReportTableRow({ report, updateTable }) {
             toggleActionModal(evt);
 
             // display eine 'SUCCESS' Meldung und navigiere zu Login
-            alertSuccessHandler(`Report was closed`);
+            alertSuccessHandler(`Report has been closed`);
 
             updateTable();
 
@@ -143,10 +145,8 @@ export function ReportTableRow({ report, updateTable }) {
 
     async function doDocAction(evt) {
 
-        console.log("docAction!!");
-
-        if(report.docModel === "User") {
-            requestBody = {...requestBody, banned: true}
+        if (report.docModel === "User") {
+            requestBody = { ...requestBody, banned: true }
         }
 
         try {
@@ -227,8 +227,23 @@ export function ReportTableRow({ report, updateTable }) {
                 break;
 
             case 'User':
-                requestBody = {...doc}
-                document = <Link className="w-1/2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600 text-center">Go to User-Profile</Link>
+                requestBody = { ...doc };
+                const publicId = getImgPublicId(doc.image);
+                const profileImg = CLOUD.image(publicId);
+                profileImg.resize(thumbnail().width(100).height(100)).roundCorners(byRadius(50));
+                document =  <div className="flex items-center">
+                                <div
+                                    className="relative shadow mx-auto h-auto w-auto border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                                    onClick={() => {
+                                    setSearchUser(doc)
+                                    }}
+                                >
+                                    <Link to={`/users/${doc.username}`} >
+                                        <AdvancedImage cldImg={profileImg} />
+                                    </Link>
+                                </div>
+                                <h3 className="ml-2 text-black text-lg font-bold ">{doc.fullname}</h3>
+                            </div>
                 docSettings = {
                     requestUrl: `http://localhost:8080/admin/post/${doc._id}`,
                     actionText: 'Are you sure you want to ban this user?',
@@ -240,13 +255,26 @@ export function ReportTableRow({ report, updateTable }) {
             default:
                 break;
         }
-    }
+    };
+
 
 
     return (
         <>
             <tr className="even:bg-gray-100 odd:bg-white border-b" key={report._id}>
-                <td className="p-1 flex justify-center bg-opacity-0"><AdvancedImage cldImg={profileImg} /></td>
+                <td className="p-1 flex justify-center bg-opacity-0">
+                    <div
+                        className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                        onClick={() => {
+                            setSearchUser(report.reportedBy)
+                        }}
+                    >
+                        <Link to={`/users/${report.reportedBy.username}`} >
+                            <AdvancedImage cldImg={profileImg} />
+                        </Link>
+
+                    </div>
+                </td>
                 <td className="border-l text-left p-1 " colSpan="2"><b>{report.reportedBy.username}</b></td>
                 <td className="border-l">{report.docModel}</td>
                 <td className="border-l">{date} <br /> {time}</td>
