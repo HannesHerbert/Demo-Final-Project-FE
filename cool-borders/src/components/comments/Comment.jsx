@@ -20,6 +20,7 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
     const [isEdit, setIsEdit] = useState(false)
     const sendReport = useReportStore(state => state.sendReport);
     const setSearchUser = useSearchStore(state => state.setSearchUser);
+    const isAdmin = useAuthStore(state => state.isAdmin());
 
     // CLOUDINARY
     const publicId = getImgPublicId(comment.author.image)
@@ -68,7 +69,7 @@ function Comment({comment, editCommentCallback, deleteCommentCallback}) {
             
 
             {
-                (user._id === comment.author._id || user.role === 'admin') &&
+                (user._id === comment.author._id || isAdmin) &&
                 <>
                     <VscSettings 
                         onClick={() => setIsEdit(true)}

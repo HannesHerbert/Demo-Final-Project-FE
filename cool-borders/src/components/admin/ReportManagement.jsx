@@ -47,8 +47,6 @@ function ReportManagement() {
 
             setReportsArr(response.data.reports);
 
-            console.log(response.data.reports);
-
             setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 
         } catch (error) {
@@ -70,7 +68,6 @@ function ReportManagement() {
 
     useEffect(() => {
         getFilteredAndSortedReports();
-        console.log(sortVal);
     }, [sortVal, debounced]);
 
 
@@ -137,8 +134,6 @@ function ReportManagement() {
                 </button>
 
                 {reportSelect}
-
-
 
             </form>
 
