@@ -22,7 +22,7 @@ function UserPostsContainer({userId}) {
                     'Authorization': `Bearer ${token}`
                   }  
             });
-            console.log(response);
+
             setUserPosts(response.data.posts)
         } catch (error) {
             console.log(error);
@@ -30,7 +30,7 @@ function UserPostsContainer({userId}) {
     }
 
     return(
-        <div className={`grid container grid-cols-3 grid-rows-${Math.ceil(userPosts.length / 3)} gap-5 bg-zinc-900`} >
+        <div className={`grid container grid-cols-3 grid-rows-${Math.ceil(userPosts.length / 3)} gap-5 p-5 bg-zinc-900`} >
             {userPosts.map(post => {
                 return <UserPost post={post} key={post._id} />
             })}

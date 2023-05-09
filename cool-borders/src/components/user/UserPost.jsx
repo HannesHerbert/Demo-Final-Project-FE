@@ -6,7 +6,7 @@ import useSearchStore from "../../store/useSearchStore";
 
 function UserPost({post}) {
     const setSearchPost = useSearchStore(state => state.setSearchPost)
-    console.log(post);
+ 
     return (
         <button onClick={() => setSearchPost(post)} className="h-fit cursor-pointer">
             <Link to={`/posts/${post.title}`} > 
