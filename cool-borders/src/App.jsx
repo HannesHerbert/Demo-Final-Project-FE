@@ -9,7 +9,7 @@ import PrivateRoute from './services/PrivateRoute';
 import AdminRoute from './services/AdminRoute';
 import Login from './pages/Login'
 import Blogs from './pages/Blogs'
-import Create from './pages/Create';
+import CreatePost from './pages/CreatePost';
 import Favs from './pages/Favs';
 import Register from './pages/Register';
 import UserInfo from './pages/UserInfo';
@@ -34,7 +34,7 @@ function App() {
 
             <Route element={<PrivateRoute />}>
               <Route path='/user' element={<UserProfile />} />
-              <Route path='/create' element={<Create />} />
+              <Route path='/create' element={<CreatePost />} />
               <Route path='/blogs' element={<Blogs />} />
               <Route path='/favs' element={<Favs />} />
 
