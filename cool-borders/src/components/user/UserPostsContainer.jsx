@@ -30,11 +30,17 @@ function UserPostsContainer({userId}) {
     }
 
     return(
-        <div className={`grid container grid-cols-3 grid-rows-${Math.ceil(userPosts.length / 3)} gap-5 p-5 bg-zinc-900`} >
+        <>
+        {
+            userPosts.length > 0 &&
+            <div className={`grid container grid-cols-3 grid-rows-${Math.ceil(userPosts.length / 3)} gap-5 p-5 bg-zinc-900`} >
             {userPosts.map(post => {
                 return <UserPost post={post} key={post._id} />
             })}
         </div>
+        }
+        </>
+
     )
 }
 
