@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import Register from "./Register";
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
+import {RiShieldKeyholeFill } from 'react-icons/ri';
 import useAuthStore from "../store/useAuthStore.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -47,14 +47,16 @@ function Login() {
             
             const response = await axios.post('http://localhost:8080/public/login', loginData);
 
-            console.log(response);
-
             authenticate(response.data.user, response.data.token);
 
         } catch (error) {
             console.log(error);
         }
     };
+
+
+
+
 
     return (
         <div className="container flex flex-col bg-black h-screen" id="login">
@@ -64,34 +66,36 @@ function Login() {
                 <h2 className={`${Styles.heading2}`}>Login</h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="mx-auto w-full h-full md:w-1/3 p-6  rounded-md">
+            <form onSubmit={handleSubmit} className="mx-auto w-full h-full md:w-1/3 p-6 flex flex-col rounded-md">
                 
-                <div className="mb-4">
+                <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                    <FaUser className="text-cyan-700 " size={'15px'}/>
                     <input
 
                         type="text"
                         name="username"
                         ref={usernameRef}
-                        className={`${Styles.input}`}
+                        className={`${Styles.input2}`}
                         placeholder="Username"
                         required
                     />
-                </div>
+                </fieldset>
 
-                <div className="mb-4">
+                <fieldset className="mb-5 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <RiShieldKeyholeFill className="text-cyan-700 " size={'15px'}/>
                     <input
                         type="password"
                         name="password"
                         ref={passwordRef}
-                        className={`${Styles.input}`}
+                        className={`${Styles.input2}`}
                         placeholder="Password"
                         required
                     />
-                </div>
+                </fieldset>
 
                 <a
                     href="/forgot-password"
-                    className="inline-block align-baseline text-xs text-gray-400  hover:text-red-300  mb-4"
+                    className=" text-xs text-gray-400 hover:text-red-300 mb-5"
                 >
                     Forgot Password?
                 </a>

@@ -1,7 +1,6 @@
-// import { RiAlarmWarningLine } from 'react-icons/ri';
-import { AiFillStar } from 'react-icons/ai';
-import { VscWarning } from 'react-icons/vsc';
-import ImageSlider from '../../components/ImageSlider.jsx';
+import ImageSlider from '../ImageSlider.jsx';
+import axios from 'axios';
+
 // CLOUDINARY
 import CLOUD from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
@@ -9,57 +8,49 @@ import { AdvancedImage } from '@cloudinary/react';
 // Import required actions and qualifiers.
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
-import { useEffect, useState } from 'react';
-import Comments from '../comments/Comments.jsx';
-import axios from 'axios';
-import usePostsStore from '../../store/usePostsStore.js';
+import { useState, useEffect } from 'react';
 import useAuthStore from '../../store/useAuthStore.js';
-import useReportStore from '../../store/useReportStore.js';
 import { Link } from 'react-router-dom';
 import useSearchStore from '../../store/useSearchStore.js';
-import useLocationStore from '../../store/useLocationStore.js';
 
 
-function Post({ post, fromLocation }) {
+function PostAdmin({ post }) {
+
+    // Auth?
+    const token = useAuthStore(state => state.getToken());
+
     // States
-    const [showComments, setShowComments] = useState(false);
     const [currSlide, setCurrSlide] = useState(1);
-    const [favStyleToggle, setFavStyleToggle] = useState(false);
-    const [favStyle, setFavStyle] = useState('text-gray-100');
+    const [author, setAuthor] = useState(null);
+    const [isInit, setIsInit] = useState(true);
 
-    // report Store
-    const sendReport = useReportStore(state => state.sendReport);
     // search user by avatar click
     const setSearchUser = useSearchStore(state => state.setSearchUser);
-    // LOCATION
-    const setPrevlocation = useLocationStore(state => state.setPrevlocation);
-    // token
-    const token = useAuthStore(state => state.getToken());
-    // fetchFavs
-    const fetchFavorites = usePostsStore(state => state.fetchFavorites);
-    // Auth?
-    const isAuthenticated = useAuthStore(state => state.isAuthenticated());
-    // user
-    const updateUser = useAuthStore(state => state.updateUser)
-    // const favorites = usePostsStore(state => state.favorites);
-    const user = useAuthStore(state => state.user);
+
+    useEffect(() => {
+        if(isInit) {
+        getAuthor(),
+        setIsInit(false)
+        }
+    }, []);
+
 
     // CLOUDINARY
     let publicId
     let profileImg
-    if (post.author) {
-        publicId = getImgPublicId(post.author.image)
+    if (author !== null) {
+        publicId = getImgPublicId(author.image)
         profileImg = CLOUD.image(publicId);
         profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
     } else {
         publicId = getImgPublicId("https://res.cloudinary.com/djiwww2us/image/upload/v1683293216/Asset-Images/deleted_user_pdfhxh.png")
         profileImg = CLOUD.image(publicId);
         profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
-    }
+    };
 
 
     function getImgPublicId(url) {
-        // CLOUDINARY
+
         let publicId;
 
         if (!url || url.length < 1) {
@@ -79,40 +70,24 @@ function Post({ post, fromLocation }) {
         // Gibt den extrahierten Dateinamen zurück
         return publicId;
     };
-    // Schalter für Kommentare zeigen/ausblenden
-    function handleComments() {
-        setShowComments(prev => prev = !prev);
-    }
 
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            if (user.favorites.includes(post._id)) {
-                setFavStyle('text-green-500');
-            } else {
-                setFavStyle('text-gray-100');
-            }
-        }
-    }, [favStyleToggle]);
-
-    async function toggleToFavorites() {
-
+    async function getAuthor() {
         try {
-            let user = await axios.put('http://localhost:8080/protected/favorites/' + post._id, {}, {
+
+            let response = await axios.get(`http://localhost:8080/admin/user/${post.author}`, {
                 headers: {
-                    'Authorization': `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`
                 }
             });
-            // update userdata im userStore
-            updateUser(user.data.data)
-            // rerender favorites
-            fetchFavorites();
 
-            setFavStyleToggle(prev => prev = !prev);
+            setAuthor(response.data.data);
+            
         } catch (error) {
             console.log(error);
         }
     }
+
 
 
     return (
@@ -121,6 +96,7 @@ function Post({ post, fromLocation }) {
         <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl" id={post._id}>
 
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
+
                 {/* Section 1 mit Bilder */}
                 {post.images.length > 0 && <span className='text-white'>{currSlide}/{post.images.length}</span>}
                 <ImageSlider slides={post.images} setCurrSlide={setCurrSlide} />
@@ -129,10 +105,11 @@ function Post({ post, fromLocation }) {
                 <section className="text-justify flex flex-col w-full gap-5">
 
                     <div className="flex flex-row justify-between gap-2 mb-3">
+
                         {/* Profil image klickbar*/}
                         <div className="flex items-center">
 
-                            {!post.author ?
+                            {author === null ?
                                 <div
                                     className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
                                     <AdvancedImage cldImg={profileImg} />
@@ -142,17 +119,16 @@ function Post({ post, fromLocation }) {
                                 <div
                                     className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
                                     onClick={() => {
-                                        setSearchUser(post.author)
-                                        // setPrevlocation(fromLocation, post._id)
+                                        setSearchUser(author)
                                     }}
                                 >
-                                    <Link to={`/users/${post.author.username}`} >
+                                    <Link to={`/users/${author.username}`} >
                                         <AdvancedImage cldImg={profileImg} />
                                     </Link>
 
                                 </div>
                             }
-                            <h3 className="ml-2 text-white text-xs font-bold ">{!post.author ? "User deleted" : post.author.fullname}</h3>
+                            <h3 className="ml-2 text-white text-xs font-bold ">{!author ? "User deleted" : author.fullname}</h3>
                         </div>
 
                         {/* Category */}
@@ -167,34 +143,6 @@ function Post({ post, fromLocation }) {
                         {post.text}
                     </p>
 
-                    {/* KOMMENTARE */}
-                    {isAuthenticated &&
-                        <div className='w-full bg-gray-500 rounded-xl'>
-                            <h5
-                                className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
-                                onClick={handleComments}
-                            >
-                                Comments
-                            </h5>
-
-                            {showComments && <Comments post={post} />}
-                        </div>
-                    }
-
-                    {/* BUTTONS Zu Favs & REPORT */}
-                    {
-                        isAuthenticated &&
-                        <div className="flex flex-row justify-between items-center mt-4 ml-1">
-                            <AiFillStar
-                                onClick={toggleToFavorites}
-                                className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
-                            />
-                            <VscWarning
-                                onClick={() => sendReport(post.type, post._id)}
-                                className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer"
-                            />
-                        </div>
-                    }
 
                 </section>
 
@@ -204,4 +152,4 @@ function Post({ post, fromLocation }) {
     )
 }
 
-export default Post;
+export default PostAdmin;

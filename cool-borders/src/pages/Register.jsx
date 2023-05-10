@@ -4,6 +4,14 @@ import useAuthStore from "../store/useAuthStore";
 import useNotificationStore from "../store/useNotificationStore";
 import axios from "axios";
 import * as Styles from "../services/styles.js";
+import {RiShieldKeyholeFill } from 'react-icons/ri';
+import {FaCity } from 'react-icons/fa';
+import {AiOutlineMail } from 'react-icons/ai';
+import { FaUser } from 'react-icons/fa';
+
+
+
+
 
 
 function Register() {
@@ -98,64 +106,88 @@ function Register() {
 
         <div id="register" className="container flex flex-col justify-center items-center">
 
-            <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">REGISTER NOW!</h2>
+            <h2 className="text-2xl mb-2 font-bold text-center text-cyan-500">REGISTER NOW!</h2>
 
             <form 
                 id='register-form' 
-                className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4" 
+                className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4 gap-5" 
                 onSubmit={submitHandler}>
                 
                 {/* USERNAME */}
-                <input
-                    className={`${Styles.input}`}
-                    type="text"
-                    placeholder="Username"
-                    ref={usernameRef}
-                />
+                <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                    <FaUser className="text-cyan-700 " size={'15px'} />
+                    <input
+                        className={`${Styles.input2}`}
+                        type="text"
+                        placeholder="Username"
+                        ref={usernameRef}
+                    />
+                </fieldset>
+
                 {/* Wenn username kürzer als 3 Zeichen dann Fehlermeldung */}
-                {errormessage.username && <p className="text-red-600">{errormessage.username}</p>}
+                {errormessage.username && <p className="text-red-400">{errormessage.username}</p>}
 
                 {/* FULLNAME */}
-                <input
-                    className={`${Styles.input}`}
-                    type="text"
-                    placeholder="Fullname"
-                    ref={fullnameRef}
-                />
+                <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                    <FaUser className="text-cyan-700 " size={'15px'} />
+                    <input
+                        className={`${Styles.input2}`}
+                        type="text"
+                        placeholder="Fullname"
+                        ref={fullnameRef}
+                    />
+                </fieldset>
+
 
                 {/* EMAIL */}
-                <input
-                    className={`${Styles.input}`}
-                    type="email"
-                    placeholder="E-mail"
-                    ref={emailRef}
-                />
+                <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                    <AiOutlineMail className="text-cyan-700 " size={'15px'} />
+                    <input
+                        className={`${Styles.input2}`}
+                        type="email"
+                        placeholder="E-mail"
+                        ref={emailRef}
+                    />
+                </fieldset>
 
                 {/* CITY */}
-                <input
-                    className={`${Styles.input}`}
-                    type="text"
-                    placeholder="City (optional)"
-                    ref={cityRef}
-                />
+                <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                    <FaCity className="text-cyan-700 " size={'15px'} />
+                    <input
+                        className={`${Styles.input2}`}
+                        type="text"
+                        placeholder="City (optional)"
+                        ref={cityRef}
+                    />
+                </fieldset>
 
                 {/* PASSWORD */}
-                <input
-                    className={`${Styles.input}`}
-                    type="password"
-                    placeholder="Password"
-                    ref={passwordRef}
-                />
+                <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <RiShieldKeyholeFill className="text-cyan-700 " size={'15px'}/>
+
+                    <input
+                        className={`${Styles.input2}`}
+                        type="password"
+                        placeholder="Password"
+                        ref={passwordRef}
+                    />
+                </fieldset>
+
                 {/* Wenn password ist kürzer als 5 Zeichen dann Fehlermeldung */}
                 {errormessage.password && <p className="text-red-600">{errormessage.password}</p>}
 
                 {/* PASSWORD WIEDERGABE*/}
-                <input
-                    className={`${Styles.input}`}
-                    type="password"
-                    placeholder="Password again"
-                    ref={passwordRepeatRef}
-                />
+                <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <RiShieldKeyholeFill className="text-cyan-700 " size={'15px'}/>
+
+                    <input
+                        className={`${Styles.input2}`}
+                        type="password"
+                        placeholder="Password again"
+                        ref={passwordRepeatRef}
+                    />
+                </fieldset>
+
                 {/* Wenn passwörter nicht stimmen, dann Fehlermeldung */}
                 {errormessage.passwordRepeat && <p className="text-red-600">{errormessage.passwordRepeat}</p>}
                 {/* Submit Button */}

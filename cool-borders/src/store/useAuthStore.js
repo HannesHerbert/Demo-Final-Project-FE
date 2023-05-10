@@ -8,7 +8,13 @@ const useAuthStore = create( set => ({
 
     isAuthenticated: function() {
       return this.user !== null
-    },    
+    }, 
+    
+    isAdmin: function() {
+        if(this.user === null || this.user.role !== "admin") {
+          return false
+        } else {return true}
+    },
     
     validateToken: async () => {
       const token = localStorage.getItem('token');

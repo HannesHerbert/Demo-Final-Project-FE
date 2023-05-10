@@ -10,6 +10,7 @@ function Comments({post}) {
     const commentText = useRef();
     // State
     const [comments, setComments] = useState(post.comments);
+    const user = useAuthStore(state => state.user);
     
     // function um zu aktuellste comments zu fetchen
     async function fetchComments() {
@@ -101,25 +102,27 @@ function Comments({post}) {
             })}
 
             {/* Add Komment Form */}
-            <form 
-                className="flex flex-col gap-3"
-                onSubmit={addCommentSubmitHandler}
-                >
-                    {/* BUTTON */}
-                <button type="submit" className='bg-indigo-700 w-fit px-3 py-1 text-white rounded-md hover:bg-indigo-500 hover:text-black transition-colors duration-150'
-                >Add comment
-                </button>
+            {
+                !user.isBanned && <form 
+                    className="flex flex-col gap-3"
+                    onSubmit={addCommentSubmitHandler}
+                    >
+                        {/* BUTTON */}
+                    <button type="submit" className='bg-indigo-700 w-fit px-3 py-1 text-white rounded-md hover:bg-indigo-500 hover:text-black transition-colors duration-150'
+                    >Add comment
+                    </button>
 
-                {/* Text Feld von Kommentar */}
-                <textarea 
-                    className="bg-gray-800 w-full rounded-lg py-2 px-3 text-gray-200 leading-tight outline-none"
-                    name="comment-input" 
-                    id="comment-input" 
-                    cols="1" 
-                    rows="3"
-                    ref={commentText}
-                ></textarea>
-            </form>
+                    {/* Text Feld von Kommentar */}
+                    <textarea 
+                        className="bg-gray-800 w-full rounded-lg py-2 px-3 text-gray-200 leading-tight outline-none"
+                        name="comment-input" 
+                        id="comment-input" 
+                        cols="1" 
+                        rows="3"
+                        ref={commentText}
+                    ></textarea>
+                </form>
+            }
             
         </ul>
     )

@@ -1,9 +1,3 @@
-
-import { Link } from "react-router-dom";
-import PrivateRoute from "../services/PrivateRoute";
-import { HiUserCircle } from 'react-icons/hi';
-import { RiAlarmWarningLine } from 'react-icons/ri';
-import { AiFillStar } from 'react-icons/ai';
 import { useEffect, useState } from "react";
 import useAuthStore from "../store/useAuthStore.js";
 import axios from "axios";

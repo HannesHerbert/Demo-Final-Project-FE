@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 import Header from '../components/layout/Header';
 import useAuthStore from '../store/useAuthStore';
@@ -10,7 +10,6 @@ import ReportModal from '../components/user/ReportModal';
 
 function Layout() {
     const isAuthenticated = useAuthStore(state => state.isAuthenticated());
-    const user = useAuthStore((state) => state.user);
     const token = useAuthStore(state => state.getToken());
     const validateToken = useAuthStore(state => state.validateToken);
 

@@ -121,9 +121,9 @@ function UserManagement() {
 
             </form>
 
-            <div className="flex flex-col justify-center items-center w-full bg-gray-900 rounded mt-4 p-4">
-                <table className="table-fixed w-full w-full md:text-sm">
-                    <thead className="text-white">
+            <div className="w-full relative bg-gray-900 rounded mt-4 px-4 table-wrp block h-5/6 overflow-y-scroll">
+                <table className="w-full md:text-sm pb-4">
+                    <thead className="text-white sticky bg-gray-900 z-50 top-0">
                         <tr>
                             <th className="" colSpan="1"></th>
 

@@ -7,7 +7,6 @@ const useReportStore = create(set => ({
     reportId: null,
     sendReport: (type, id) => {
         set({showReport: true, reportType: type, reportId: id})
-        console.log(type, id);
     },
     closeReport: () => {
         set({showReport: false, reportType: null, reportId: null})

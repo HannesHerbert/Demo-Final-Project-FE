@@ -3,13 +3,15 @@ import { useState, useEffect } from 'react';
 import useNotificationStore from "../../store/useNotificationStore";
 import axios from 'axios';
 import useAuthStore from "../../store/useAuthStore";
+import useSearchStore from '../../store/useSearchStore';
+import AdminUserEdit from './AdminUserEdit';
+import { Link } from 'react-router-dom';
 
 // Clodinary
 import CLOUD from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
-import AdminUserEdit from './AdminUserEdit';
 
 
 
@@ -24,6 +26,7 @@ export function UserTableRow({ user, refresh }) {
     const time = getTimeString(user.lastLogin);
     const [postAmount, setPostAmount] = useState(0);
     const [reportAmount, setReportAmount] = useState(0)
+    const setSearchUser = useSearchStore(state => state.setSearchUser);
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
@@ -180,8 +183,20 @@ export function UserTableRow({ user, refresh }) {
 
     return (
         <>
-            <tr className="even:bg-gray-100 odd:bg-white border-b" key={user._id}>
-                <td className="p-1 flex justify-center bg-opacity-0"><AdvancedImage cldImg={profileImg} /></td>
+            <tr className="even:bg-gray-100 odd:bg-white border-b">
+                <td className="p-1 flex justify-center bg-opacity-0">
+                    <div
+                        className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                        onClick={() => {
+                            setSearchUser(user)
+                        }}
+                    >
+                        <Link to={`/users/${user.username}`} >
+                            <AdvancedImage cldImg={profileImg} />
+                        </Link>
+
+                    </div>
+                </td>
                 <td className="border-l text-left p-1 " colSpan="2"><b>{user.username}</b></td>
                 <td className="border-l">{user.role}</td>
                 <td className="border-l">{postAmount}</td>
