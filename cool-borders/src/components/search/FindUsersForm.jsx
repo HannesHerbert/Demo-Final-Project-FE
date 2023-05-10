@@ -44,16 +44,19 @@ function FindUsersForm({setSearch, search, setCategory, category}) {
                 <button onClick={() => searchCategoryHandler('blogs')} className={`${isActive.blogs}`}>Blogs</button>
             </div>
             {/* Form mit input */}
-            <form className="w-full flex justify-center">
+            <form className="w-full flex justify-center ">
 
+                <fieldset className="flex justify-center items-center border-b-2 border-cyan-800" >
                 <input 
-                    className={`${Styles.input} w-2/5 text-center`}
+                    className={`${Styles.input2} w-2/5 text-center bg-transparent`}
                     type="text" 
                     id="find-user" 
                     placeholder={category === "user" ? 'username' : 'title'} 
                     value={search} 
                     onChange={e => setSearch(e.target.value)}
                 />
+                </fieldset>
+
             </form>
         </div>
     )
