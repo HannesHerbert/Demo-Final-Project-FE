@@ -16,7 +16,7 @@ function CreatePost() {
     const [urls, setUrls] = useState([]);
     const url = useRef('');
     // navigate
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
 
     const handleSubmit = async (e) => {
