@@ -2,31 +2,40 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react"
 import {VscClose} from 'react-icons/vsc';
 import useAuthStore from "../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 
 
 function CreatePost() {
-    const user = useAuthStore(state => state.user)
-    const title = useRef();
-    const text = useRef();
+    const user = useAuthStore(state => state.user);
+    const title = useRef('');
+    const text = useRef('');
     const [category, setCategory] = useState("");
     const [files, setFiles] = useState([]);
     // const [uploaded, setUploaded] = useState();
     const [urls, setUrls] = useState([]);
+    const url = useRef('');
+    // navigate
+    const navigate = useNavigate()
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('data:', title.current.value, text.current.value, category, files, urls);
+        console.log('newPost: ');
+
+        // let base64Files = files.map(file => {
+        //     return
+        // });
 
         let newPost = {
             author: user._id,
             category: category,
             title: title.current.value,
             text: text.current.value,
-            imageFiles: files,
+            files: files,
             imageUrls: urls
         }
+        console.log(newPost);
         try {
             let response = await axios.post('http://localhost:8080/protected/post', newPost, {
                 headers: {
@@ -34,24 +43,53 @@ function CreatePost() {
                 }
             })
             console.log(response);
+            navigate('/blogs')
         } catch (error) {
             console.log(error);
         }
     };
 
+    // function toBase64(evt) {
+
+    //     const file = evt.target.files[0];
+
+    //     const fileReader = new FileReader();
+
+    //     fileReader.readAsDataURL(file)
+
+    //     return fileReader.onloadend = (evt) => {
+
+    //         const fileData = fileReader.result;
+    //         return fileData
+    //     }
+        
+    // };
+
     const handleFilesChange = (e) => {
-        console.log(e.target.files);
-        setFiles(prev => ([
-            ...prev,
-            e.target.files]));
+
+        const file = e.target.files[0];
+
+        const fileReader = new FileReader();
+
+        let baseFile;
+
+        fileReader.onloadend = (evt) => {
+            baseFile = fileReader.result;
+            console.log(baseFile);
+            setFiles(prev => ([
+                ...prev,
+                baseFile]));
+        }
+
+        fileReader.readAsDataURL(file)
     }
 
-    const handleUrlsChange = (e) => {
-        console.log(e.target.value);
-        if (e.target.value) {
+    const handleUrlsChange = () => {
+        console.log(url.current.value);
+        if (url.current.value) {
             setUrls(prev => ([
                 ...prev,
-                e.target.value]));
+                url.current.value]));
         }
     }
 
@@ -72,10 +110,10 @@ function CreatePost() {
     //     setFiles(newFiles);
     // }
 
-    // useEffect(() => {
-    //     console.log(files);
-    //     console.log(urls);
-    // }, [files, urls]);
+    useEffect(() => {
+        console.log(files);
+        console.log(urls);
+    }, [files, urls]);
 
 
     return (
@@ -121,25 +159,42 @@ function CreatePost() {
                     <input 
                         type="file" 
                         id="file" 
-                        multiple 
+                        multiple
                         onChange={handleFilesChange} 
                         className="mb-4 bg-gray-400 cursor-pointer" />
                     {/* URLS */}
+                    {/* <ul className="flex flex-col gap-5">
+                            {files.map((link, i) => {
+                                return <li 
+                                    className="text-white relative" 
+                                    key={i}
+                                        >
+                                            <span>{i + 1}. {link}</span>
+
+                                            < VscClose
+                                                onClick={() => deleteUrlsFromList(i)}
+                                                size={24} 
+                                                className="hover:text-red-500 absolute top-0 -left-10 cursor-pointer"
+                                            />
+                                        </li>
+                            })}
+                        </ul> */}
                     <div className="flex gap-3 items-center">
                         <input 
                         
-                            onChange={handleUrlsChange}
+                            // onChange={handleUrlsChange}
+                            ref={url}
                             type="text" 
                             placeholder="Save Url" 
                             className="bg-slate-900  focus:caret-orange-500  shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4" />
                             {/* Add button */}
-                        {/* <button 
+                        <button 
                         type="button"
                             className="text-white bg-green-600 rounded-md h-fit p-3" 
                             onClick={handleUrlsChange}
                             >
                                 Add 
-                        </button> */}
+                        </button>
                     </div>
 
                         <ul className="flex flex-col gap-5">
