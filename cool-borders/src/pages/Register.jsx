@@ -102,7 +102,7 @@ function Register() {
 
             <form 
                 id='register-form' 
-                className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4" 
+                className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4 gap-5" 
                 onSubmit={submitHandler}>
                 
                 {/* USERNAME */}
