@@ -46,6 +46,8 @@ function UserUserEdit({ userToEdit, setIsEdit }) {
             // Display eine Fehlermeldung
             alertFailHandler(error.message);
         }
+
+        console.log("Spinner off");
     };
 
 

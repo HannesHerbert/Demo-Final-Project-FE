@@ -139,60 +139,10 @@ export function ReportTableRow({ report, updateTable }) {
     };
 
 
-    async function closeReport(evt) {
-
-        try {
-            const response = await axios.put(`http://localhost:8080/admin/report/${report._id}`, {}, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-
-            toggleActionModal(evt);
-
-            // display eine 'SUCCESS' Meldung und navigiere zu Login
-            alertSuccessHandler(`Report has been closed`);
-
-            updateTable();
-
-        } catch (error) {
-
-            console.log(error);
-            // Display eine Fehlermeldung
-            alertFailHandler(error.message);
-        }
-    };
-
-
-    async function deleteReport(evt) {
-
-        try {
-            const response = await axios.delete(`http://localhost:8080/admin/report/${report._id}`, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-
-            toggleActionModal(evt);
-
-            // display eine 'SUCCESS' Meldung und navigiere zu Login
-            alertSuccessHandler(`Report has been deleted`);
-
-            updateTable();
-
-        } catch (error) {
-
-            console.log(error);
-            // Display eine Fehlermeldung
-            alertFailHandler(error.message);
-        }
-    };
-
-
     async function doDocAction(evt) {
 
         if (report.docModel === "User") {
-            requestBody = { ...requestBody, banned: !requestBody.banned }
+            requestBody = { ...requestBody, banned: !report.doc.banned }
         } else {requestBody = {visible: !report.doc.visible}}
 
         try {
@@ -330,9 +280,9 @@ export function ReportTableRow({ report, updateTable }) {
                 docSettings = {
                     requestUrl: `http://localhost:8080/admin/user/${doc._id}`,
                     actionText: `Are you sure you want to ${doc.banned ? "ban" : "unban"} this user?`,
-                    btnText: (doc.banned ? "Ban User" : "Unban User"),
-                    successMsg: (doc.banned ? "User is now banned" : "User is now unbanned"),
-                    btnName: (doc.banned ? "ban" : "unban")
+                    btnText: (!doc.banned ? "Ban User" : "Unban User"),
+                    successMsg: (!doc.banned ? "User is now banned" : "User is now unbanned"),
+                    btnName: (!doc.banned ? "ban" : "unban")
                 }
                 break;
 
