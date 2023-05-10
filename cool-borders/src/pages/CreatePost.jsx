@@ -49,21 +49,6 @@ function CreatePost() {
         }
     };
 
-    // function toBase64(evt) {
-
-    //     const file = evt.target.files[0];
-
-    //     const fileReader = new FileReader();
-
-    //     fileReader.readAsDataURL(file)
-
-    //     return fileReader.onloadend = (evt) => {
-
-    //         const fileData = fileReader.result;
-    //         return fileData
-    //     }
-        
-    // };
 
     const handleFilesChange = (e) => {
 
