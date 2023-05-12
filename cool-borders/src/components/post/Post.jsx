@@ -1,7 +1,7 @@
 // import { RiAlarmWarningLine } from 'react-icons/ri';
 import { AiFillStar } from 'react-icons/ai';
 import { VscWarning } from 'react-icons/vsc';
-import ImageSlider from '../../components/ImageSlider.jsx';
+import ImageSlider from '../ImageSlider.jsx'
 // CLOUDINARY
 import CLOUD from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
@@ -21,6 +21,9 @@ import useLocationStore from '../../store/useLocationStore.js';
 
 
 function Post({ post, fromLocation }) {
+
+    const isCreate = post.isCreate === undefined ? false : true;
+
     // States
     const [showComments, setShowComments] = useState(false);
     const [currSlide, setCurrSlide] = useState(1);
@@ -43,6 +46,7 @@ function Post({ post, fromLocation }) {
     const updateUser = useAuthStore(state => state.updateUser)
     // const favorites = usePostsStore(state => state.favorites);
     const user = useAuthStore(state => state.user);
+    const [images, setImages] = useState(post.images)
 
     // CLOUDINARY
     let publicId
@@ -115,15 +119,20 @@ function Post({ post, fromLocation }) {
     }
 
 
+    useEffect(() => {
+        setImages(post.images)
+    }, [post.images])
+
+
     return (
 
         // Container
-        <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl" id={post._id}>
+        <div className="flex container justify-center items-center bg-gray-700 py-10 rounded-2xl min-h-[60vh]" id={post._id}>
 
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
                 {/* Section 1 mit Bilder */}
-                {post.images.length > 0 && <span className='text-white'>{currSlide}/{post.images.length}</span>}
-                <ImageSlider slides={post.images} setCurrSlide={setCurrSlide} />
+                {images.length > 0 && <span className='text-white'>{currSlide}/{images.length}</span>}
+                <ImageSlider slides={images} setCurrSlide={setCurrSlide} />
 
                 {/* Section 2 Mit Text content*/}
                 <section className="text-justify flex flex-col w-full gap-5">
@@ -169,6 +178,9 @@ function Post({ post, fromLocation }) {
 
                     {/* KOMMENTARE */}
                     {isAuthenticated &&
+
+                        (!isCreate &&
+
                         <div className='w-full bg-gray-500 rounded-xl'>
                             <h5
                                 className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
@@ -179,11 +191,15 @@ function Post({ post, fromLocation }) {
 
                             {showComments && <Comments post={post} />}
                         </div>
+                        )
                     }
 
                     {/* BUTTONS Zu Favs & REPORT */}
                     {
                         isAuthenticated &&
+
+                        (!isCreate &&
+
                         <div className="flex flex-row justify-between items-center mt-4 ml-1">
                             <AiFillStar
                                 onClick={toggleToFavorites}
@@ -194,6 +210,7 @@ function Post({ post, fromLocation }) {
                                 className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer"
                             />
                         </div>
+                        )
                     }
 
                 </section>

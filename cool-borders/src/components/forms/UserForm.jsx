@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useNotificationStore from "../../store/useNotificationStore";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
 
@@ -34,11 +34,6 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
         { label: 'Admin', value: 'admin' }
     ];
 
-    function undefFieldHandler(field) {
-        if (field === undefined) return "n/a"
-        else return field
-    }
-
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
@@ -52,14 +47,14 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     };
 
 
-    const roleSelect =  <select onChange={evt => setRole(evt.target.value)}
-                            className="p-1 rounded-md text-white bg-black hover:text-indigo-200 mt-6">
-                                {optionValues.map((role) => (
-                                    <option key={role.value} value={role.value} className="rounded-md p-2"
-                                        selected={role.value === userToEdit.role}>{role.label}
-                                    </option>
-                                ))}
-                        </select>
+    const roleSelect = <select onChange={evt => setRole(evt.target.value)}
+        className="p-1 rounded-md text-white bg-black hover:text-indigo-200 mt-6">
+        {optionValues.map((role) => (
+            <option key={role.value} value={role.value} className="rounded-md p-2"
+                selected={role.value === userToEdit.role}>{role.label}
+            </option>
+        ))}
+    </select>
 
 
 
@@ -92,7 +87,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
                 equipment: equipment,
                 text: text,
             },
-            image: profileImage
+            image: profileImage,
         };
 
         if (isAdminAct) updatedUser.role = role;
@@ -113,7 +108,6 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
             const fileData = fileReader.result;
 
-            //Je nach Input (evt.target) wird Front- oder Backimage gesetet
             setProfileImage(fileData);
         }
     };
@@ -127,7 +121,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
             {/* PROFILEIMAGE */}
             <input type="file"
-                accept="image/*"
+                // accept="image/*"
                 className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="image-file"
                 // value={}

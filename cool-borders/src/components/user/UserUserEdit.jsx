@@ -45,7 +45,7 @@ function UserUserEdit({ userToEdit, setIsEdit }) {
             console.log(error);
             // Display eine Fehlermeldung
             alertFailHandler(error.message);
-        }
+        };
     };
 
 

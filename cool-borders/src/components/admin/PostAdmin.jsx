@@ -1,20 +1,23 @@
-import ImageSlider from '../ImageSlider.jsx';
+import ImageSliderAdmin from './ImageSliderAdmin.jsx';
 import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
+import useAuthStore from '../../store/useAuthStore.js';
+import useNotificationStore from '../../store/useNotificationStore.js';
+import { Link } from 'react-router-dom';
+import useSearchStore from '../../store/useSearchStore.js';
+import { VscClose, VscSettings } from 'react-icons/vsc';
+import { AiOutlineCheckCircle } from 'react-icons/ai';
+import { MdOutlineCancel } from 'react-icons/md';
 
 // CLOUDINARY
 import CLOUD from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
-
-// Import required actions and qualifiers.
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
-import { useState, useEffect } from 'react';
-import useAuthStore from '../../store/useAuthStore.js';
-import { Link } from 'react-router-dom';
-import useSearchStore from '../../store/useSearchStore.js';
 
 
-function PostAdmin({ post }) {
+
+function PostAdmin({ post, updateTable }) {
 
     // Auth?
     const token = useAuthStore(state => state.getToken());
@@ -23,14 +26,19 @@ function PostAdmin({ post }) {
     const [currSlide, setCurrSlide] = useState(1);
     const [author, setAuthor] = useState(null);
     const [isInit, setIsInit] = useState(true);
+    const [isEdit, setIsEdit] = useState(false);
+    const [files, setFiles] = useState(post.images);
+    const [titleInput, setTitleInput] = useState(post.title);
+    const [textInput, setTextInput] = useState(post.text);
+    const [categoryInput, setCategoryInput] = useState(post.category);
 
     // search user by avatar click
     const setSearchUser = useSearchStore(state => state.setSearchUser);
 
     useEffect(() => {
-        if(isInit) {
-        getAuthor(),
-        setIsInit(false)
+        if (isInit) {
+            getAuthor();
+            setIsInit(false)
         }
     }, []);
 
@@ -47,6 +55,19 @@ function PostAdmin({ post }) {
         profileImg = CLOUD.image(publicId);
         profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
     };
+
+
+    // Notification Handler function
+    const notificationHandler = useNotificationStore(state => state.notificationHandler);
+
+    // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
+    function alertSuccessHandler(msg) {
+        notificationHandler('success', msg)
+    }
+    // Wenn bei register ein Fehler, wird ein Alert mit Fehlermeldung erzeugt
+    function alertFailHandler(msg) {
+        notificationHandler('fail', msg)
+    }
 
 
     function getImgPublicId(url) {
@@ -82,24 +103,105 @@ function PostAdmin({ post }) {
             });
 
             setAuthor(response.data.data);
-            
+
         } catch (error) {
             console.log(error);
         }
     }
 
 
+    function deleteFile(index) {
+        const updatedFiles = [...files];
+        updatedFiles.splice(index, 1);
+        setFiles(updatedFiles);
+        alertSuccessHandler('File was removed from post');
+    };
+
+
+    async function deletePost() {
+
+        try {
+
+            let response = await axios.delete(`http://localhost:8080/protected/post/${post._id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            alertSuccessHandler('Post deleted');
+
+            updateTable();
+
+        } catch (error) {
+            console.log(error);
+            alertFailHandler(error.message);
+        }
+    }
+
+
+    function cancelEdit() {
+        setIsEdit(false)
+    };
+
+
+    async function sendUpdatedPost() {
+
+        const updatePost = {
+            title: titleInput,
+            category: categoryInput,
+            text: textInput,
+            images: files
+        }
+
+        try {
+            const response = await axios.put(`http://localhost:8080/protected/post/${post._id}`, updatePost, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            alertSuccessHandler(`Post was successfully updated!`);
+
+            setIsEdit(false);
+
+            updateTable()
+
+        } catch (error) {
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.message);
+        }
+    };
+
+
+
+
 
     return (
 
         // Container
-        <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl" id={post._id}>
+        <div className="flex container justify-center relative items-center bg-zinc-900 py-10 rounded-2xl" id={post._id}>
+
+            <>
+                <VscSettings
+                    onClick={() => setIsEdit(!isEdit)}
+                    size={22}
+                    className="hover:text-blue-500 absolute top-3 right-12 cursor-pointer text-gray-500"
+                />
+
+                < VscClose
+                    onClick={() => deletePost()}
+                    size={24}
+                    className="hover:text-red-500 absolute top-3 right-3 cursor-pointer text-gray-500"
+                />
+            </>
 
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
 
                 {/* Section 1 mit Bilder */}
-                {post.images.length > 0 && <span className='text-white'>{currSlide}/{post.images.length}</span>}
-                <ImageSlider slides={post.images} setCurrSlide={setCurrSlide} />
+                {files.length > 0 && <span className='text-white'>{currSlide}/{files.length}</span>}
+                <ImageSliderAdmin slides={files} setCurrSlide={setCurrSlide} isEdit={isEdit} deleteFile={deleteFile} />
+
 
                 {/* Section 2 Mit Text content*/}
                 <section className="text-justify flex flex-col w-full gap-5">
@@ -132,22 +234,61 @@ function PostAdmin({ post }) {
                         </div>
 
                         {/* Category */}
-                        {post.category !== 'article' && <span className=" text-xs text-red-500">{post.category}</span>}
+                        {isEdit ?
+                            <select value={categoryInput} onChange={event => setCategoryInput(event.target.value)}
+                                className="bg-gray-800 appearance-none w-fit h-fit p-1 text-xs text-red-500 focus:outline-none">
+                                <option value={'story'}>story</option>
+                                <option value={'review'}>review</option>
+                                <option value={'market'}>market</option>
+                            </select>
+                            :
+                            (post.category !== 'article' && <span className="text-xs text-red-500 h-fit p-1">{post.category}</span>)
+                        }
                     </div>
 
                     {/* TITLE */}
-                    <h2 className='font-bold md:text-xl text-gray-200 ml-1'>{post.title}</h2>
+                    {isEdit ?
+                        <input type='text'
+                            className='bg-gray-800 font-bold md:text-xl text-gray-200 ml-1'
+                            value={titleInput}
+                            onChange={evt => setTitleInput(evt.target.value)}
+                        />
+                        :
+                        <h2 className='font-bold md:text-xl text-gray-200 ml-1'>{post.title}</h2>
+                    }
 
                     {/* Text */}
-                    <p className="text-xs md:text-lg text-gray-400 ml-1">
-                        {post.text}
-                    </p>
-
+                    {isEdit ?
+                        <textarea
+                            className='bg-gray-800 text-xs md:text-lg text-gray-400 ml-1 h-auto'
+                            value={textInput}
+                            onChange={evt => setTextInput(evt.target.value)}
+                            rows={5}
+                        />
+                        :
+                        <p className="text-xs md:text-lg text-gray-400 ml-1">
+                            {post.text}
+                        </p>
+                    }
 
                 </section>
 
             </div>
-
+            {isEdit ?
+                <>
+                    <AiOutlineCheckCircle
+                        className="hover:text-green-500 absolute bottom-3 right-3 cursor-pointer text-gray-500"
+                        size={24}
+                        onClick={sendUpdatedPost}
+                    />
+                    <MdOutlineCancel
+                        className="hover:text-red-500 absolute bottom-3 right-12 cursor-pointer text-gray-500"
+                        size={24}
+                        onClick={cancelEdit}
+                    />
+                </>
+                : null
+            }
         </div>
     )
 }
