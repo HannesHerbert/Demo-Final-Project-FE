@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+import { GrPrevious, GrNext } from 'react-icons/gr';
+import {MdArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md';
 
 
 function ImageSlider({ slides, setCurrSlide }) {
     const [current, setCurrent] = useState(0);
+    const [hovered, setHovered] = useState(false);
 
     // Next picture
     const nextSlide = () => {
@@ -45,12 +48,85 @@ function ImageSlider({ slides, setCurrSlide }) {
 
 
     return (
+
         <section className='container relative w-full h-full flex flex-row justify-center items-center'>
+            {/* {slides.length > 1 &&
+            <>
+                 <button className='absolute left-0 z-10 cursor-pointer w-40 bg-gray-300 h-full ' onClick={prevSlide}></button>
+                 <button className='absolute right-0 z-10 cursor-pointer w-40 bg-gray-300  h-full hover:bg-gray-00 opacity-5' onClick={nextSlide}></button>
+            </>
+            } */}
             {slides.length > 1 &&
-                <>
-                    <FaArrowAltCircleLeft className='absolute top-1/2 left-2 text-lg md:text-2xl text-gray-900 hover:text-green-600 z-10 cursor-pointer select-none' onClick={prevSlide} />
-                    <FaArrowAltCircleRight className='absolute top-1/2 right-2 text-lg md:text-2xl text-gray-900 hover:text-green-600 z-10 cursor-pointer select-none' onClick={nextSlide} />
-                </>
+                <div style={{
+                    position: "absolute",
+                    // backgroundColor: "yellow",
+                    width: "100%",
+                    height: "100%",
+                    zIndex: 1000
+                }}>
+                    {/* NAVH LINKS BUTTON */}
+                    <button
+                        className='hover:text-green-400 relative h-full w-1/2'
+                        style={{
+                            height: "100%",
+                            width: "50%",
+                            position: "relative"
+                            
+                        }}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                        onClick={prevSlide}
+                        
+                    >
+                        {hovered && <GrPrevious 
+                        style={{
+                            position: "absolute",
+                            opacity:'0.5',
+                            left: "10",
+                            top: "50%",
+                            transform: "translate(-50%, -50%)"
+                        }} 
+                        className='hover:text-green-400 hover:bg-red-500'
+                        size={20} />}
+                        
+                        {/* <GrPrevious 
+                        style={{
+                            position: "absolute",
+                            opacity:'1',
+                            left: "20",
+                            top: "50%",
+                            transform: "translate(-50%, -50%)"
+                        }} 
+                        className='hover:text-green-400 hover:bg-red-500'
+                        size={20} /> */}
+                        
+                    </button>
+
+                    {/* NAVH RECHTS BUTTON */}
+                    <button
+                    className='hover:text-green-400 relative h-full w-1/2'
+                        // style={{
+                        //     height: "100%",
+                        //     width: "50%",
+                        //     position: "relative"
+                        // }}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                        onClick={nextSlide}>
+                            {hovered && 
+                            <GrNext 
+                            style={{
+                                position: "absolute",
+                                opacity:'0.5',
+                                right: "10",
+                                top: "50%",
+                                transform: "translate(50%, -50%)"
+                            }} 
+                        // className='hover:text-green-400 hover:bg-red-500' 
+                        size={20} />}
+                            
+                    </button>
+                </div>
             }
             {slides.map((slide, index) => {
                 return (
