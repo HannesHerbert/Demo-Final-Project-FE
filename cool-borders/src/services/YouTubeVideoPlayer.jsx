@@ -20,13 +20,17 @@ function YouTubeVideoPlayer({ url }) {
         return videoId;
     };
 
+    console.log(window.screen.width);
+
+    const playerWidth = window.screen.width/2
+    const playerHeight = playerWidth / 16 * 9
 
     const videoId = extractVideoId(url);
 
 
     const options = {
-        width: '100%',
-        height: '400',
+        width: playerWidth,
+        height: playerHeight,
         playerVars: {
             autoplay: 0,
         },
