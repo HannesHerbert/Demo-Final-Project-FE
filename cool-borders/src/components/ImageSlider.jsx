@@ -6,7 +6,9 @@ import {MdArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md';
 
 function ImageSlider({ slides, setCurrSlide }) {
     const [current, setCurrent] = useState(0);
-    const [hovered, setHovered] = useState(false);
+    const [hoveredLeft, setHoveredLeft] = useState(false);
+    const [hoveredRight, setHoveredRight] = useState(false);
+
 
     // Next picture
     const nextSlide = () => {
@@ -25,7 +27,10 @@ function ImageSlider({ slides, setCurrSlide }) {
         return null;
     }
 
-
+    useEffect(() => {
+        console.log(hoveredLeft);
+        console.log(hoveredRight);
+    }, [hoveredLeft, hoveredRight]);
     function isVideo(url) {
 
         console.log(url.substring(url.indexOf(':'), url.indexOf("/")));
@@ -50,80 +55,35 @@ function ImageSlider({ slides, setCurrSlide }) {
     return (
 
         <section className='container relative w-full h-full flex flex-row justify-center items-center'>
-            {/* {slides.length > 1 &&
-            <>
-                 <button className='absolute left-0 z-10 cursor-pointer w-40 bg-gray-300 h-full ' onClick={prevSlide}></button>
-                 <button className='absolute right-0 z-10 cursor-pointer w-40 bg-gray-300  h-full hover:bg-gray-00 opacity-5' onClick={nextSlide}></button>
-            </>
-            } */}
+
             {slides.length > 1 &&
-                <div style={{
-                    position: "absolute",
-                    // backgroundColor: "yellow",
-                    width: "100%",
-                    height: "100%",
-                    zIndex: 1000
-                }}>
+                <div 
+
+                className='absolute top-0 left-0 w-full h-full z-50'
+                >
                     {/* NAVH LINKS BUTTON */}
                     <button
-                        className='hover:text-green-400 relative h-full w-1/2'
-                        style={{
-                            height: "100%",
-                            width: "50%",
-                            position: "relative"
-                            
-                        }}
-                        onMouseEnter={() => setHovered(true)}
-                        onMouseLeave={() => setHovered(false)}
+                        className='relative h-full w-1/2 opacity-30 hover:opacity-100 '
                         onClick={prevSlide}
                         
                     >
-                        {hovered && <GrPrevious 
-                        style={{
-                            position: "absolute",
-                            opacity:'0.5',
-                            left: "10",
-                            top: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }} 
-                        className='hover:text-green-400 hover:bg-red-500'
-                        size={20} />}
-                        
-                        {/* <GrPrevious 
-                        style={{
-                            position: "absolute",
-                            opacity:'1',
-                            left: "20",
-                            top: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }} 
-                        className='hover:text-green-400 hover:bg-red-500'
-                        size={20} /> */}
+                        <GrPrevious 
+                            className='absolute  left-2 xl:left-28  top-1/2 '
+                            size={50} 
+                            color='fill-red-700'
+                        />
                         
                     </button>
 
                     {/* NAVH RECHTS BUTTON */}
                     <button
-                    className='hover:text-green-400 relative h-full w-1/2'
-                        // style={{
-                        //     height: "100%",
-                        //     width: "50%",
-                        //     position: "relative"
-                        // }}
-                        onMouseEnter={() => setHovered(true)}
-                        onMouseLeave={() => setHovered(false)}
+                    className='relative h-full w-1/2 opacity-30 hover:opacity-100 '
                         onClick={nextSlide}>
-                            {hovered && 
+
                             <GrNext 
-                            style={{
-                                position: "absolute",
-                                opacity:'0.5',
-                                right: "10",
-                                top: "50%",
-                                transform: "translate(50%, -50%)"
-                            }} 
-                        // className='hover:text-green-400 hover:bg-red-500' 
-                        size={20} />}
+                                className='absolute right-2 xl:right-32 top-1/2 '
+                                size={50} 
+                            />
                             
                     </button>
                 </div>
@@ -143,7 +103,7 @@ function ImageSlider({ slides, setCurrSlide }) {
                                     <source src={slide} type='video/mp4'/>
                                 </video>
                             :
-                            <img src={slide} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 hover:opacity-70' />
+                            <img src={slide} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 ' />
                             )
 
                         }
