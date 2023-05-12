@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import {MdArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md';
+import BaseVideoPlayer from '../services/BaseVideoPlayer';
+import YouTubeVideoPlayer from '../services/YouTubeVideoPlayer';
 
 
 function ImageSlider({ slides, setCurrSlide }) {
@@ -41,13 +43,29 @@ function ImageSlider({ slides, setCurrSlide }) {
         } else {
             return false
         }
-    }
+    };
+
+
+    function isYouTubeVideoLink(url) {
+        // Regulärer Ausdruck für YouTube-Video-Links
+        const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+      
+        return youtubeRegex.test(url);
+      }
 
 
     function getSlideElement(url) {
 
         if ((url.substring(url.lastIndexOf('.'), url.length) === '.mp4') || (url.substring(url.indexOf(':'), url.indexOf("/")) === ':video')) {
+            return <BaseVideoPlayer url={url}/>
 
+        } else if(isYouTubeVideoLink(url)) {
+            return <YouTubeVideoPlayer  url={url}/>
+
+        } else {
+            return (
+                <img src={url} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 hover:opacity-70' />
+            )
         }
     }
 
@@ -97,14 +115,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
                         {index === current &&
 
-                            (isVideo(slide) ?
-
-                                <video controls  data-setup=''>
-                                    <source src={slide} type='video/mp4'/>
-                                </video>
-                            :
-                            <img src={slide} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 ' />
-                            )
+                            (getSlideElement(slide))
 
                         }
 
