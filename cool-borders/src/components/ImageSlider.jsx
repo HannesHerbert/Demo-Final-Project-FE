@@ -72,56 +72,50 @@ function ImageSlider({ slides, setCurrSlide }) {
 
     return (
 
-        <section className='container relative w-full h-full flex flex-row justify-center items-center'>
+        <section className='container w-full  flex items-center h-[50vh] md:h-[60vh]'>
 
+            {/* NAVH LINKS BUTTON */}
             {slides.length > 1 &&
-                <div 
 
-                className='absolute top-0 left-0 w-full h-full z-50'
+                <button
+                    className='h-full opacity-40 hover:opacity-100  w-1/6 flex justify-center items-center '
+                    onClick={prevSlide}
                 >
-                    {/* NAVH LINKS BUTTON */}
-                    <button
-                        className='relative h-full w-1/2 opacity-30 hover:opacity-100 '
-                        onClick={prevSlide}
-                        
-                    >
-                        <GrPrevious 
-                            className='absolute  left-2 xl:left-28  top-1/2 '
-                            size={50} 
-                            color='fill-red-700'
-                        />
-                        
-                    </button>
+                    {<GrPrevious 
 
-                    {/* NAVH RECHTS BUTTON */}
-                    <button
-                    className='relative h-full w-1/2 opacity-30 hover:opacity-100 '
-                        onClick={nextSlide}>
-
-                            <GrNext 
-                                className='absolute right-2 xl:right-32 top-1/2 '
-                                size={50} 
-                            />
-                            
-                    </button>
-                </div>
+                        size={50} 
+                    />}
+                </button>
             }
+
+            {/* CONTENT */}
             {slides.map((slide, index) => {
                 return (
                     <div
-                        className={index === current ? 'flex flex-col items-center opacity-100 transition duration-100 w-full h-[50vh] md:h-[60vh]' : 'opacity-0 transition duration-100 ease-in'}
+                        className={index === current ? 'flex items-center justify-center  transition duration-100 w-full h-full' : 'transition duration-100 ease-in'}
                         key={index}
                     >
-
                         {index === current &&
-
                             (getSlideElement(slide))
-
                         }
-
                     </div>
                 );
             })}
+
+            {/* NACH RECHTS BUTTON */}
+            {slides.length > 1 &&
+
+                <button
+                    className='h-full opacity-30 hover:opacity-100 w-1/6 flex justify-center items-center '
+                    onClick={nextSlide}>
+
+                        <GrNext 
+                            size={50} 
+                        />
+        
+                </button>
+
+            }
         </section>
     );
 };

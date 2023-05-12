@@ -15,8 +15,8 @@ function BaseVideoPlayer({ url }) {
     console.log(mimeType);
 
     return (
-        <div>
-            <video controls>
+        <div className="w-full">
+            <video controls className="w-full">
                 <source src={url} type={mimeType} />
             </video>
         </div>
