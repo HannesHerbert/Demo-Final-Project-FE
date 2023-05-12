@@ -8,7 +8,9 @@ import YouTubeVideoPlayer from '../services/YouTubeVideoPlayer';
 
 function ImageSlider({ slides, setCurrSlide }) {
     const [current, setCurrent] = useState(0);
-    const [hovered, setHovered] = useState(false);
+    const [hoveredLeft, setHoveredLeft] = useState(false);
+    const [hoveredRight, setHoveredRight] = useState(false);
+
 
     // Next picture
     const nextSlide = () => {
@@ -27,7 +29,10 @@ function ImageSlider({ slides, setCurrSlide }) {
         return null;
     }
 
-
+    useEffect(() => {
+        console.log(hoveredLeft);
+        console.log(hoveredRight);
+    }, [hoveredLeft, hoveredRight]);
     function isVideo(url) {
 
         console.log(url.substring(url.indexOf(':'), url.indexOf("/")));
@@ -67,101 +72,50 @@ function ImageSlider({ slides, setCurrSlide }) {
 
     return (
 
-        <section className='container relative w-full h-full flex flex-row justify-center items-center'>
-            {/* {slides.length > 1 &&
-            <>
-                 <button className='absolute left-0 z-10 cursor-pointer w-40 bg-gray-300 h-full ' onClick={prevSlide}></button>
-                 <button className='absolute right-0 z-10 cursor-pointer w-40 bg-gray-300  h-full hover:bg-gray-00 opacity-5' onClick={nextSlide}></button>
-            </>
-            } */}
-            {slides.length > 1 &&
-                <div style={{
-                    position: "absolute",
-                    // backgroundColor: "yellow",
-                    width: "100%",
-                    height: "100%",
-                    zIndex: 1000
-                }}>
-                    {/* NAVH LINKS BUTTON */}
-                    <button
-                        className='hover:text-green-400 relative h-full w-1/2'
-                        style={{
-                            height: "100%",
-                            width: "50%",
-                            position: "relative"
-                            
-                        }}
-                        onMouseEnter={() => setHovered(true)}
-                        onMouseLeave={() => setHovered(false)}
-                        onClick={prevSlide}
-                        
-                    >
-                        {hovered && <GrPrevious 
-                        style={{
-                            position: "absolute",
-                            opacity:'0.5',
-                            left: "10",
-                            top: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }} 
-                        className='hover:text-green-400 hover:bg-red-500'
-                        size={20} />}
-                        
-                        {/* <GrPrevious 
-                        style={{
-                            position: "absolute",
-                            opacity:'1',
-                            left: "20",
-                            top: "50%",
-                            transform: "translate(-50%, -50%)"
-                        }} 
-                        className='hover:text-green-400 hover:bg-red-500'
-                        size={20} /> */}
-                        
-                    </button>
+        <section className='container w-full  flex items-center h-[50vh] md:h-[60vh]'>
 
-                    {/* NAVH RECHTS BUTTON */}
-                    <button
-                    className='hover:text-green-400 relative h-full w-1/2'
-                        // style={{
-                        //     height: "100%",
-                        //     width: "50%",
-                        //     position: "relative"
-                        // }}
-                        onMouseEnter={() => setHovered(true)}
-                        onMouseLeave={() => setHovered(false)}
-                        onClick={nextSlide}>
-                            {hovered && 
-                            <GrNext 
-                            style={{
-                                position: "absolute",
-                                opacity:'0.5',
-                                right: "10",
-                                top: "50%",
-                                transform: "translate(50%, -50%)"
-                            }} 
-                        // className='hover:text-green-400 hover:bg-red-500' 
-                        size={20} />}
-                            
-                    </button>
-                </div>
+            {/* NAVH LINKS BUTTON */}
+            {slides.length > 1 &&
+
+                <button
+                    className='h-full opacity-40 hover:opacity-100  w-1/6 flex justify-center items-center '
+                    onClick={prevSlide}
+                >
+                    {<GrPrevious 
+
+                        size={50} 
+                    />}
+                </button>
             }
+
+            {/* CONTENT */}
             {slides.map((slide, index) => {
                 return (
                     <div
-                        className={index === current ? 'flex flex-col items-center opacity-100 transition duration-100 w-full h-[50vh] md:h-[60vh]' : 'opacity-0 transition duration-100 ease-in'}
+                        className={index === current ? 'flex items-center justify-center  transition duration-100 w-full h-full' : 'transition duration-100 ease-in'}
                         key={index}
                     >
-
                         {index === current &&
-
                             (getSlideElement(slide))
-
                         }
-
                     </div>
                 );
             })}
+
+            {/* NACH RECHTS BUTTON */}
+            {slides.length > 1 &&
+
+                <button
+                    className='h-full opacity-30 hover:opacity-100 w-1/6 flex justify-center items-center '
+                    onClick={nextSlide}>
+
+                        <GrNext 
+                            size={50} 
+                        />
+        
+                </button>
+
+            }
         </section>
     );
 };

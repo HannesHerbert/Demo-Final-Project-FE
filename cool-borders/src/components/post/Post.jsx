@@ -127,7 +127,7 @@ function Post({ post, fromLocation }) {
     return (
 
         // Container
-        <div className="flex container justify-center items-center bg-zinc-900 py-10 rounded-2xl min-h-[60vh]" id={post._id}>
+        <div className="flex container justify-center items-center bg-gray-700 py-10 rounded-2xl min-h-[60vh]" id={post._id}>
 
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
                 {/* Section 1 mit Bilder */}
