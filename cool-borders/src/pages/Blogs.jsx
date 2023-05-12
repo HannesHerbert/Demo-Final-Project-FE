@@ -2,12 +2,28 @@ import { useEffect, useState } from "react";
 import useAuthStore from "../store/useAuthStore.js";
 import axios from "axios";
 import Post from "../components/post/Post";
+import { useInView } from 'react-intersection-observer';
+
 
 function Blogs() {
     const token = useAuthStore(state => state.getToken());
     // State
     const [blogs, setBlogs] = useState([]);
     const [filter, setFilter] = useState('');
+    // LAZY LOADING....
+    const { ref, inView } = useInView({
+        /* Optional options */
+        threshold: 1,
+    });
+
+    // wenn trigger-div inView === true dann fetche neue posts
+    useEffect(() => {
+
+        if (inView) fetchBlogs();
+
+    }, [inView, filter]);
+
+
 
     /* Array mit Objekten der Filtermöglichkeiten */
     let optionValues = [
@@ -23,13 +39,19 @@ function Blogs() {
 
     async function fetchBlogs() {
         try {
-            let response = await axios.get('http://localhost:8080/protected/blogs?category=' + filter, {
+            let response = await axios.get('http://localhost:8080/protected/blogs?category=' + filter + '&skip=' + blogs.length, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
             });
+
             // speichere blogs
-            setBlogs(response.data.data);
+            if (blogs.length > 0) {
+                setBlogs([...blogs, ...response.data.data]);
+            } else {
+                setBlogs(response.data.data)
+            }
+
         } catch (error) {
             console.log(error);
         }
@@ -56,6 +78,8 @@ function Blogs() {
                 <h3 className="text-white">There aren't any {filter} posts</h3>
             }
 
+            {/* TRIGGER DIV */}
+            <div ref={ref} className="w-full h-10 text-3xl text-white font-bold text-center ">The end</div>
             
         </div>
     )
