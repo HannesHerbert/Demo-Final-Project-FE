@@ -38,7 +38,7 @@ function YouTubeVideoPlayer({ url }) {
 
     return (
 
-        <YouTube videoId={videoId} opts={options} />
+        <YouTube className='w-full' videoId={videoId} opts={options} />
 
     );
 }
