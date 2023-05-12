@@ -160,10 +160,10 @@ export function UserTableRow({ user, refresh }) {
         const dateObj = new Date(date);
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth() + 1;
-        const day = dateObj.getDay();
-
-        const dateString = `${day < 10 ? 0 : ""}${day}.${month < 10 ? 0 : ""}${month}.${year}`
-
+        const dayOfMonth = dateObj.getDate();
+    
+        const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
+    
         return dateString
     };
 
@@ -183,32 +183,32 @@ export function UserTableRow({ user, refresh }) {
 
     return (
         <>
-            <tr className="even:bg-gray-100 odd:bg-white border-b">
-                <td className="p-1 flex justify-center bg-opacity-0">
-                    <div
-                        className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
-                        onClick={() => {
-                            setSearchUser(user)
-                        }}
-                    >
-                        <Link to={`/users/${user.username}`} >
-                            <AdvancedImage cldImg={profileImg} />
-                        </Link>
+            <tr className="even:bg-gray-100 odd:bg-white border-b hover:bg-gray-400" onClick={handleShowDetails}>
+                {/* <td className="p-1 flex justify-center bg-opacity-0" colSpan="1"></td> */}
+                <td className="border-l text-left p-1" colSpan="2">
+                    <div className='flex items-center'>
+                        <div
+                            className="relative mx-2 shadow h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                            onClick={() => {
+                                setSearchUser(user)
+                            }}
+                        >
+                            <Link to={`/users/${user.username}`} >
+                                <AdvancedImage cldImg={profileImg} />
+                            </Link>
 
+                        </div>
+                        <b>{user.username}</b>
                     </div>
                 </td>
-                <td className="border-l text-left p-1 " colSpan="2"><b>{user.username}</b></td>
-                <td className="border-l">{user.role}</td>
-                <td className="border-l">{postAmount}</td>
-                <td className="border-l">{reportAmount}</td>
-                <td className="border-l">
-                    <button onClick={handleShowDetails} className="flex align-middle justify-center w-full">
-                        {chevron}
-                    </button>
-                </td>
+                <td className="border-l" colSpan="1">{user.role}</td>
+                <td className="border-l" colSpan="1">{postAmount}</td>
+                <td className="border-l" colSpan="1">{reportAmount}</td>
             </tr>
             <tr className={`even:bg-gray-100 odd:bg-white ${isDetailView ? null : 'hidden'}`}>
-                <td className="table-span" colSpan="7">
+
+                <td className="table-span border-l" colSpan="5">
+
                     <div className="w-full p-3 text-left">
 
                         <div className="w-full flex justify-between">

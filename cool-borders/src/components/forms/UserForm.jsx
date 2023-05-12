@@ -62,8 +62,6 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     async function submitHandler(evt) {
         evt.preventDefault();
 
-        console.log("Spinner on");
-
         // Wenn ist kürzer als 3 Zeichen, dann Fehlermeldung und early return
         if (username.trim().length < 3) {
             setErrormessage(prev => {

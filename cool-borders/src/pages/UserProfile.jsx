@@ -21,10 +21,10 @@ function UserProfile() {
         const dateObj = new Date(date);
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth() + 1;
-        const day = dateObj.getDay();
-
-        const dateString = `${day < 10 ? 0 : ""}${day}.${month < 10 ? 0 : ""}${month}.${year}`
-
+        const dayOfMonth = dateObj.getDate();
+    
+        const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
+    
         return dateString
     };
 

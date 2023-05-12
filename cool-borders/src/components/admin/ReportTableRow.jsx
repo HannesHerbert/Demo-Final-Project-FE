@@ -6,7 +6,6 @@ import useAuthStore from "../../store/useAuthStore";
 import { Link } from 'react-router-dom';
 import CommentAdmin from './CommentAdmin';
 import PostAdmin from './PostAdmin';
-import Post from '../post/Post';
 import useSearchStore from '../../store/useSearchStore';
 
 
@@ -32,9 +31,18 @@ export function ReportTableRow({ report, updateTable }) {
     const [isInit, setIsInit] = useState(true);
 
 
-    const publicId = getImgPublicId(report.reportedBy.image);
-    const profileImg = CLOUD.image(publicId);
-    profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+    // CLOUDINARY
+    let publicId
+    let profileImg
+    if (report.reportedBy !== null) {
+        publicId = getImgPublicId(report.reportedBy.image)
+        profileImg = CLOUD.image(publicId);
+        profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+    } else {
+        publicId = getImgPublicId("https://res.cloudinary.com/djiwww2us/image/upload/v1683293216/Asset-Images/deleted_user_pdfhxh.png")
+        profileImg = CLOUD.image(publicId);
+        profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
+    };
 
     // Initialisiere Dokumenten-Variable zur Darstellung der Komponente
     let requestBody = {}
@@ -118,10 +126,10 @@ export function ReportTableRow({ report, updateTable }) {
         const dateObj = new Date(date);
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth() + 1;
-        const day = dateObj.getDay();
-
-        const dateString = `${day < 10 ? 0 : ""}${day}.${month < 10 ? 0 : ""}${month}.${year}`
-
+        const dayOfMonth = dateObj.getDate();
+    
+        const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
+    
         return dateString
     };
 
@@ -140,10 +148,6 @@ export function ReportTableRow({ report, updateTable }) {
 
 
     async function doDocAction(evt) {
-
-        if (report.docModel === "User") {
-            requestBody = { ...requestBody, banned: !report.doc.banned }
-        } else {requestBody = {visible: !report.doc.visible}}
 
         try {
             if (actionType === 'delete') {
@@ -168,6 +172,10 @@ export function ReportTableRow({ report, updateTable }) {
 
             } else {
 
+                if (report.docModel === "User") {
+                    requestBody = { ...requestBody, banned: !report.doc.banned }
+                } else { requestBody = { visible: !report.doc.visible } }
+
                 const response = await axios.put(docSettings.requestUrl, requestBody, {
                     headers: {
                         "Authorization": `Bearer ${token}`
@@ -190,7 +198,6 @@ export function ReportTableRow({ report, updateTable }) {
         }
 
     };
-
 
 
     const actionBtns = isAction ?
@@ -225,6 +232,10 @@ export function ReportTableRow({ report, updateTable }) {
 
         if (!doc) {
             document = <p>{docModel} already deleted!</p>;
+            docSettings = {
+                actionText: '',
+                btnText: ''
+            }
             return
         }
 
@@ -232,8 +243,7 @@ export function ReportTableRow({ report, updateTable }) {
 
             case 'Post':
 
-                // document = <PostAdmin post={doc} />
-                document = <Post post={doc} />
+                document = <PostAdmin post={doc} updateTable={updateTable} />
                 docSettings = {
                     requestUrl: `http://localhost:8080/admin/post/${doc._id}`,
                     actionText: 'Are you sure you want to hide this post?',
@@ -295,32 +305,29 @@ export function ReportTableRow({ report, updateTable }) {
 
     return (
         <>
-            <tr className="even:bg-gray-100 odd:bg-white border-b" key={report._id}>
-                <td className="p-1 flex justify-center bg-opacity-0">
-                    <div
-                        className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
-                        onClick={() => {
-                            setSearchUser(report.reportedBy)
-                        }}
-                    >
-                        <Link to={`/users/${report.reportedBy.username}`} >
-                            <AdvancedImage cldImg={profileImg} />
-                        </Link>
+            <tr className="even:bg-gray-100 odd:bg-white border-b hover:bg-gray-400" key={report._id} onClick={handleShowDetails}>
+                <td className="border-l text-left p-1 " colSpan="2">
+                    <div className='flex items-center'>
+                        <div
+                            className="relative mx-2 shadow h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                            onClick={() => {
+                                setSearchUser(report.reportedBy)
+                            }}
+                        >
+                            <Link to={`/users/${report.reportedBy.username}`} >
+                                <AdvancedImage cldImg={profileImg} />
+                            </Link>
 
+                        </div>
+                        <b>{report.reportedBy.username}</b>
                     </div>
                 </td>
-                <td className="border-l text-left p-1 " colSpan="2"><b>{report.reportedBy.username}</b></td>
-                <td className="border-l">{report.docModel}</td>
-                <td className="border-l">{date} <br /> {time}</td>
+                <td className="border-l" colSpan="1">{report.docModel}</td>
+                <td className="border-l" colSpan="1">{date} <br /> {time}</td>
                 <td className="border-l" colSpan="2">{report.reasonText}</td>
-                <td className="border-l">
-                    <button onClick={handleShowDetails} className="flex align-middle justify-center w-full">
-                        {chevron}
-                    </button>
-                </td>
             </tr>
             <tr className={`even:bg-gray-100 odd:bg-white ${isDetailView ? null : 'hidden'}`}>
-                <td className="table-span" colSpan="8">
+                <td className="table-span border-l" colSpan="6">
                     <div className="w-full p-3 text-left">
 
                         <div className="w-full flex justify-center">

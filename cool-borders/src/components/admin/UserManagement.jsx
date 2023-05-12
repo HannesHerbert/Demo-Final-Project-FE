@@ -39,8 +39,6 @@ function UserManagement() {
 
             setUsersArr(response.data.users);
 
-            console.log(response.data.users);
-
             setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 
         } catch (error) {
@@ -121,11 +119,10 @@ function UserManagement() {
 
             </form>
 
-            <div className="w-full relative bg-gray-900 rounded mt-4 px-4 table-wrp block h-5/6 overflow-y-scroll">
-                <table className="w-full md:text-sm pb-4">
+            <div className="w-full relative bg-gray-900 mt-4 table-wrp block h-[60vh] overflow-y-scroll">
+                <table className="table-fixed w-full md:text-sm pb-4">
                     <thead className="text-white sticky bg-gray-900 z-50 top-0">
                         <tr>
-                            <th className="" colSpan="1"></th>
 
                             <th className="border-l" colSpan="2">
                                 <span className="flex">
@@ -154,7 +151,7 @@ function UserManagement() {
                                 </button>
                             </th>
 
-                            <th className="border-l" colSpan="2">
+                            <th className="border-l" colSpan="1">
                                 <span className="flex align-middle pl-1">
                                     Reports
                                 </span>

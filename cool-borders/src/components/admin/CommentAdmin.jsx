@@ -176,13 +176,13 @@ function CommentAdmin({ comment, updateTable }) {
                         <VscSettings
                             onClick={() => setIsEdit(true)}
                             size={22}
-                            className="hover:text-blue-500 absolute top-3 right-12 cursor-pointer"
+                            className="hover:text-blue-500 absolute top-3 right-12 cursor-pointer text-gray-500"
                         />
 
                         < VscClose
                             onClick={() => deleteComment(comment._id)}
                             size={24}
-                            className="hover:text-red-500 absolute top-3 right-3 cursor-pointer"
+                            className="hover:text-red-500 absolute top-3 right-3 cursor-pointer text-gray-500"
                         />
                     </>
                 }

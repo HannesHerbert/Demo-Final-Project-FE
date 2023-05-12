@@ -11,18 +11,21 @@ import useAuthStore from '../../store/useAuthStore';
 
 function AdminDashboard() {
 
-    const user = useAuthStore(state => state.user);
-
     const displays = {
         users: <UserManagement />,
         reports: <ReportManagement />,
         article: <CreateArticle />
-    }
-    const [display, setDisplay] = useState(displays.users);
+    };
+    const [view, setView] = useState('users')
+    const display= displays[view];
+
+    // Style-Parameter
+    const choosen = 'pt-3 underline bg-gradient-to-l from-[#FFFFFF09]';
+    const notChoosen = 'bg-gradient-to-l from-[#00000050]'
 
 
     function changeDisplay(evt) {
-        setDisplay(displays[evt.target.name]);
+        setView(evt.target.name);
     }
 
 
@@ -31,32 +34,32 @@ function AdminDashboard() {
 
         <div className='flex flex-col justify-center items-center'>
 
-            <div className="w-full md:w-3/4">
+            <div className="md:w-3/4 sm:w-full w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
 
-                <button className='w-1/3 md:w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
+                <button className={`w-1/3 text-xs md:text-lg p-2 bg-gray-900 border-b  text-white rounded-tr focus:outline-none  hover:underline ${view === 'users' ? choosen : notChoosen}`}
                     name='users'
                     onClick={changeDisplay}
                 >
-                    Manage Users
+                    Users
                 </button>
 
-                <button className='w-1/3 md:w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
+                <button className={`w-1/3 text-xs md:text-lg  p-2 bg-gray-900 border-b  text-white rounded-tr focus:outline-none  hover:underline ${view === 'reports' ? choosen : notChoosen}`}
                     name='reports'
                     onClick={changeDisplay}
                 >
-                    Manage Reports
+                    Reports
                 </button>
 
-                <button className='w-1/3 md:w-1/3 text-xs md:text-lg w-20 p-2 bg-orange-600 hover:bg-orange-700 text-white rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300'
+                <button className={`w-1/3 text-xs md:text-lg p-2 bg-gray-900 border-b  text-white rounded-tr focus:outline-none  hover:underline ${view === 'article' ? choosen : notChoosen}`}
                     name='article'
                     onClick={changeDisplay}
                 >
-                    Create Article
+                    New Article
                 </button>
 
             </div>
 
-            <div className="flex flex-col justify-center items-center  w-full md:w-3/4 h-full bg-gray-900 rounded">
+            <div className="flex flex-col justify-center items-center  w-full md:w-3/4 h-full bg-gray-900 z-20">
 
                 {display}
 

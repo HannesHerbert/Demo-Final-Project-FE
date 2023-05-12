@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+import { VscClose } from 'react-icons/vsc';
 
 
-function ImageSlider({ slides, setCurrSlide }) {
+function ImageSliderAdmin({ slides, setCurrSlide, isEdit, deleteFile }) {
     const [current, setCurrent] = useState(0);
 
     // Next picture
@@ -20,28 +21,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
     if (!Array.isArray(slides) || slides.length <= 0) {
         return null;
-    }
-
-
-    function isVideo(url) {
-
-        console.log(url.substring(url.indexOf(':'), url.indexOf("/")));
-        let index = url.lastIndexOf('.');
-
-        if (url.substring(index + 1, url.length) === 'mp4' || (url.substring(url.indexOf(':'), url.indexOf("/")) === ':video')) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-
-    function getSlideElement(url) {
-
-        if ((url.substring(url.lastIndexOf('.'), url.length) === '.mp4') || (url.substring(url.indexOf(':'), url.indexOf("/")) === ':video')) {
-
-        }
-    }
+    };
 
 
     return (
@@ -59,18 +39,18 @@ function ImageSlider({ slides, setCurrSlide }) {
                         key={index}
                     >
 
-                        {index === current &&
-
-                            (isVideo(slide) ?
-
-                                <video controls  data-setup=''>
-                                    <source src={slide} type='video/mp4'/>
-                                </video>
-                            :
-                            <img src={slide} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 hover:opacity-70' />
-                            )
-
-                        }
+                        {index === current && (
+                            <>
+                                <img src={slide} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 hover:opacity-70' />
+                                {isEdit ?
+                                    < VscClose
+                                        onClick={() => deleteFile(current)}
+                                        size={24}
+                                        className="hover:text-red-500 absolute top-3 right-3 cursor-pointer text-gray-500"
+                                    />
+                                    : null}
+                            </>
+                        )}
 
                     </div>
                 );
@@ -79,4 +59,4 @@ function ImageSlider({ slides, setCurrSlide }) {
     );
 };
 
-export default ImageSlider;
+export default ImageSliderAdmin;
