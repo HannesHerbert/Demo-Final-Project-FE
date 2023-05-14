@@ -7,8 +7,10 @@ import { useInView } from 'react-intersection-observer';
 
 function Blogs() {
     const token = useAuthStore(state => state.getToken());
-    // State
+    // speicherState für alle Posts
     const [blogs, setBlogs] = useState([]);
+    // speicherState für filtered
+    const [filteredBlogs, setFilteredBlogs] = useState([]);
     const [filter, setFilter] = useState('');
     // LAZY LOADING....
     const { ref, inView } = useInView({
@@ -18,20 +20,19 @@ function Blogs() {
 
     // wenn trigger-div inView === true dann fetche neue posts
     useEffect(() => {
-    
-        if (inView && !filter) fetchBlogs(blogs.length);
-
+        if (inView) fetchBlogs(blogs.length);
     }, [inView]);
 
+    // wenn filter, dann erstelle neue array mit filteredBlogs
     useEffect(() => {
-
-        if (filter.length > 0) {
-            fetchBlogs(0);
-        } else {
-            fetchBlogs(blogs.length);
+        if (filter) {
+            let fBlogs = blogs.filter(blog => {
+                return blog.category === filter
+            });
+            setFilteredBlogs(fBlogs);
         }
-        
-    }, [filter]);
+
+    }, [filter, blogs]);
 
     /* Array mit Objekten der Filtermöglichkeiten */
     let optionValues = [
@@ -42,34 +43,16 @@ function Blogs() {
     ];
 
 
-
+    // Fetche blogs
     async function fetchBlogs(skip) {
         try {
-            let response = await axios.get('http://localhost:8080/protected/blogs?category=' + filter + '&skip=' + skip, {
+            let response = await axios.get('http://localhost:8080/protected/blogs?' + 'skip=' + skip, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
             });
             console.log(response.data.data);
-
-            // Check ob blogs hat resp datas
-            let isObjFetched = false;
-
-            blogs.forEach(blog => {
-                response.data.data.forEach(resObj => {
-                    if (blog._id === resObj._id) {
-                        isObjFetched = true;
-                    }
-                })
-
-            });
-
-            // speichere blogs
-            if (blogs.length > 0 && !filter && !isObjFetched) {
-                setBlogs([...blogs, ...response.data.data]);
-            } else {
-                setBlogs(response.data.data)
-            }
+            setBlogs([...blogs, ...response.data.data]);
 
         } catch (error) {
             console.log(error);
@@ -87,10 +70,16 @@ function Blogs() {
                     
                 </select>
             </div>
-
+                        {/* Wenn kein post, dann h3 mit text */}
             {blogs.length > 0 
                 ? 
+                /* Wenn kein filter, dann zeige mir blogs, ansonsten filteredBlogs */
+                filter.length < 1 ? 
                 blogs.map(blog => {
+                    return <Post post={blog} key={blog._id} />
+                })
+                 : 
+                 filteredBlogs.map(blog => {
                     return <Post post={blog} key={blog._id} />
                 })
                 :
