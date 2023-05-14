@@ -1,21 +1,38 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Post from "../components/post/Post";
+import { useInView } from 'react-intersection-observer';
 
 
 function News() {
   // State
   const [articles, setArticles] = useState([]);
+  // LAZY LOADING....
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 1,
+  });
 
+// wenn trigger-div inView === true dann fetche neue posts
   useEffect(() => {
-    fetchNews();
-  }, []);
 
+    if (inView) fetchNews();
+
+  }, [inView]);
+
+  // Fetch function
   async function fetchNews() {
     try {
-      let resp = await axios.get('http://localhost:8080/public/articles');
+      let resp = await axios.get('http://localhost:8080/public/articles/' + articles?.length);
       // speichere articles in state
-      setArticles(resp.data.data)
+      console.log(resp.data.data);
+
+      if (articles.length > 0) {
+        setArticles([...articles, ...resp.data.data]);
+      } else {
+        setArticles(resp.data.data)
+      }
+
     } catch (error) {
       console.log(error);
     }
@@ -25,9 +42,12 @@ function News() {
       /* Render News */
       <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
 
-        {articles.map(article => {
+        {articles?.map((article, i) => {
           return <Post key={article._id} post={article} />
         })}
+
+        {/* TRIGGER DIV */}
+        <div ref={ref} className="w-full h-10 text-3xl text-white font-bold text-center ">The end</div>
   
       </div>
   );

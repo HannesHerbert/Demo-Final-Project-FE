@@ -8,8 +8,6 @@ import YouTubeVideoPlayer from '../services/YouTubeVideoPlayer';
 
 function ImageSlider({ slides, setCurrSlide }) {
     const [current, setCurrent] = useState(0);
-    const [hoveredLeft, setHoveredLeft] = useState(false);
-    const [hoveredRight, setHoveredRight] = useState(false);
 
 
     // Next picture
@@ -29,10 +27,6 @@ function ImageSlider({ slides, setCurrSlide }) {
         return null;
     }
 
-    useEffect(() => {
-        console.log(hoveredLeft);
-        console.log(hoveredRight);
-    }, [hoveredLeft, hoveredRight]);
     function isVideo(url) {
 
         console.log(url.substring(url.indexOf(':'), url.indexOf("/")));
