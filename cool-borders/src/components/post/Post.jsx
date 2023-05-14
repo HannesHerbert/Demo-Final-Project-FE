@@ -20,7 +20,7 @@ import useSearchStore from '../../store/useSearchStore.js';
 import useLocationStore from '../../store/useLocationStore.js';
 
 
-function Post({ post, fromLocation }) {
+function Post({ post }) {
 
     const isCreate = post.isCreate === undefined ? false : true;
 
@@ -34,8 +34,6 @@ function Post({ post, fromLocation }) {
     const sendReport = useReportStore(state => state.sendReport);
     // search user by avatar click
     const setSearchUser = useSearchStore(state => state.setSearchUser);
-    // LOCATION
-    const setPrevlocation = useLocationStore(state => state.setPrevlocation);
     // token
     const token = useAuthStore(state => state.getToken());
     // fetchFavs
@@ -44,7 +42,6 @@ function Post({ post, fromLocation }) {
     const isAuthenticated = useAuthStore(state => state.isAuthenticated());
     // user
     const updateUser = useAuthStore(state => state.updateUser)
-    // const favorites = usePostsStore(state => state.favorites);
     const user = useAuthStore(state => state.user);
     const [images, setImages] = useState(post.images)
 
@@ -111,7 +108,7 @@ function Post({ post, fromLocation }) {
             updateUser(user.data.data)
             // rerender favorites
             fetchFavorites();
-
+            
             setFavStyleToggle(prev => prev = !prev);
         } catch (error) {
             console.log(error);
@@ -131,7 +128,7 @@ function Post({ post, fromLocation }) {
 
             <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
                 {/* Section 1 mit Bilder */}
-                {images.length > 0 && <span className='text-white'>{currSlide}/{images.length}</span>}
+                {images?.length > 0 && <span className='text-white'>{currSlide}/{images.length}</span>}
                 <ImageSlider slides={images} setCurrSlide={setCurrSlide} />
 
                 {/* Section 2 Mit Text content*/}

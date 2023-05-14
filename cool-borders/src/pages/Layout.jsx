@@ -22,7 +22,7 @@ function Layout() {
 
 
     return (
-        <div className='container mx-auto min-h-screen relative w-5/6 '>
+        <div className='container mx-auto min-h-screen relative w-5/6 ' >
             
             <Header />
 
@@ -30,7 +30,7 @@ function Layout() {
 
             <Notification />
 
-            <div className='container min-h-screen py-24'>
+            <div className='container min-h-screen py-24' id='layout'>
 
                 <Outlet />
 
