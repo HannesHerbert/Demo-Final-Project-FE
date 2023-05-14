@@ -165,7 +165,7 @@ function Post({ post, fromLocation }) {
                         </div>
 
                         {/* Category */}
-                        {post.category !== 'article' && <span className=" text-xs text-red-500">{post.category}</span>}
+                        {(post.category !== 'article' || isCreate) ? <span className=" text-xs text-red-500">{post.category}</span> : null}
                     </div>
 
                     {/* TITLE */}

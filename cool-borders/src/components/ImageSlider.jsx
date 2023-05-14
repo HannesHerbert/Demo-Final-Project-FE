@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { GrPrevious, GrNext } from 'react-icons/gr';
-import {MdArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md';
+import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import BaseVideoPlayer from '../services/BaseVideoPlayer';
 import YouTubeVideoPlayer from '../services/YouTubeVideoPlayer';
 
@@ -29,38 +29,27 @@ function ImageSlider({ slides, setCurrSlide }) {
         return null;
     }
 
-    useEffect(() => {
-        console.log(hoveredLeft);
-        console.log(hoveredRight);
-    }, [hoveredLeft, hoveredRight]);
-    function isVideo(url) {
-
-        console.log(url.substring(url.indexOf(':'), url.indexOf("/")));
-        let index = url.lastIndexOf('.');
-
-        if (url.substring(index + 1, url.length) === 'mp4' || (url.substring(url.indexOf(':'), url.indexOf("/")) === ':video')) {
-            return true
-        } else {
-            return false
-        }
-    };
+    // useEffect(() => {
+    //     console.log(hoveredLeft);
+    //     console.log(hoveredRight);
+    // }, [hoveredLeft, hoveredRight]);
 
 
     function isYouTubeVideoLink(url) {
         // Regulärer Ausdruck für YouTube-Video-Links
         const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-      
+
         return youtubeRegex.test(url);
-      }
+    }
 
 
     function getSlideElement(url) {
 
         if ((url.substring(url.lastIndexOf('.'), url.length) === '.mp4') || (url.substring(url.indexOf(':'), url.indexOf("/")) === ':video')) {
-            return <BaseVideoPlayer url={url}/>
+            return <BaseVideoPlayer url={url} />
 
-        } else if(isYouTubeVideoLink(url)) {
-            return <YouTubeVideoPlayer  url={url}/>
+        } else if (isYouTubeVideoLink(url)) {
+            return <YouTubeVideoPlayer url={url} />
 
         } else {
             return (
@@ -72,7 +61,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
     return (
 
-        <section className='container w-full  flex items-center h-[50vh] md:h-[60vh]'>
+        <section className='container w-full flex items-center h-[50vh] md:h-[60vh]'>
 
             {/* NAVH LINKS BUTTON */}
             {slides.length > 1 &&
@@ -81,9 +70,9 @@ function ImageSlider({ slides, setCurrSlide }) {
                     className='h-full opacity-40 hover:opacity-100  w-1/6 flex justify-center items-center '
                     onClick={prevSlide}
                 >
-                    {<GrPrevious 
+                    {<GrPrevious
 
-                        size={50} 
+                        size={50}
                     />}
                 </button>
             }
@@ -109,10 +98,10 @@ function ImageSlider({ slides, setCurrSlide }) {
                     className='h-full opacity-30 hover:opacity-100 w-1/6 flex justify-center items-center '
                     onClick={nextSlide}>
 
-                        <GrNext 
-                            size={50} 
-                        />
-        
+                    <GrNext
+                        size={50}
+                    />
+
                 </button>
 
             }
