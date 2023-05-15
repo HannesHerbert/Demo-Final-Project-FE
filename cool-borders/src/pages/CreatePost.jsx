@@ -7,6 +7,8 @@ import useNotificationStore from "../store/useNotificationStore";
 import urlValidator from 'url-validator';
 import Post from "../components/post/Post";
 import { useNavigate } from "react-router-dom";
+import useSpinnerStore from "../store/useSpinnerStore";
+
 
 
 function CreatePost() {
@@ -22,6 +24,8 @@ function CreatePost() {
     const textInputRef = useRef('');
     const urlInputRef = useRef('');
     const fileInputRef = useRef();
+    const setShowSpinner = useSpinnerStore(state => state.setShowSpinner)
+    const spinnerHandler = useSpinnerStore(state => state.spinnerHandler)
 
     const [newPost, setNewPost] = useState({
         isCreate: true,
@@ -48,19 +52,6 @@ function CreatePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const newPost = new FormData();
-        // newPost.append('author', user._id);
-        // newPost.append('category', category);
-        // newPost.append('title', titleInputRef.current.value);
-        // newPost.append('text', textInputRef.current.value);
-        // newPost.append('url', urls);
-
-        // files.forEach((file, index) => {
-        //     newPost.append('files', file)
-        // })
-
-        // console.log(newPost.getAll('files'));
-
         const newPost = {
             category: category,
             title: titleInputRef.current.value,
@@ -70,16 +61,21 @@ function CreatePost() {
         }
 
         try {
+            spinnerHandler("Uploading files...")
+
             let response = await axios.post('http://localhost:8080/protected/post', newPost, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             })
 
+            setShowSpinner(false)
+
             alertSuccessHandler('New post created')
             navigate('/blogs')
         } catch (error) {
             console.log(error);
+            setShowSpinner(false)
             alertFailHandler(error.message)
         }
     };

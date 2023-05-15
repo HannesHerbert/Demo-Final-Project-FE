@@ -5,6 +5,7 @@ import useAuthStore from '../store/useAuthStore';
 import Nav from '../components/layout/Nav';
 import Notification from '../components/Notification';
 import ReportModal from '../components/user/ReportModal';
+import LoadingSpinner from '../components/user/LoadingSpinner';
 
 
 
@@ -29,6 +30,8 @@ function Layout() {
             <Nav />
 
             <Notification />
+
+            <LoadingSpinner />
 
             <div className='container min-h-screen py-24' id='layout'>
 

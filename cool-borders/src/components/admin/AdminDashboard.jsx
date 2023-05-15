@@ -3,7 +3,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight, AiFillStar } from 'react-icons
 import { HiUserCircle } from 'react-icons/hi';
 import UserManagement from './UserManagement';
 import ReportManagement from './ReportManagement';
-import CreateArticle from './CreateArticle';
+import PostManagement from './PostManagement';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useAuthStore from '../../store/useAuthStore';
@@ -14,7 +14,7 @@ function AdminDashboard() {
     const displays = {
         users: <UserManagement />,
         reports: <ReportManagement />,
-        article: <CreateArticle />
+        posts: <PostManagement />
     };
     const [view, setView] = useState('users')
     const display= displays[view];
@@ -51,10 +51,10 @@ function AdminDashboard() {
                 </button>
 
                 <button className={`w-1/3 text-xs md:text-lg p-2 bg-gray-900 border-b  text-white rounded-tr focus:outline-none  hover:underline ${view === 'article' ? choosen : notChoosen}`}
-                    name='article'
+                    name='posts'
                     onClick={changeDisplay}
                 >
-                    New Article
+                    Posts
                 </button>
 
             </div>
