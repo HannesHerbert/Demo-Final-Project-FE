@@ -66,7 +66,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
     return (
 
-        <section className='container w-full flex items-center h-[50vh] md:h-[60vh]'>
+        <section className='container w-full flex items-center h-[50vh] sm:h[50] md:h-[60vh]'>
 
             {/* NAVH LINKS BUTTON */}
             {slides.length > 1 &&

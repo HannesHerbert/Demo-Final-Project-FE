@@ -51,7 +51,7 @@ function Favs() {
 
   return (
     /* Render favorites */
-    <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
+    <div className="flex flex-col justify-center items-center w-full h-fit gap-14">
 
       {favorites.map(fav => {
         return <Post key={fav._id} post={fav} fetchFavorites={fetchFavorites} />
