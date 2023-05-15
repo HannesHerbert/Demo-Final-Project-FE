@@ -6,9 +6,11 @@ import YouTubeVideoPlayer from "../../services/YouTubeVideoPlayer";
 
 
 
-function UserPost({post}) {
+function UserPost({ post }) {
     const setSearchPost = useSearchStore(state => state.setSearchPost);
     const [picture, setPicture] = useState(null);
+
+    console.log(post);
 
 
     useEffect(() => {
@@ -17,12 +19,18 @@ function UserPost({post}) {
     }, []);
 
     function getPicture() {
-        let image = post.images[0];
 
-        
+        let image
+        if (post.images.length === 0) {
+            image = "https://res.cloudinary.com/djiwww2us/image/upload/v1684149893/Asset-Images/images_ybm00i.png"
+        } else {
+            image = post.images[0]
+        };
+
+
         if (image.substring(image.length - 4) === '.jpg') {
 
-            setPicture(<img  className="w-full h-28 md:h-48 object-cover text-white" src={image} alt={post.title} />)
+            setPicture(<img className="w-full h-28 md:h-48 object-cover text-white" src={image} alt={post.title} />)
 
         } else if (image.substring(image.length - 4) === '.mp4') {
 
@@ -32,7 +40,7 @@ function UserPost({post}) {
 
             const videoId = extractVideoId(image);
             let videoPicture = `https://i1.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-            setPicture(<img  className="w-full h-28 md:h-48 object-cover text-white" src={videoPicture} alt={post.title} />)
+            setPicture(<img className="w-full h-28 md:h-48 object-cover text-white" src={videoPicture} alt={post.title} />)
         }
     }
 
@@ -57,12 +65,12 @@ function UserPost({post}) {
 
     return (
         <button onClick={() => setSearchPost(post)} className="h-fit cursor-pointer">
-            <Link to={`/posts/${post.title}`} > 
+            <Link to={`/posts/${post.title}`} >
 
                 {picture}
 
             </Link>
-            
+
         </button>
     )
 }
