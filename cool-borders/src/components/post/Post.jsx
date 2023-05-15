@@ -124,15 +124,15 @@ function Post({ post }) {
     return (
 
         // Container
-        <div className="flex container justify-center items-center bg-gray-700 py-10 rounded-2xl min-h-[60vh]" id={post._id}>
+        <div className="flex container justify-center items-center bg-zinc-800 py-10 lg:rounded-2xl min-h-[60vh]" id={post._id}>
 
-            <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
+            <div className="container flex flex-col sm:gap-3 justify-center items-center w-full  h-full rounded-md">
                 {/* Section 1 mit Bilder */}
                 {images?.length > 0 && <span className='text-white'>{currSlide}/{images.length}</span>}
-                <ImageSlider slides={images} setCurrSlide={setCurrSlide} />
+                <ImageSlider slides={images} setCurrSlide={setCurrSlide} currSlide={currSlide} />
 
                 {/* Section 2 Mit Text content*/}
-                <section className="text-justify flex flex-col w-full gap-5">
+                <section className="text-justify flex flex-col  gap-5 w-5/6">
 
                     <div className="flex flex-row justify-between gap-2 mb-3">
                         {/* Profil image klickbar*/}

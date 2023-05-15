@@ -25,7 +25,7 @@ function News() {
     try {
       let resp = await axios.get('http://localhost:8080/public/articles/' + articles?.length);
       // speichere articles in state
-      console.log(resp.data.data);
+
 
       if (articles.length > 0) {
         setArticles([...articles, ...resp.data.data]);
@@ -40,7 +40,7 @@ function News() {
 
   return (
       /* Render News */
-      <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
+      <div className="flex flex-col justify-center items-center w-full h-fit gap-14">
 
         {articles?.map((article, i) => {
           return <Post key={article._id} post={article} />

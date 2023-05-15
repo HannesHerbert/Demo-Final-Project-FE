@@ -51,7 +51,7 @@ function Blogs() {
                     'Authorization': `Bearer ${token}`
                   }  
             });
-            console.log(response.data.data);
+
             setBlogs([...blogs, ...response.data.data]);
 
         } catch (error) {
@@ -60,25 +60,28 @@ function Blogs() {
     }
 
     return (
-        <div className="relative flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
+        <div className="relative flex flex-col justify-center items-center w-full h-fit gap-14">
+
             <div className="self-end sticky top-20 right-5">
+
                 <select onChange={e => setFilter(e.target.value)} className="p-1 rounded-md text-white bg-black hover:text-indigo-200 mt-6">
 
                     {optionValues.map((filter) => (
                         <option key={filter.value}  value={filter.value} className="rounded-md p-2">{filter.label}</option>
                     ))}
-                    
                 </select>
+
             </div>
                         {/* Wenn kein post, dann h3 mit text */}
             {blogs.length > 0 
                 ? 
-                /* Wenn kein filter, dann zeige mir blogs, ansonsten filteredBlogs */
+                /* Wenn kein filter, dann zeige mir blogs */
                 filter.length < 1 ? 
                 blogs.map(blog => {
                     return <Post post={blog} key={blog._id} />
                 })
                  : 
+                 /* ansonsten filteredBlogs */
                  filteredBlogs.map(blog => {
                     return <Post post={blog} key={blog._id} />
                 })

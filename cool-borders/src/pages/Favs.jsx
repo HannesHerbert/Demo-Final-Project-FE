@@ -19,7 +19,7 @@ function Favs() {
 
 // wenn trigger-div inView === true dann fetche neue posts
   useEffect(() => {
-    console.log(favorites);
+
     if (inView) fetchFavorites(favorites);
 
   }, [inView]);
@@ -27,7 +27,7 @@ function Favs() {
 
   // Fetch function
   async function fetchFavorites() {
-    console.log(favorites);
+
     try {
       let resp = await axios.get('http://localhost:8080/protected/favorites/' + favorites?.length, {
         headers: {
@@ -51,7 +51,7 @@ function Favs() {
 
   return (
     /* Render favorites */
-    <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
+    <div className="flex flex-col justify-center items-center w-full h-fit gap-14">
 
       {favorites.map(fav => {
         return <Post key={fav._id} post={fav} fetchFavorites={fetchFavorites} />

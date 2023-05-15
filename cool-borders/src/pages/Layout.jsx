@@ -23,7 +23,7 @@ function Layout() {
 
 
     return (
-        <div className='container mx-auto min-h-screen relative w-5/6 ' >
+        <div className='container mx-auto min-h-screen relative lg:w-5/6 ' >
             
             <Header />
 
