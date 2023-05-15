@@ -19,7 +19,7 @@ function Favs() {
 
 // wenn trigger-div inView === true dann fetche neue posts
   useEffect(() => {
-    console.log(favorites);
+
     if (inView) fetchFavorites(favorites);
 
   }, [inView]);
@@ -27,7 +27,7 @@ function Favs() {
 
   // Fetch function
   async function fetchFavorites() {
-    console.log(favorites);
+
     try {
       let resp = await axios.get('http://localhost:8080/protected/favorites/' + favorites?.length, {
         headers: {

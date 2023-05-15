@@ -16,8 +16,8 @@ function BaseVideoPlayer({ url }) {
     };
 
     return (
-        <div className="w-full">
-            <video controls className="w-full">
+        <div className="w-full h-full">
+            <video controls className="w-full h-full">
                 <source src={url} type={mimeType} />
             </video>
         </div>

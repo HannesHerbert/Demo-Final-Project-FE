@@ -25,7 +25,7 @@ function News() {
     try {
       let resp = await axios.get('http://localhost:8080/public/articles/' + articles?.length);
       // speichere articles in state
-      console.log(resp.data.data);
+
 
       if (articles.length > 0) {
         setArticles([...articles, ...resp.data.data]);

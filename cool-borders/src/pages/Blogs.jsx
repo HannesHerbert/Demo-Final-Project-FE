@@ -51,7 +51,7 @@ function Blogs() {
                     'Authorization': `Bearer ${token}`
                   }  
             });
-            console.log(response.data.data);
+
             setBlogs([...blogs, ...response.data.data]);
 
         } catch (error) {
