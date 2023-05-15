@@ -1,7 +1,11 @@
-import React from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import YouTube from 'react-youtube';
 
 function YouTubeVideoPlayer({ url }) {
+
+    const containerRef = useRef();
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
 
     function extractVideoId(link) {
         let videoId = '';
@@ -21,20 +25,44 @@ function YouTubeVideoPlayer({ url }) {
     };
 
 
+    useEffect(() => {
+        const containerWidth = containerRef.current.offsetWidth;
+        const containerHeight = containerWidth * 9 / 16; // Verhältnis 16:9
+        setWidth(containerWidth);
+        setHeight(containerHeight)
+      }, []);
+
+
+    const playerWidth = window.screen.width / 2.2;
+    const playerHeight = playerWidth / 16 * 9;
+
     const videoId = extractVideoId(url);
 
 
     const options = {
-        width: '100%',
-        height: '400',
+        width: playerWidth,
+        height: playerHeight,
         playerVars: {
             autoplay: 0,
         },
     };
 
+    const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+
     return (
 
-        <YouTube className='w-full' videoId={videoId} opts={options} />
+        <div className='w-full sm: w-100vw' ref={containerRef}>
+            <iframe
+                width={width}
+                height={height}
+                src={videoUrl}
+                title="YouTube Video"
+                frameBorder="0"
+                allowFullScreen
+            ></iframe>
+        </div>
+
+        // <YouTube className='w-full' videoId={videoId} opts={options} />
 
     );
 }

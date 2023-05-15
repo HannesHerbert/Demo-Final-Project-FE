@@ -40,7 +40,7 @@ function News() {
 
   return (
       /* Render News */
-      <div className="flex flex-col justify-center items-center p-2 w-full h-fit gap-14">
+      <div className="flex flex-col justify-center items-center w-full h-fit gap-14">
 
         {articles?.map((article, i) => {
           return <Post key={article._id} post={article} />

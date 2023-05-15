@@ -233,7 +233,7 @@ function CreatePost() {
                         <option value={'story'}>story</option>
                         <option value={'review'}>review</option>
                         <option value={'market'}>market</option>
-                        {isAdmin && <option value={'article'}>article</option>}
+                        {isAdmin && <option value='article'>article</option>}
                     </select>
                 </div>
 

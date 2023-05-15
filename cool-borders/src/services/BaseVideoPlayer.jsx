@@ -6,13 +6,14 @@ function BaseVideoPlayer({ url }) {
 
     let mimeType;
 
+    // wenn URL von cloudinary dann setze mimeType
     if (url.substring(url.lastIndexOf('.'), url.length) === '.mp4') {
         mimeType = 'video/mp4'
+
+    // Ansonsten extrahiere mimeType aus bas64-String
     } else {
         mimeType = url.substring(url.indexOf(':') + 1, url.indexOf(";"))
     };
-    
-    console.log(mimeType);
 
     return (
         <div className="w-full">
