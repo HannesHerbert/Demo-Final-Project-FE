@@ -145,10 +145,10 @@ function PostManagement() {
                         <tr>
                             <th className="border-l" colSpan="2">
                                 <span className="flex">
-                                    <button name="username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                    <button name="author" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
                                         Author
                                     </button>
-                                    {sortVal.key === "username" ? dirArrow : null}
+                                    {sortVal.key === "author" ? dirArrow : null}
                                 </span>
                             </th>
 
@@ -169,10 +169,10 @@ function PostManagement() {
 
                             <th className="border-l" colSpan="1">
                                 <span className="flex">
-                                    <button name="created" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                    <button name="createdAt" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
                                         created
                                     </button>
-                                    {sortVal.key === "created" ? dirArrow : null}
+                                    {sortVal.key === "createdAt" ? dirArrow : null}
                                 </span>
                             </th>
 

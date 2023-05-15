@@ -203,13 +203,13 @@ export function PostTableRow({ post, updateTable }) {
 
                             {post.author === null ?
                                 <div
-                                    className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
+                                    className="relative shadow mx-2 h-10 w-10 border-white rounded-full overflow-hidden border-4">
                                     <AdvancedImage cldImg={profileImg} />
                                 </div>
                                 :
 
                                 <div
-                                    className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                                    className="relative shadow mx-2 h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
                                     onClick={() => {
                                         setSearchUser(post.author)
                                     }}
@@ -220,7 +220,7 @@ export function PostTableRow({ post, updateTable }) {
 
                                 </div>
                             }
-                            <h3 className="ml-2 text-white text-xs font-bold ">{!post.author ? "User deleted" : post.author.fullname}</h3>
+                            <b>{!post.author ? "User deleted" : post.author.fullname}</b>
                         </div>
                     </div>
                 </td>
