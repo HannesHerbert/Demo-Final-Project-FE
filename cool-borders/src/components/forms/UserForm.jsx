@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import useNotificationStore from "../../store/useNotificationStore";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
+import * as Styles from "../../services/styles.js";
+import {RiShieldKeyholeFill } from 'react-icons/ri';
+import {FaCity } from 'react-icons/fa';
+import {AiOutlineMail } from 'react-icons/ai';
+import { FaUser } from 'react-icons/fa';
 
 
 function UserForm({ userToEdit, sendRequest, isAdminAct }) {
@@ -115,118 +120,145 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
     // Wenn user nicht eingelogt ist, dann wird ein Formular erzeugt, ansonsten wird der user zu Loginpage navigiert
     return (
-
-
-        <form id='register-form' className="max-w-xs mx-auto flex flex-col justify-start shadow-lg shadow-indigo-500/50 rounded-md bg-gray-900 w-full p-4" onSubmit={submitHandler}>
+        // FORM
+        <form 
+        id='edit-form' 
+        className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4 gap-5" 
+        onSubmit={submitHandler}
+        >
 
             {/* PROFILEIMAGE */}
-            <input type="file"
-                // accept="image/*"
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="image-file"
-                // value={}
-                onChange={(evt) => setImage(evt)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input type="file"
+                    
+                    className={`${Styles.input2}`}
+                    id="image-file"
+                    onChange={(evt) => setImage(evt)}
+                />
+            </fieldset>
+
 
             {/* Wenn username kürzer als 3 Zeichen dann Fehlermeldung */}
             {errormessage.username && <p className="text-red-600">{errormessage.username}</p>}
             {/* USERNAME */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(evt) => setUsername(evt.target.value)}
-            />
+
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="Username"
+                    value={username}
+                    onChange={(evt) => setUsername(evt.target.value)}
+                />
+            </fieldset>
+
 
             {/* FULLNAME */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500 mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="Fullname"
-                value={fullname}
-                onChange={(evt) => setFullname(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="Fullname"
+                    value={fullname}
+                    onChange={(evt) => setFullname(evt.target.value)}
+                />
+            </fieldset>
 
             {/* ROLE */}
             {isAdminAct ? roleSelect : null}
 
             {/* EMAIL */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="email"
-                placeholder="E-mail"
-                value={email}
-                onChange={(evt) => setEmail(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={(evt) => setEmail(evt.target.value)}
+                />
+            </fieldset>
 
             {/* CITY */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="City (optional)"
-                value={city}
-                onChange={(evt) => setCity(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="City (optional)"
+                    value={city}
+                    onChange={(evt) => setCity(evt.target.value)}
+                />
+            </fieldset>
 
             {/* BIRTHDAY */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="date"
-                value={bday}
-                onChange={(evt) => setBday(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="date"
+                    value={bday}
+                    onChange={(evt) => setBday(evt.target.value)}
+                />
+            </fieldset>
 
             {/* PREFERRED POSITION */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="preferred stance"
-                value={prefStance}
-                onChange={(evt) => setPrefStance(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="preferred stance"
+                    value={prefStance}
+                    onChange={(evt) => setPrefStance(evt.target.value)}
+                />
+            </fieldset>
 
             {/* FAVORITE LOCATIONS */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="favorite locations"
-                value={favLocations}
-                onChange={(evt) => setFavLocations(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="favorite locations"
+                    value={favLocations}
+                    onChange={(evt) => setFavLocations(evt.target.value)}
+                />
+            </fieldset>
 
             {/* RIDING STYLE */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="riding style (f.e.: park/freestyle)"
-                value={style}
-                onChange={(evt) => setStyle(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="riding style (f.e.: park/freestyle)"
+                    value={style}
+                    onChange={(evt) => setStyle(evt.target.value)}
+                />
+            </fieldset>
 
             {/* EQUIPMENT */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="your equipment"
-                value={equipment}
-                onChange={(evt) => setEquipment(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="your equipment"
+                    value={equipment}
+                    onChange={(evt) => setEquipment(evt.target.value)}
+                />
+            </fieldset>
 
             {/* TEXT */}
-            <input
-                className="bg-slate-900 text-orange-700 focus:caret-orange-500  mb-5 shadow appearance-none border rounded max-w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
-                placeholder="your description"
-                value={text}
-                onChange={(evt) => setText(evt.target.value)}
-            />
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input
+                    className={`${Styles.input2}`}
+                    type="text"
+                    placeholder="your description"
+                    value={text}
+                    onChange={(evt) => setText(evt.target.value)}
+                />
+            </fieldset>
 
 
             {/* Submit Button */}
             <button
+                className={`${Styles.mainButton} my-4`}
                 type='submit'
-                className="self-center w-40 bg-orange-900 font-bold hover:bg-orange-700 text-orange-100  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300 mb-6"
             >Apply
             </button>
 

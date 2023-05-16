@@ -60,9 +60,9 @@ function Blogs() {
     }
 
     return (
-        <div className="relative flex flex-col justify-center items-center w-full h-fit gap-14">
+        <div className=" flex flex-col justify-center items-center w-full h-fit gap-14">
 
-            <div className="self-end sticky top-20 right-5">
+            <div className="self-end">
 
                 <select onChange={e => setFilter(e.target.value)} className="p-1 rounded-md text-white bg-black hover:text-indigo-200 mt-6">
 

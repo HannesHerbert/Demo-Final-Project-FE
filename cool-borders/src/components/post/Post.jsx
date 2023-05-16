@@ -132,7 +132,7 @@ function Post({ post }) {
                 <ImageSlider slides={images} setCurrSlide={setCurrSlide} currSlide={currSlide} />
 
                 {/* Section 2 Mit Text content*/}
-                <section className="text-justify flex flex-col  gap-5 w-5/6">
+                <section className="text-justify flex flex-col mt-10 gap-5 w-5/6">
 
                     <div className="flex flex-row justify-between gap-2 mb-3">
                         {/* Profil image klickbar*/}

@@ -58,7 +58,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
         } else {
             return (
-                <img src={url} alt='travel image' className='w-full h-full object-contain rounded-md md:scale-100 hover:opacity-70' />
+                <img src={url} alt='travel image' className='w-full h-full object-contain' />
             )
         }
     }
@@ -69,10 +69,10 @@ function ImageSlider({ slides, setCurrSlide }) {
         <section className='container w-full flex items-center h-[50vh] sm:h[50] md:h-[60vh]'>
 
             {/* NAVH LINKS BUTTON */}
-            {slides.length > 1 &&
+
 
                 <button
-                    className='h-full opacity-40 hover:opacity-100  w-1/6 flex justify-center items-center '
+                    className={`h-full opacity-40 hover:opacity-100  w-1/6 flex justify-center items-center`}
                     onClick={prevSlide}
                 >
                     {<GrPrevious
@@ -80,7 +80,7 @@ function ImageSlider({ slides, setCurrSlide }) {
                         size={50}
                     />}
                 </button>
-            }
+
 
             {/* CONTENT */}
             {slides.map((slide, index) => {
@@ -97,7 +97,7 @@ function ImageSlider({ slides, setCurrSlide }) {
             })}
 
             {/* NACH RECHTS BUTTON */}
-            {slides.length > 1 &&
+
 
                 <button
                     className='h-full opacity-30 hover:opacity-100 w-1/6 flex justify-center items-center '
@@ -109,7 +109,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
                 </button>
 
-            }
+
         </section>
     );
 };
