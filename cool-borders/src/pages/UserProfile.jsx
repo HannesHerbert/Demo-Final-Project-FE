@@ -49,76 +49,101 @@ function UserProfile() {
             {isAuthor && <AuthorDashboard />}
 
             {isEdit === false ?
-                <div className="flex flex-col-reverse lg:flex-row  gap-10 mt-10">
+                <div className="flex flex-col-reverse  gap-10 mt-10">
                     <UserPostsContainer userId={user._id} />
 
-                    <div className="bg-gray-900 pb-6 w-full  justify-center items-center overflow-hidden lg:max-w-sm rounded-lg mx-auto  ">
-                        <div className="relative h-40">
-                            <img className="absolute h-full w-full object-cover" src="https://picjumbo.com/wp-content/uploads/snowboards-and-skis-leaning-against-wooden-fence.jpg" alt="" />
+                    {/* User data */}
+                        <div className="flex flex-col gap-14 pb-7  bg-gray-900 w-full lg:max-w-3xl rounded-lg mx-auto text-white shadow-gray-800  shadow-lg">
+                            <div>
+                                <div className="relative h-40">
+                                    <img className="absolute h-full w-full object-cover" src="https://picjumbo.com/wp-content/uploads/snowboards-and-skis-leaning-against-wooden-fence.jpg" alt="" />
 
-                        </div>
-                        <div className="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                            <img className="object-cover w-full h-full" src={user.image} alt="" />
+                                </div>
+                                <div className="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
+                                    <img className="object-cover w-full h-full" src={user.image} alt="" />
 
-                        </div>
-                        <div className="mt-16">
-                            <p className="text-lg text-center font-semibold text-orange-700">
-                                {user.fullname}
-                            </p>
+                                </div>
+                            </div>
+                            {/* USer description */}
+                            <div className=" bg-gray-900 px-5 py-10 rounded-3xl flex flex-col justify-around container gap-5 md:flex-row">
+                                <div className="flex flex-col ">
+                                <h5 className="font-bold text-lg  text-gray-500 text-center mb-5 uppercase">Rider info</h5>
 
-                            <p className="text-gray-400 text-center mt-3">
-                                Date of Birth: {user.birthday}
-                            </p>
+                                <p className="text-gray-500 text-center">username</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.username}
+                                </span>
 
-                            <p className="text-gray-400 text-center mt-3">
-                                Email: {user.email}
-                            </p>
+                                <p className="text-gray-500 text-center">full name</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.fullname}
+                                </span>
 
-                            <p className="text-gray-400 text-center mt-3">
-                            Last login:  {`${getDateString(user.lastLogin)} - ${getTimeString(user.lastLogin)}`}
-                            </p>
+                                <p className="text-gray-500 text-center">email</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.email}
+                                </span>
+
+                                <p className="text-gray-500 text-center">from</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.city}
+                                </span>
+
+                                <p className="text-gray-500 text-center">date of birth</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.birthday}
+                                </span>
 
 
-                        </div>
-                        <div className="mt-8 pt-3 mx-6 border-t flex flex-col items-center ">
-                            <div className="text-xs my-1 tracking-wider border px-2 text-orange-700 border-gray-400  hover:text-indigo-200 cursor-default">
-
-                                {user.description && 
-                                    <>
-                                        <p className="text-sm text-gray-600 text-center">
-                                            {user.description.prefStance}
-                                        </p>
-                                        <p className="text-sm text-gray-600 text-center">
-                                            {user.description.favLocations}
-                                        </p>
-                                        <p className="text-sm text-gray-600 text-center">
-                                            {user.description.style}
-                                        </p>
-                                        <p className="text-sm text-gray-600 text-center">
-                                            {user.description.equipment}
-                                        </p>
-                                        <p className="text-sm text-gray-600 text-center">
-                                            {user.description.text}
-                                        </p>
-                                    </>
-                                }
                             </div>
 
+                            <div className="flex flex-col ">
+                                <h5 className="font-bold text-lg text-gray-500 text-center mb-5 uppercase">Rider Description</h5>
 
+                                <p className="text-gray-500 text-center">Stance</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.description.prefStance}
+                                </span>
 
+                                <p className="text-gray-500 text-center">Fav locations</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.description.favLocations}
+                                </span>
+
+                                <p className="text-gray-500 text-center">Riding style</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.description.style}
+                                </span>
+                                
+                                <p className="text-gray-500 text-center">Equipment</p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.description.equipment}
+                                </span>
+
+                                <p className="text-gray-500 text-center">About me </p>
+                                <span className="text-lg text-center font-semibold mb-4">
+                                    {user.description.text}
+                                </span>
+                            </div>
+                            
+                        </div>
+
+                        {/* BUTTONS */}
+                        <div className="flex justify-center gap-5">
                             <button
                                 onClick={() => setIsEdit(true)}
-                                className="mt-4 w-40 bg-indigo-700 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300"
+                                className="px-7 py-2 font-bold rounded-lg text-gray-200 bg-indigo-500 hover:bg-gray-300 hover:text-indigo-600"
                             >Edit</button>
 
                             <button 
-                                className="mt-4 w-40 bg-indigo-700 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300"
+                                className="px-7  py-2 font-bold rounded-lg text-gray-200 bg-red-500 hover:bg-gray-300 hover:text-indigo-600"
                                 onClick={logout}
                             >
                                 Log out
                             </button>
-
                         </div>
+                        
+                                
                     </div>
 
                 </div>

@@ -8,6 +8,8 @@ import urlValidator from 'url-validator';
 import Post from "../components/post/Post";
 import { useNavigate } from "react-router-dom";
 import useSpinnerStore from "../store/useSpinnerStore";
+import * as Styles from "../services/styles.js";
+
 
 
 
@@ -190,52 +192,60 @@ function CreatePost() {
 
 
     return (
-        <div className="mx-auto w-full md:w-3/4 flex p-4 gap-3">
+        <div className="mx-auto w-full md:w-3/4  flex flex-col-reverse  p-4 gap-10">
 
-            <div className="w-2/3">
+            <div className="w-full">
                 <Post post={newPost} />
             </div>
 
-            <form onSubmit={handleSubmit} className="w-1/3 font-sans text-xs md:text-sm shadow-lg shadow-gray-900/50 bg-black rounded-md">
-
-                <div className="mb-4">
-
+            <form 
+                onSubmit={handleSubmit} 
+                className="w-full flex flex-col justify-start gap-5" 
+            >
+                {/* TITLE */}
+                <fieldset className="mb-4 p-2 border-b-2 border-cyan-800">
                     <input
                         type="text"
                         name="title"
                         ref={titleInputRef}
                         onChange={(evt) => updatePreview(evt)}
-                        className="bg-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline"
+                        className={`${Styles.input2}`}
                         placeholder="Title"
                         required
                     />
-                </div>
-                <div>
+                </fieldset>
+                {/* TEXT CONTENT */}
+                <fieldset className="mb-4 p-2 border-b-2 border-cyan-800">
                     <textarea
                         ref={textInputRef}
                         name="text"
                         onChange={(evt) => updatePreview(evt)}
                         id="content"
-                        cols="30"
+                        className={`${Styles.input2} w-full`}
                         rows="10"
-                        className=" bg-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Create your content ...">
 
                     </textarea>
-                </div>
-
-                <div className="mb-4">
-                    <select defaultValue={category} onChange={(evt) => setCategory(evt.target.value)} className="bg-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value={'story'}>story</option>
-                        <option value={'review'}>review</option>
-                        <option value={'market'}>market</option>
-                        {isAdmin && <option value='article'>article</option>}
+                </fieldset>
+                {/* CATEGORY */}
+                <fieldset className="mb-4 p-2 ">
+                    <select 
+                        defaultValue={category} 
+                        className={`bg-transparent border border-cyan-500 text-cyan-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                        onChange={(evt) => setCategory(evt.target.value)} 
+                    >
+                        <option className="bg-gray-700 " value={'story'}>story</option>
+                        <option className="bg-gray-700" value={'review'}>review</option>
+                        <option className="bg-gray-700" value={'market'}>market</option>
+                        {isAdmin && <option className="bg-gray-700" value='article'>article</option>}
                     </select>
-                </div>
+                </fieldset>
+
 
                 <div className=" mb-4 w-full">
+                    {/* FILES INPUT */}
+                    <fieldset className="mb-4 p-2 flex justify-between">
 
-                    <div className="flex gap-3 items-center mb-2">
 
                         {/* FILES */}
                         <input
@@ -243,7 +253,8 @@ function CreatePost() {
                             id="file"
                             ref={fileInputRef}
                             multiple
-                            className="bg-slate-900 shadow appearance-none border rounded h-10 w-full py-2 px-3 text-gray-100 leading-tight focus:outline-none focus:shadow-outline" />
+                            className={`${Styles.input2} `}
+                        />                           
 
                         {/* Add file button */}
                         <button
@@ -252,47 +263,49 @@ function CreatePost() {
                             className="bg-green-600 rounded-md h-10 w-10 flex justify-center items-center">
                             <GrAdd />
                         </button>
+                    </fieldset>
 
-                    </div>
 
-                    {/* FILES */}
-                    <ol className="flex flex-col gap-5 mb-2 list-decimal overflow-hidden">
+                    {/* FILES LIST */}
+                    <ol className="flex flex-col gap-5 my-5 list-decimal overflow-hidden">
 
                         {files.map((file, i) => {
-                            return <li className="text-white relative absolute left-10"
+                            return <li className="text-white relative left-24"
                                 key={i}
                             >
-                                <span>{file.fileName}</span>
-
                                 < VscClose
                                     onClick={() => deleteFilesFromList(i)}
                                     size={24}
-                                    className="hover:text-red-500 absolute top-[-2px] -left-10 cursor-pointer"
+                                    className="hover:text-red-500 absolute -left-24 cursor-pointer"
                                 />
+                                <span>{file.fileName}</span>                       
                             </li>
                         })}
 
                     </ol>
+                        {/* URL INPUT */}
+                    <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
 
-                    <div className="flex gap-3 items-center mb-2">
                         <input
-                            // onChange={handleUrlsChange}
                             ref={urlInputRef}
                             type="text"
+                            className={`${Styles.input2} `}
                             placeholder="Save Url"
-                            className="bg-slate-900 shadow appearance-none border rounded w-full h-10 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                        />
 
                         {/* Add URL button */}
                         <button type="button" className="text-white bg-green-600 rounded-md h-10 w-10 flex justify-center items-center"
                             onClick={handleUrlsChange}>
                             <GrAdd className="text-white" />
                         </button>
-                    </div>
+
+                    </fieldset>
+
 
                     <ol className="flex flex-col gap-5 mb-2 list-decimal overflow-hidden">
                         {urls.map((link, i) => {
                             return <li
-                                className="text-white relative absolute left-10"
+                                className="text-white relative left-24"
                                 key={i}
                             >
                                 <span className="">{link}</span>
@@ -300,7 +313,7 @@ function CreatePost() {
                                 < VscClose
                                     onClick={() => deleteUrlsFromList(i)}
                                     size={24}
-                                    className="hover:text-red-500 absolute top-[-2px] -left-10 cursor-pointer z-30"
+                                    className="hover:text-red-500 absolute -left-24 cursor-pointer"
                                 />
                             </li>
                         })}

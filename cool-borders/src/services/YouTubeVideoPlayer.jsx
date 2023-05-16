@@ -51,10 +51,9 @@ function YouTubeVideoPlayer({ url }) {
 
     return (
 
-        <div className='w-full sm: w-100vw' ref={containerRef}>
+        <div className='w-full h-full' ref={containerRef}>
             <iframe
-                width={width}
-                height={height}
+                className='w-full h-full'
                 src={videoUrl}
                 title="YouTube Video"
                 frameBorder="0"

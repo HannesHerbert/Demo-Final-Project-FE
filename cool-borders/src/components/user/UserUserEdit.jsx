@@ -52,9 +52,9 @@ function UserUserEdit({ userToEdit, setIsEdit }) {
     // Wenn user nicht eingelogt ist, dann wird ein Formular erzeugt, ansonsten wird der user zu Loginpage navigiert
     return (
 
-        <div id="register" className=" container font-mono flex flex-col justify-center ">
+        <div id="edit" className="container flex flex-col justify-center items-center">
 
-            <h2 className="text-2xl mb-2 font-bold text-center text-orange-700">EDIT YOUR PROFILE</h2>
+            <h2 className="text-2xl mb-2 font-bold text-center text-cyan-500">EDIT YOUR PROFILE</h2>
 
             <UserForm userToEdit={userToEdit} sendRequest={sendRequest} isAdminAct={false}/>
 
