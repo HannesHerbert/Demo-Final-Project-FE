@@ -16,17 +16,17 @@ function UserInfo() {
        <>
          {searchUser &&
 
-            <div className="container w-2/3 mx-auto items-center flex flex-col gap-16 min-h-full justify-center text-white ">
+            <div className="container w-full mx-auto items-center flex flex-col gap-16 min-h-full justify-center text-white ">
                 
                 <div className="relative shadow mx-auto h-36 w-36 my- border-white rounded-full overflow-hidden border-4 ">
                     <img className="object-cover w-full h-full" src={searchUser.image} alt="" />
                 </div>
 
                 
-                <div className=" bg-gray-900 px-5 py-10 rounded-3xl flex flex-col justify-around container gap-5 md:flex-row">
+                <div className=" bg-gray-900 px-5 py-10 lg:rounded-3xl flex flex-col justify-around container gap-5 md:flex-row shadow-gray-800  shadow-lg">
                     
                     <div className="flex flex-col ">
-                        <h5 className="font-bold text-lg  text-gray-500 text-center mb-5">Rider info</h5>
+                        <h5 className="font-bold text-lg  text-gray-500 text-center mb-5 uppercase">Rider info</h5>
 
                         <p className="text-gray-500 text-center">username</p>
                         <span className="text-lg text-center font-semibold mb-4">
@@ -59,7 +59,7 @@ function UserInfo() {
                         <>
                             
                             <div className="flex flex-col ">
-                                <h5 className="font-bold text-lg text-gray-500 text-center mb-5">Rider Description</h5>
+                                <h5 className="font-bold text-lg text-gray-500 text-center mb-5 uppercase">Rider Description</h5>
 
                                 <p className="text-gray-500 text-center">Stance</p>
                                 <span className="text-lg text-center font-semibold mb-4">
