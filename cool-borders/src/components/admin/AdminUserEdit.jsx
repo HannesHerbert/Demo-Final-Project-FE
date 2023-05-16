@@ -27,7 +27,7 @@ function AdminUserEdit({ userToEdit, setIsEdit, refresh }) {
 
         // Sende Request an  API
         try {
-            const response = await axios.put(`${import.meta.env.API_BASE_URL}/admin/user/${userToEdit._id}`, updatedUser, {
+            const response = await axios.put(`${import.meta.env.VITE_BASE_API_URL}/admin/user/${userToEdit._id}`, updatedUser, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

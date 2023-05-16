@@ -98,7 +98,7 @@ export function PostTableRow({ post, updateTable }) {
     // async function deleteUser() {
 
     //     try {
-    //         const response = await axios.delete(`${import.meta.env.API_BASE_URL}/admin/user/${user._id}`, {
+    //         const response = await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/admin/user/${user._id}`, {
     //             headers: {
     //                 "Authorization": `Bearer ${token}`
     //             }

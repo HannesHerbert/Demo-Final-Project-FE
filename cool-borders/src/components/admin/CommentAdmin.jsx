@@ -73,7 +73,7 @@ function CommentAdmin({ comment, updateTable }) {
 
         try {
             // delete comment von server
-            await axios.delete(`${import.meta.env.API_BASE_URL}/protected/comments/`+ id, {
+            await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/`+ id, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
@@ -93,7 +93,7 @@ function CommentAdmin({ comment, updateTable }) {
     async function editComment(id, text) {
         try {
             // edit comment Anfrage an server
-            await axios.put(`${import.meta.env.API_BASE_URL}/protected/comments/`+ id, {text}, {
+            await axios.put(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/`+ id, {text}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  

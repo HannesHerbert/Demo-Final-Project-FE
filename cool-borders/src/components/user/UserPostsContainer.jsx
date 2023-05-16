@@ -17,7 +17,7 @@ function UserPostsContainer({userId}) {
 
     async function fetchUserPosts() {
         try {
-            let response = await axios.get(`${import.meta.env.API_BASE_URL}/protected/` + userId + '/posts', {
+            let response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/` + userId + '/posts', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  

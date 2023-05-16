@@ -43,7 +43,7 @@ export function UserTableRow({ user, refresh }) {
     async function getPostAmount() {
 
         try {
-            const response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/posts/amount/${user._id}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/posts/amount/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -62,7 +62,7 @@ export function UserTableRow({ user, refresh }) {
     async function getReportAmount() {
 
         try {
-            const response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/reports/amount/${user._id}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/reports/amount/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -128,7 +128,7 @@ export function UserTableRow({ user, refresh }) {
     async function deleteUser() {
 
         try {
-            const response = await axios.delete(`${import.meta.env.API_BASE_URL}/admin/user/${user._id}`, {
+            const response = await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/admin/user/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

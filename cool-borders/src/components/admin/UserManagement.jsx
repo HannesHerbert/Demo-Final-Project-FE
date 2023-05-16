@@ -31,7 +31,7 @@ function UserManagement() {
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

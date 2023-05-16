@@ -89,7 +89,7 @@ function PostAdmin({ post, updateTable }) {
     // async function getAuthor() {
     //     try {
 
-    //         let response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/user/${post.author}`, {
+    //         let response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/user/${post.author}`, {
     //             headers: {
     //                 "Authorization": `Bearer ${token}`
     //             }
@@ -115,7 +115,7 @@ function PostAdmin({ post, updateTable }) {
 
         try {
 
-            let response = await axios.delete(`${import.meta.env.API_BASE_URL}/protected/post/${post._id}`, {
+            let response = await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/protected/post/${post._id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -147,7 +147,7 @@ function PostAdmin({ post, updateTable }) {
         }
 
         try {
-            const response = await axios.put(`${import.meta.env.API_BASE_URL}/protected/post/${post._id}`, updatePost, {
+            const response = await axios.put(`${import.meta.env.VITE_BASE_API_URL}/protected/post/${post._id}`, updatePost, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

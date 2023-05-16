@@ -29,7 +29,7 @@ function Favs() {
   async function fetchFavorites() {
 
     try {
-      let resp = await axios.get(`${import.meta.env.API_BASE_URL}/protected/favorites/` + favorites?.length, {
+      let resp = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/favorites/` + favorites?.length, {
         headers: {
           'Authorization': `Bearer ${token}`
         }  

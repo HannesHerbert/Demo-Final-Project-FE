@@ -63,7 +63,7 @@ function CreatePost() {
         try {
             spinnerHandler("Uploading files...")
 
-            let response = await axios.post(`${import.meta.env.API_BASE_URL}/protected/post`, newPost, {
+            let response = await axios.post(`${import.meta.env.VITE_BASE_API_URL}/protected/post`, newPost, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

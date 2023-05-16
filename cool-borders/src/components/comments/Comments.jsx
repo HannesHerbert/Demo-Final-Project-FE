@@ -16,7 +16,7 @@ function Comments({post}) {
     async function fetchComments() {
         try {
             // Hole comments nach postID
-            const response = await axios.get(`${import.meta.env.API_BASE_URL}/protected/comments/` + post._id, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/` + post._id, {
                 headers: {
                   'Authorization': `Bearer ${token}`
                 }  
@@ -41,7 +41,7 @@ function Comments({post}) {
         }
         try {
             // server post anfrage um das neue Kommentar zu erstellen
-            await axios.post(`${import.meta.env.API_BASE_URL}/protected/comments/` + post._id, commentBody, {
+            await axios.post(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/` + post._id, commentBody, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
@@ -60,7 +60,7 @@ function Comments({post}) {
 
         try {
             // delete comment von server
-            await axios.delete(`${import.meta.env.API_BASE_URL}/protected/comments/`+ id, {
+            await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/`+ id, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
@@ -77,7 +77,7 @@ function Comments({post}) {
         console.log(text);
         try {
             // edit comment Anfrage an server
-            await axios.put(`${import.meta.env.API_BASE_URL}/protected/comments/`+ id, {text}, {
+            await axios.put(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/`+ id, {text}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  

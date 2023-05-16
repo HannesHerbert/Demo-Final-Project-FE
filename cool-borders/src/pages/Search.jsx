@@ -38,7 +38,7 @@ function Search() {
 
     async function fetchUsers(username) {
         try {
-            let resp = await axios.get(`${import.meta.env.API_BASE_URL}/protected/search_user/` + username, {
+            let resp = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/search_user/` + username, {
               headers: {
                 'Authorization': `Bearer ${token}`
               }  
@@ -50,7 +50,7 @@ function Search() {
     }
     async function fetchNews(title) {
         try {
-            let resp = await axios.get(`${import.meta.env.API_BASE_URL}/protected/search_post/news/` + title, {
+            let resp = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/search_post/news/` + title, {
               headers: {
                 'Authorization': `Bearer ${token}`
               }  
@@ -63,7 +63,7 @@ function Search() {
     }
     async function fetchBlogs(title) {
         try {
-            let resp = await axios.get(`${import.meta.env.API_BASE_URL}/protected/search_post/blogs/` + title, {
+            let resp = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/search_post/blogs/` + title, {
               headers: {
                 'Authorization': `Bearer ${token}`
               }  

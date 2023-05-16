@@ -154,7 +154,7 @@ export function ReportTableRow({ report, updateTable }) {
         try {
             if (actionType === 'delete') {
 
-                const response = await axios.delete(`${import.meta.env.API_BASE_URL}/admin/report/${report._id}`, {
+                const response = await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/admin/report/${report._id}`, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
@@ -164,7 +164,7 @@ export function ReportTableRow({ report, updateTable }) {
 
             } else if (actionType === 'close') {
 
-                const response = await axios.put(`${import.meta.env.API_BASE_URL}/admin/report/${report._id}`, {}, {
+                const response = await axios.put(`${import.meta.env.VITE_BASE_API_URL}/admin/report/${report._id}`, {}, {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }
@@ -247,7 +247,7 @@ export function ReportTableRow({ report, updateTable }) {
 
                 document = <PostAdmin post={doc} updateTable={updateTable} />
                 docSettings = {
-                    requestUrl: `${import.meta.env.API_BASE_URL}/admin/post/${doc._id}`,
+                    requestUrl: `${import.meta.env.VITE_BASE_API_URL}/admin/post/${doc._id}`,
                     actionText: 'Are you sure you want to hide this post?',
                     btnText: (doc.visible ? "Hide Post" : "Show Post"),
                     successMsg: (doc.visible ? "Post is now hidden" : "Post is now visible"),
@@ -260,7 +260,7 @@ export function ReportTableRow({ report, updateTable }) {
 
                 document = <CommentAdmin comment={doc} updateTable={updateTable} />
                 docSettings = {
-                    requestUrl: `${import.meta.env.API_BASE_URL}/admin/comment/${doc._id}`,
+                    requestUrl: `${import.meta.env.VITE_BASE_API_URL}/admin/comment/${doc._id}`,
                     actionText: 'Are you sure you want to hide this comment?',
                     btnText: (doc.visible ? "Hide Comment" : "Show Comment"),
                     successMsg: (doc.visible ? "Comment is now hidden" : "Comment is now visible"),
@@ -290,7 +290,7 @@ export function ReportTableRow({ report, updateTable }) {
                 </div>
 
                 docSettings = {
-                    requestUrl: `${import.meta.env.API_BASE_URL}/admin/user/${doc._id}`,
+                    requestUrl: `${import.meta.env.VITE_BASE_API_URL}/admin/user/${doc._id}`,
                     actionText: `Are you sure you want to ${doc.banned ? "ban" : "unban"} this user?`,
                     btnText: (!doc.banned ? "Ban User" : "Unban User"),
                     successMsg: (!doc.banned ? "User is now banned" : "User is now unbanned"),
