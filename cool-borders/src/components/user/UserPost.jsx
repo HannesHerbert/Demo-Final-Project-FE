@@ -10,8 +10,6 @@ function UserPost({ post }) {
     const setSearchPost = useSearchStore(state => state.setSearchPost);
     const [picture, setPicture] = useState(null);
 
-    console.log(post);
-
 
     useEffect(() => {
         getPicture();

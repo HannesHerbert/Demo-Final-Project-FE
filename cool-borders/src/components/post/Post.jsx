@@ -3,7 +3,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { VscWarning } from 'react-icons/vsc';
 import ImageSlider from '../ImageSlider.jsx'
 // CLOUDINARY
-import CLOUD from "../../services/cloudinary.js";
+import { CLOUD } from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 
 // Import required actions and qualifiers.
@@ -108,7 +108,7 @@ function Post({ post }) {
             updateUser(user.data.data)
             // rerender favorites
             fetchFavorites();
-            
+
             setFavStyleToggle(prev => prev = !prev);
         } catch (error) {
             console.log(error);
@@ -178,16 +178,16 @@ function Post({ post }) {
 
                         (!isCreate &&
 
-                        <div className='w-full bg-gray-500 rounded-xl'>
-                            <h5
-                                className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
-                                onClick={handleComments}
-                            >
-                                Comments
-                            </h5>
+                            <div className='w-full bg-gray-500 rounded-xl'>
+                                <h5
+                                    className="w-full bg-gray-500 text-gray-900  rounded-xl p-4 cursor-pointer"
+                                    onClick={handleComments}
+                                >
+                                    Comments
+                                </h5>
 
-                            {showComments && <Comments post={post} />}
-                        </div>
+                                {showComments && <Comments post={post} />}
+                            </div>
                         )
                     }
 
@@ -197,16 +197,16 @@ function Post({ post }) {
 
                         (!isCreate &&
 
-                        <div className="flex flex-row justify-between items-center mt-4 ml-1">
-                            <AiFillStar
-                                onClick={toggleToFavorites}
-                                className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
-                            />
-                            <VscWarning
-                                onClick={() => sendReport(post.type, post._id)}
-                                className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer"
-                            />
-                        </div>
+                            <div className="flex flex-row justify-between items-center mt-4 ml-1">
+                                <AiFillStar
+                                    onClick={toggleToFavorites}
+                                    className={`${favStyle} text-2xl self-center  hover:text-yellow-400 active:text-yellow-400 cursor-pointer `}
+                                />
+                                <VscWarning
+                                    onClick={() => sendReport(post.type, post._id)}
+                                    className=" text-2xl text-gray-100  hover:text-red-600 active:text-red-600 self-end cursor-pointer"
+                                />
+                            </div>
                         )
                     }
 

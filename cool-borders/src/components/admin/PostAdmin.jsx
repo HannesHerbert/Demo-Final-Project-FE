@@ -10,7 +10,7 @@ import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { MdOutlineCancel } from 'react-icons/md';
 
 // CLOUDINARY
-import CLOUD from "../../services/cloudinary.js";
+import { CLOUD } from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";

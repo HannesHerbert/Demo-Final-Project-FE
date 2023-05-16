@@ -1,5 +1,5 @@
 // CLOUDINARY
-import CLOUD from "../../services/cloudinary.js";
+import { CLOUD } from "../../services/cloudinary.js";
 import { AdvancedImage } from "@cloudinary/react";
 // Import required actions and qualifiers.
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
@@ -73,12 +73,12 @@ function CommentAdmin({ comment, updateTable }) {
 
         try {
             // delete comment von server
-            await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/`+ id, {
+            await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/` + id, {
                 headers: {
                     'Authorization': `Bearer ${token}`
-                  }  
+                }
             });
-            
+
             alertSuccessHandler('Comment deleted');
 
             updateTable();
@@ -93,12 +93,12 @@ function CommentAdmin({ comment, updateTable }) {
     async function editComment(id, text) {
         try {
             // edit comment Anfrage an server
-            await axios.put(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/`+ id, {text}, {
+            await axios.put(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/` + id, { text }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
-                  }  
+                }
             });
-            
+
             alertSuccessHandler('Comment successfully edited');
 
             updateTable();

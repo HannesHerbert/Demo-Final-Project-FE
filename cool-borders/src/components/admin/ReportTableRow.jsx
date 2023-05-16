@@ -11,7 +11,7 @@ import useSearchStore from '../../store/useSearchStore';
 
 
 // Clodinary
-import CLOUD from "../../services/cloudinary.js";
+import { CLOUD } from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
@@ -129,9 +129,9 @@ export function ReportTableRow({ report, updateTable }) {
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth() + 1;
         const dayOfMonth = dateObj.getDate();
-    
+
         const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
-    
+
         return dateString
     };
 
@@ -330,7 +330,7 @@ export function ReportTableRow({ report, updateTable }) {
             </tr>
             <tr className={`even:bg-gray-100 odd:bg-white ${isDetailView ? null : 'hidden'}`}>
                 <td className="table-span border-l" colSpan="6">
-                    <div className="w-full p-3 text-left">
+                    <div className="w-full text-left">
 
                         <div className="w-full flex justify-center">
                             {document}

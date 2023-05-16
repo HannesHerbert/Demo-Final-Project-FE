@@ -8,7 +8,7 @@ import AdminUserEdit from './AdminUserEdit';
 import { Link } from 'react-router-dom';
 
 // Clodinary
-import CLOUD from "../../services/cloudinary.js";
+import { CLOUD } from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
@@ -161,9 +161,9 @@ export function UserTableRow({ user, refresh }) {
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth() + 1;
         const dayOfMonth = dateObj.getDate();
-    
+
         const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
-    
+
         return dateString
     };
 

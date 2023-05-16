@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import PostAdmin from './PostAdmin';
 
 // Clodinary
-import CLOUD from "../../services/cloudinary.js";
+import { CLOUD } from "../../services/cloudinary.js";
 import { AdvancedImage } from '@cloudinary/react';
 import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
@@ -154,7 +154,7 @@ export function PostTableRow({ post, updateTable }) {
     return (
         <>
             <tr className="even:bg-gray-100 odd:bg-white border-b hover:bg-gray-400" onClick={handleShowDetails}>
-                
+
                 <td className="border-l text-left p-1" colSpan="2">
                     <div className='flex items-center'>
                         <div className="flex items-center">

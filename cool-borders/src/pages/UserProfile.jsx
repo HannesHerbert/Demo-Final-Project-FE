@@ -1,9 +1,10 @@
-import {useState } from "react";
+import { useState } from "react";
 import UserUserEdit from "../components/user/UserUserEdit.jsx";
 import useAuthStore from "../store/useAuthStore.js";
+import axios from "axios";
 
 import AdminDashboard from "../components/admin/AdminDashboard";
-import AuthorDashboard  from "../components/admin/AdminDashboard";
+import AuthorDashboard from "../components/admin/AdminDashboard";
 import UserPostsContainer from "../components/user/UserPostsContainer.jsx";
 
 
@@ -14,6 +15,23 @@ function UserProfile() {
     const [isEdit, setIsEdit] = useState(false);
     const user = useAuthStore(state => state.user);
     const logout = useAuthStore(state => state.logout);
+    const token = useAuthStore(state => state.getToken());
+
+    async function main() {
+        try {
+            console.log("get files");
+            const resources = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/user/files`, {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }  
+              });
+            console.log(resources);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    main()
 
 
     function getDateString(date) {
@@ -22,9 +40,9 @@ function UserProfile() {
         const year = dateObj.getFullYear();
         const month = dateObj.getMonth() + 1;
         const dayOfMonth = dateObj.getDate();
-    
+
         const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
-    
+
         return dateString
     };
 
@@ -58,7 +76,7 @@ function UserProfile() {
 
                         </div>
                         <div className="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-                            <img className="object-cover w-full h-full" src={user.image} alt="" />
+                            <img className="object-cover w-full h-full" src={user.image} alt={user.username} />
 
                         </div>
                         <div className="mt-16">
@@ -75,7 +93,7 @@ function UserProfile() {
                             </p>
 
                             <p className="text-gray-400 text-center mt-3">
-                            Last login:  {`${getDateString(user.lastLogin)} - ${getTimeString(user.lastLogin)}`}
+                                Last login:  {`${getDateString(user.lastLogin)} - ${getTimeString(user.lastLogin)}`}
                             </p>
 
 
@@ -83,7 +101,7 @@ function UserProfile() {
                         <div className="mt-8 pt-3 mx-6 border-t flex flex-col items-center ">
                             <div className="text-xs my-1 tracking-wider border px-2 text-orange-700 border-gray-400  hover:text-indigo-200 cursor-default">
 
-                                {user.description && 
+                                {user.description &&
                                     <>
                                         <p className="text-sm text-gray-600 text-center">
                                             {user.description.prefStance}
@@ -111,7 +129,7 @@ function UserProfile() {
                                 className="mt-4 w-40 bg-indigo-700 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300"
                             >Edit</button>
 
-                            <button 
+                            <button
                                 className="mt-4 w-40 bg-indigo-700 font-bold hover:bg-orange-700 text-orange-200  py-2  rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600  hover:-translate-y-1 hover:scale-110 duration-300"
                                 onClick={logout}
                             >
@@ -125,9 +143,9 @@ function UserProfile() {
 
                 :
 
-                <UserUserEdit userToEdit={user} setIsEdit={setIsEdit}/>
+                <UserUserEdit userToEdit={user} setIsEdit={setIsEdit} />
             }
-            
+
         </>
     )
 }
