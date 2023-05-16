@@ -24,11 +24,9 @@ function Search() {
                 fetchUsers(debounced);
             }
             if (category === 'news') {
-                console.log('start search news');
                 fetchNews(debounced);
             }
             if (category === 'blogs') {
-                console.log('start search blogs');
                 fetchBlogs(debounced);
             }
         } else {
@@ -55,7 +53,7 @@ function Search() {
                 'Authorization': `Bearer ${token}`
               }  
             });
-            console.log(resp.data);
+
             setResults(resp.data.posts);
         } catch (error) {
           console.log(error);
@@ -68,7 +66,7 @@ function Search() {
                 'Authorization': `Bearer ${token}`
               }  
             });
-            console.log(resp.data);
+
             setResults(resp.data.posts);
         } catch (error) {
           console.log(error);

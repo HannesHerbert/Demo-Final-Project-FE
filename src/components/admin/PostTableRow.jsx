@@ -95,31 +95,6 @@ export function PostTableRow({ post, updateTable }) {
     };
 
 
-    // async function deleteUser() {
-
-    //     try {
-    //         const response = await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/admin/user/${user._id}`, {
-    //             headers: {
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-
-    //         toggleDeleteModal();
-
-    //         refresh()
-
-    //         // display eine 'SUCCESS' Meldung und navigiere zu Login
-    //         alertSuccessHandler(`User ${user.username} was deleted!`);
-
-    //     } catch (error) {
-
-    //         console.log(error);
-    //         // Display eine Fehlermeldung
-    //         alertFailHandler(error.response.data.message);
-    //     }
-    // };
-
-
     function toggleEditMode() {
         setIsEdit(isEdit => !isEdit)
     }

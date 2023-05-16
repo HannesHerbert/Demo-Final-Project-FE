@@ -244,7 +244,7 @@ function CreatePost() {
 
                 <div className=" mb-4 w-full">
                     {/* FILES INPUT */}
-                    <fieldset className="mb-4 p-2 flex justify-between">
+                    <fieldset className="mmb-4 p-2 flex justify-between border-b-2 border-cyan-800">
 
 
                         {/* FILES */}
@@ -253,7 +253,7 @@ function CreatePost() {
                             id="file"
                             ref={fileInputRef}
                             multiple
-                            className={`${Styles.input2} `}
+                            className={`text-cyan-500 focus:outline-none border-none outline-none bg-transparent w-5/6`}
                         />                           
 
                         {/* Add file button */}

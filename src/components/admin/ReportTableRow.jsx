@@ -30,7 +30,7 @@ export function ReportTableRow({ report, updateTable }) {
     const setSearchUser = useSearchStore(state => state.setSearchUser);
     const [isInit, setIsInit] = useState(true);
 
-    // console.log(report);
+
 
 
     // CLOUDINARY

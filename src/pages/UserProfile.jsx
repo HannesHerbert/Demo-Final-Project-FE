@@ -19,13 +19,13 @@ function UserProfile() {
 
     async function main() {
         try {
-            console.log("get files");
+
             const resources = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/user/files`, {
                 headers: {
                   'Authorization': `Bearer ${token}`
                 }  
               });
-            console.log(resources);
+
         } catch (error) {
             console.error(error);
         }
@@ -120,27 +120,27 @@ function UserProfile() {
 
                                 <p className="text-gray-500 text-center">Stance</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                    {user.description.prefStance}
+                                    {user.description?.prefStance}
                                 </span>
 
                                 <p className="text-gray-500 text-center">Fav locations</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                    {user.description.favLocations}
+                                    {user.description?.favLocations}
                                 </span>
 
                                 <p className="text-gray-500 text-center">Riding style</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                    {user.description.style}
+                                    {user.description?.style}
                                 </span>
                                 
                                 <p className="text-gray-500 text-center">Equipment</p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                    {user.description.equipment}
+                                    {user.description?.equipment}
                                 </span>
 
                                 <p className="text-gray-500 text-center">About me </p>
                                 <span className="text-lg text-center font-semibold mb-4">
-                                    {user.description.text}
+                                    {user.description?.text}
                                 </span>
                             </div>
                             
