@@ -28,7 +28,7 @@ function UserUserEdit({ userToEdit, setIsEdit }) {
 
         // Sende Request an /register endpoint der API
         try {
-            const response = await axios.put(`http://localhost:8080/protected/user`, updatedUser, {
+            const response = await axios.put(`${import.meta.env.API_BASE_URL}/protected/user`, updatedUser, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

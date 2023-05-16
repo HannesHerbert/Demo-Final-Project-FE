@@ -7,7 +7,7 @@ const usePostsStore = create((set, get) => ({
     fetchFavorites: async () => {
         let token = localStorage.getItem('token');
         try {
-            let resp = await axios.get('http://localhost:8080/protected/favorites/0', {
+            let resp = await axios.get(`${import.meta.env.API_BASE_URL}/protected/favorites/0`, {
               headers: {
                 'Authorization': `Bearer ${token}`
               }  
@@ -26,7 +26,7 @@ const usePostsStore = create((set, get) => ({
     //   let favs = get().favorites;
 
     //   try {
-    //     let resp = await axios.get('http://localhost:8080/protected/favorites/' + favs.length, {
+    //     let resp = await axios.get(`${import.meta.env.API_BASE_URL}/protected/favorites/` + favs.length, {
     //       headers: {
     //         'Authorization': `Bearer ${token}`
     //       }  

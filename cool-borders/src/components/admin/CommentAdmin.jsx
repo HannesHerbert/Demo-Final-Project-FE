@@ -17,26 +17,17 @@ import useNotificationStore from "../../store/useNotificationStore.js";
 
 function CommentAdmin({ comment, updateTable }) {
 
+
     const token = useAuthStore(state => state.getToken());
     const [isEdit, setIsEdit] = useState(false);
-    const [author, setAuthor] = useState(null);
-    const [isInit, setIsInit] = useState(true);
     const setSearchUser = useSearchStore(state => state.setSearchUser);
-
-    // Hole einmal Author bei Initialisierung
-    useEffect(() => {
-        if (isInit) {
-            getAuthor();
-            setIsInit(false)
-        }
-    }, []);
 
 
     // CLOUDINARY
     let publicId
     let profileImg
-    if (author !== null) {
-        publicId = getImgPublicId(author.image)
+    if (comment.author !== null) {
+        publicId = getImgPublicId(comment.author.image)
         profileImg = CLOUD.image(publicId);
         profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
     } else {
@@ -78,28 +69,11 @@ function CommentAdmin({ comment, updateTable }) {
     };
 
 
-    async function getAuthor() {
-        try {
-
-            let response = await axios.get(`http://localhost:8080/admin/user/${comment.author}`, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-
-            setAuthor(response.data.data);
-
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-
     async function deleteComment(id) {
 
         try {
             // delete comment von server
-            await axios.delete('http://localhost:8080/protected/comments/'+ id, {
+            await axios.delete(`${import.meta.env.API_BASE_URL}/protected/comments/`+ id, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
@@ -119,7 +93,7 @@ function CommentAdmin({ comment, updateTable }) {
     async function editComment(id, text) {
         try {
             // edit comment Anfrage an server
-            await axios.put('http://localhost:8080/protected/comments/'+ id, {text}, {
+            await axios.put(`${import.meta.env.API_BASE_URL}/protected/comments/`+ id, {text}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  
@@ -143,7 +117,7 @@ function CommentAdmin({ comment, updateTable }) {
                 <div className="flex items-center gap-3">
 
                     {/* author image klickbar */}
-                    {author === null ?
+                    {comment.author === null ?
                         <div
                             className="h-8 w-8 border-white rounded-full overflow-hidden border-4">
                             <AdvancedImage cldImg={profileImg} />
@@ -153,10 +127,10 @@ function CommentAdmin({ comment, updateTable }) {
                         <div
                             className="h-8 w-8 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
                             onClick={() => {
-                                setSearchUser(author)
+                                setSearchUser(comment.author)
                             }}
                         >
-                            <Link to={`/users/${author.username}`} >
+                            <Link to={`/users/${comment.author.username}`} >
                                 <AdvancedImage cldImg={profileImg} />
                             </Link>
 
@@ -164,7 +138,7 @@ function CommentAdmin({ comment, updateTable }) {
                     }
 
                     {/*  author name */}
-                    <span className="text-gray-500">{!author ? "User deleted" : author.fullname}</span>
+                    <span className="text-gray-500">{!comment.author ? "User deleted" : comment.author.fullname}</span>
                 </div>
                 {/*  Text */}
                 {isEdit ?

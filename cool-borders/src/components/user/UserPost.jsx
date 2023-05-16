@@ -22,7 +22,7 @@ function UserPost({ post }) {
 
         let image
         if (post.images.length === 0) {
-            image = "https://res.cloudinary.com/djiwww2us/image/upload/v1684149893/Asset-Images/images_ybm00i.png"
+            image = "https://res.cloudinary.com/djiwww2us/image/upload/v1684150635/Asset-Images/no-image-icon-6_yyldcv.png"
         } else {
             image = post.images[0]
         };

@@ -15,7 +15,7 @@ function PostManagement() {
     const [searchString, setSearchString] = useState("");
     const [postsArr, setPostsArr] = useState([]);
     const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />);
-    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false, isClosed: false })
+    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false, visible: true })
     const [isInit, setIsInit] = useState(true);
     const debounced = useDebounce(searchString);
     const [isClosed, setIsClosed] = useState(true)
@@ -39,8 +39,8 @@ function PostManagement() {
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`http://localhost:8080/admin/posts`, {
-                // ?search=${searchString}&state=${sortVal.isClosed}&sort=${sortVal.key}&dir=${sortDir}
+            const response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/posts?search=${searchString}&state=${sortVal.visible}&sort=${sortVal.key}&dir=${sortDir}`, {
+
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -103,14 +103,14 @@ function PostManagement() {
 
 
     let optionValues = [,
-        { label: 'Visible', value: false },
-        { label: 'Invisible', value: true }
+        { label: 'Visible', value: true },
+        { label: 'Invisible', value: false }
     ];
 
 
-    const reportSelect = <select onChange={evt => setSortVal({ ...sortVal, isClosed: evt.target.value })}
+    const reportSelect = <select onChange={evt => setSortVal({ ...sortVal, visible: evt.target.value })}
         className="p-1 absolute right-0 rounded-md text-white bg-black hover:text-indigo-200 justify-self-end"
-        defaultValue={sortVal.isClosed ? 'Closed' : 'Open'}>
+        defaultValue={sortVal.visible ? 'Visible' : 'Invisible'}>
         {optionValues.map((state, index) => (
             <option key={index} value={state.value} className="rounded-md p-2">{state.label}</option>
         ))}
@@ -145,16 +145,19 @@ function PostManagement() {
                         <tr>
                             <th className="border-l" colSpan="2">
                                 <span className="flex">
-                                    <button name="author" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                    <button name="author.username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
                                         Author
                                     </button>
-                                    {sortVal.key === "author" ? dirArrow : null}
+                                    {sortVal.key === "author.username" ? dirArrow : null}
                                 </span>
                             </th>
 
                             <th className="border-l" colSpan="2">
                                 <span className="flex align-middle pl-1">
-                                    Title
+                                <button name="title" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        Title
+                                    </button>
+                                    {sortVal.key === "title" ? dirArrow : null}
                                 </span>
                             </th>
 
@@ -170,7 +173,7 @@ function PostManagement() {
                             <th className="border-l" colSpan="1">
                                 <span className="flex">
                                     <button name="createdAt" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                        created
+                                        created at
                                     </button>
                                     {sortVal.key === "createdAt" ? dirArrow : null}
                                 </span>

@@ -45,7 +45,7 @@ function Login() {
 
         try {
             
-            const response = await axios.post('http://localhost:8080/public/login', loginData);
+            const response = await axios.post(`${import.meta.env.API_BASE_URL}/public/login`, loginData);
 
             authenticate(response.data.user, response.data.token);
 

@@ -23,7 +23,7 @@ function News() {
   // Fetch function
   async function fetchNews() {
     try {
-      let resp = await axios.get('http://localhost:8080/public/articles/' + articles?.length);
+      let resp = await axios.get(`${import.meta.env.API_BASE_URL}/public/articles/` + articles?.length);
       // speichere articles in state
 
 

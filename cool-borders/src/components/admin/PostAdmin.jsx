@@ -24,7 +24,7 @@ function PostAdmin({ post, updateTable }) {
 
     // States
     const [currSlide, setCurrSlide] = useState(1);
-    const [author, setAuthor] = useState(null);
+    // const [author, setAuthor] = useState(null);
     const [isInit, setIsInit] = useState(true);
     const [isEdit, setIsEdit] = useState(false);
     const [files, setFiles] = useState(post.images);
@@ -35,19 +35,12 @@ function PostAdmin({ post, updateTable }) {
     // search user by avatar click
     const setSearchUser = useSearchStore(state => state.setSearchUser);
 
-    useEffect(() => {
-        if (isInit) {
-            getAuthor();
-            setIsInit(false)
-        }
-    }, []);
-
 
     // CLOUDINARY
     let publicId
     let profileImg
-    if (author !== null) {
-        publicId = getImgPublicId(author.image)
+    if (post.author !== null) {
+        publicId = getImgPublicId(post.author.image)
         profileImg = CLOUD.image(publicId);
         profileImg.resize(thumbnail().width(50).height(50)).roundCorners(byRadius(50));
     } else {
@@ -93,21 +86,21 @@ function PostAdmin({ post, updateTable }) {
     };
 
 
-    async function getAuthor() {
-        try {
+    // async function getAuthor() {
+    //     try {
 
-            let response = await axios.get(`http://localhost:8080/admin/user/${post.author}`, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
+    //         let response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/user/${post.author}`, {
+    //             headers: {
+    //                 "Authorization": `Bearer ${token}`
+    //             }
+    //         });
 
-            setAuthor(response.data.data);
+    //         setAuthor(response.data.data);
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
 
     function deleteFile(index) {
@@ -122,7 +115,7 @@ function PostAdmin({ post, updateTable }) {
 
         try {
 
-            let response = await axios.delete(`http://localhost:8080/protected/post/${post._id}`, {
+            let response = await axios.delete(`${import.meta.env.API_BASE_URL}/protected/post/${post._id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -154,7 +147,7 @@ function PostAdmin({ post, updateTable }) {
         }
 
         try {
-            const response = await axios.put(`http://localhost:8080/protected/post/${post._id}`, updatePost, {
+            const response = await axios.put(`${import.meta.env.API_BASE_URL}/protected/post/${post._id}`, updatePost, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -211,7 +204,7 @@ function PostAdmin({ post, updateTable }) {
                         {/* Profil image klickbar*/}
                         <div className="flex items-center">
 
-                            {author === null ?
+                            {post.author === null ?
                                 <div
                                     className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
                                     <AdvancedImage cldImg={profileImg} />
@@ -221,16 +214,16 @@ function PostAdmin({ post, updateTable }) {
                                 <div
                                     className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
                                     onClick={() => {
-                                        setSearchUser(author)
+                                        setSearchUser(post.author)
                                     }}
                                 >
-                                    <Link to={`/users/${author.username}`} >
+                                    <Link to={`/users/${post.author.username}`} >
                                         <AdvancedImage cldImg={profileImg} />
                                     </Link>
 
                                 </div>
                             }
-                            <h3 className="ml-2 text-white text-xs font-bold ">{!author ? "User deleted" : author.fullname}</h3>
+                            <h3 className="ml-2 text-white text-xs font-bold ">{!post.author ? "User deleted" : post.author.fullname}</h3>
                         </div>
 
                         {/* Category */}

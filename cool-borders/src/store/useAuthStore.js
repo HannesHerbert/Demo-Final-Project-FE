@@ -19,7 +19,7 @@ const useAuthStore = create( set => ({
     validateToken: async () => {
       const token = localStorage.getItem('token');
       try {
-          let resp = await axios.get('http://localhost:8080/protected/uservalidation', {
+          let resp = await axios.get(`${import.meta.env.API_BASE_URL}/protected/uservalidation`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }  

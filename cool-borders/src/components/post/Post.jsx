@@ -99,7 +99,7 @@ function Post({ post }) {
     async function toggleToFavorites() {
 
         try {
-            let user = await axios.put('http://localhost:8080/protected/favorites/' + post._id, {}, {
+            let user = await axios.put(`${import.meta.env.API_BASE_URL}/protected/favorites/` + post._id, {}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

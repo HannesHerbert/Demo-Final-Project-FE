@@ -51,48 +51,6 @@ export function PostTableRow({ post, updateTable }) {
     }, [isDetailView]);
 
 
-    // async function getPostAmount() {
-
-    //     try {
-    //         const response = await axios.get(`http://localhost:8080/admin/posts/amount/${user._id}`, {
-    //             headers: {
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-
-    //         setPostAmount(response.data.postAmount);
-
-    //     } catch (error) {
-
-    //         console.log(error);
-    //         // Display eine Fehlermeldung
-    //         alertFailHandler(error.response.data.message);
-    //     }
-    // };
-
-    // async function getReportAmount() {
-
-    //     try {
-    //         const response = await axios.get(`http://localhost:8080/admin/reports/amount/${user._id}`, {
-    //             headers: {
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-
-    //         setReportAmount(response.data.reportAmount);
-
-    //     } catch (error) {
-
-    //         console.log(error);
-    //         // Display eine Fehlermeldung
-    //         alertFailHandler(error.response.data.message);
-    //     }
-    // };
-
-    // getPostAmount();
-    // getReportAmount();
-
-
     // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
 
     function alertSuccessHandler(msg) {
@@ -140,7 +98,7 @@ export function PostTableRow({ post, updateTable }) {
     // async function deleteUser() {
 
     //     try {
-    //         const response = await axios.delete(`http://localhost:8080/admin/user/${user._id}`, {
+    //         const response = await axios.delete(`${import.meta.env.API_BASE_URL}/admin/user/${user._id}`, {
     //             headers: {
     //                 "Authorization": `Bearer ${token}`
     //             }
@@ -196,7 +154,7 @@ export function PostTableRow({ post, updateTable }) {
     return (
         <>
             <tr className="even:bg-gray-100 odd:bg-white border-b hover:bg-gray-400" onClick={handleShowDetails}>
-                {/* <td className="p-1 flex justify-center bg-opacity-0" colSpan="1"></td> */}
+                
                 <td className="border-l text-left p-1" colSpan="2">
                     <div className='flex items-center'>
                         <div className="flex items-center">
@@ -220,7 +178,7 @@ export function PostTableRow({ post, updateTable }) {
 
                                 </div>
                             }
-                            <b>{!post.author ? "User deleted" : post.author.fullname}</b>
+                            <b>{!post.author ? "User deleted" : post.author.username}</b>
                         </div>
                     </div>
                 </td>

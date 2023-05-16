@@ -46,7 +46,7 @@ function Blogs() {
     // Fetche blogs
     async function fetchBlogs(skip) {
         try {
-            let response = await axios.get('http://localhost:8080/protected/blogs?' + 'skip=' + skip, {
+            let response = await axios.get(`${import.meta.env.API_BASE_URL}/protected/blogs?` + 'skip=' + skip, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                   }  

@@ -89,7 +89,7 @@ function Register() {
 
         // Sende Request an /register endpoint der API
         try {
-            const response = await axios.post('http://localhost:8080/public/register', registrationData);
+            const response = await axios.post(`${import.meta.env.API_BASE_URL}/public/register`, registrationData);
             console.log(response);
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`Thank you for registration, ${registrationData.username}!`);

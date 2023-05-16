@@ -43,7 +43,7 @@ export function UserTableRow({ user, refresh }) {
     async function getPostAmount() {
 
         try {
-            const response = await axios.get(`http://localhost:8080/admin/posts/amount/${user._id}`, {
+            const response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/posts/amount/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -62,7 +62,7 @@ export function UserTableRow({ user, refresh }) {
     async function getReportAmount() {
 
         try {
-            const response = await axios.get(`http://localhost:8080/admin/reports/amount/${user._id}`, {
+            const response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/reports/amount/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -128,7 +128,7 @@ export function UserTableRow({ user, refresh }) {
     async function deleteUser() {
 
         try {
-            const response = await axios.delete(`http://localhost:8080/admin/user/${user._id}`, {
+            const response = await axios.delete(`${import.meta.env.API_BASE_URL}/admin/user/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -216,7 +216,7 @@ export function UserTableRow({ user, refresh }) {
                             <p>Last Login: {user.lastLogin === undefined ? "n/a" : (`${date}, ${time}`)}</p>
                         </div>
 
-                        <p>eMail: {user.email}</p>
+                        <p>eMail: <a href={`mailto:${user.email}`}></a>{user.email}</p>
 
                         <p className="underline mt-3">Description:</p>
 

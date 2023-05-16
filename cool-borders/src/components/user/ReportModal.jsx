@@ -53,7 +53,7 @@ function ReportModal() {
         };
 
         try {
-            await axios.post(`http://localhost:8080/protected/report`, report, {
+            await axios.post(`${import.meta.env.API_BASE_URL}/protected/report`, report, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

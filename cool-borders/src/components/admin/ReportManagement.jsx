@@ -15,7 +15,7 @@ function ReportManagement() {
     const [searchString, setSearchString] = useState("");
     const [reportsArr, setReportsArr] = useState([]);
     const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />);
-    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false, isClosed: false })
+    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: true, isClosed: false })
     const [isInit, setIsInit] = useState(true);
     const debounced = useDebounce(searchString);
     const [isClosed, setIsClosed] = useState(true)
@@ -39,13 +39,15 @@ function ReportManagement() {
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`http://localhost:8080/admin/reports?search=${searchString}&state=${sortVal.isClosed}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`${import.meta.env.API_BASE_URL}/admin/reports?search=${searchString}&state=${sortVal.isClosed}&sort=${sortVal.key}&dir=${sortDir}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
 
             setReportsArr(response.data.reports);
+
+            console.log(response.data.reports);
 
             setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 
@@ -67,6 +69,7 @@ function ReportManagement() {
 
 
     useEffect(() => {
+        console.log(sortVal);
         getFilteredAndSortedReports();
     }, [sortVal, debounced]);
 
