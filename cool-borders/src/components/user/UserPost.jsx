@@ -28,7 +28,7 @@ function UserPost({ post }) {
         };
 
 
-        if (image.substring(image.length - 4) === '.jpg') {
+        if (image.substring(image.length - 4) === '.jpg' || image.substring(image.length - 4) === 'jpeg') {
 
             setPicture(<img className="w-full h-28 md:h-48 object-cover text-white" src={image} alt={post.title} />)
 

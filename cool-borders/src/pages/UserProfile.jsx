@@ -52,7 +52,7 @@ function UserProfile() {
                 <div className="flex flex-col-reverse lg:flex-row  gap-10 mt-10">
                     <UserPostsContainer userId={user._id} />
 
-                    <div className="bg-gray-900 pb-6 w-full  justify-center items-center overflow-hidden lg:max-w-sm rounded-lg mx-auto shadow-lg shadow-indigo-500/50 ">
+                    <div className="bg-gray-900 pb-6 w-full  justify-center items-center overflow-hidden lg:max-w-sm rounded-lg mx-auto  ">
                         <div className="relative h-40">
                             <img className="absolute h-full w-full object-cover" src="https://picjumbo.com/wp-content/uploads/snowboards-and-skis-leaning-against-wooden-fence.jpg" alt="" />
 
