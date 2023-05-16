@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import useNotificationStore from "../../store/useNotificationStore";
 import axios from 'axios';
 import useAuthStore from "../../store/useAuthStore";
+import useSearchStore from '../../store/useSearchStore';
+import AdminUserEdit from './AdminUserEdit';
+import { Link } from 'react-router-dom';
 
 // Clodinary
 import CLOUD from "../../services/cloudinary.js";
@@ -12,13 +15,18 @@ import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
 
 
 
-export function UserTableRow(props) {
+export function UserTableRow({ user, refresh }) {
 
-    const user = props.user;
     const token = useAuthStore(state => state.getToken());
     const [isDetailView, setIsDetailView] = useState(false);
     const [chevron, setChevron] = useState(<BsChevronDown />);
     const [isDelete, setIsDelete] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const date = getDateString(user.lastLogin);
+    const time = getTimeString(user.lastLogin);
+    const [postAmount, setPostAmount] = useState(0);
+    const [reportAmount, setReportAmount] = useState(0)
+    const setSearchUser = useSearchStore(state => state.setSearchUser);
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
@@ -31,6 +39,47 @@ export function UserTableRow(props) {
         setChevron(isDetailView ? <BsChevronUp /> : <BsChevronDown />)
     }, [isDetailView]);
 
+
+    async function getPostAmount() {
+
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/posts/amount/${user._id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            setPostAmount(response.data.postAmount);
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.response.data.message);
+        }
+    };
+
+    async function getReportAmount() {
+
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/reports/amount/${user._id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            setReportAmount(response.data.reportAmount);
+
+        } catch (error) {
+
+            console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.response.data.message);
+        }
+    };
+
+    getPostAmount();
+    getReportAmount();
 
 
     // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
@@ -79,13 +128,15 @@ export function UserTableRow(props) {
     async function deleteUser() {
 
         try {
-            const response = await axios.delete(`http://localhost:8080/protected/user/${user._id}`, {
+            const response = await axios.delete(`${import.meta.env.VITE_BASE_API_URL}/admin/user/${user._id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
 
             toggleDeleteModal();
+
+            refresh()
 
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`User ${user.username} was deleted!`);
@@ -96,31 +147,77 @@ export function UserTableRow(props) {
             // Display eine Fehlermeldung
             alertFailHandler(error.response.data.message);
         }
+    };
+
+
+    function toggleEditMode() {
+        setIsEdit(isEdit => !isEdit)
     }
+
+
+    function getDateString(date) {
+
+        const dateObj = new Date(date);
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth() + 1;
+        const dayOfMonth = dateObj.getDate();
+    
+        const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
+    
+        return dateString
+    };
+
+
+    function getTimeString(date) {
+
+        const dateObj = new Date(date);
+        const hour = dateObj.getHours();
+        const min = dateObj.getMinutes();
+        const sec = dateObj.getSeconds();
+
+        const timeString = `${hour < 10 ? 0 : ""}${hour}:${min < 10 ? 0 : ""}${min}:${sec < 10 ? 0 : ""}${sec}`
+
+        return timeString
+    };
 
 
     return (
         <>
-            <tr className="even:bg-gray-100 odd:bg-white border-b" key={user._id}>
-                <td className="p-1 flex justify-center bg-opacity-0"><AdvancedImage cldImg={profileImg} /></td>
-                <td className="border-l text-left p-1 " colSpan="2"><b>{user.username}</b></td>
-                <td className="border-l">{user.role}</td>
-                <td className="border-l">1</td>
-                <td className="border-l">1</td>
-                <td className="border-l">
-                    <button onClick={handleShowDetails} className="flex align-middle justify-center w-full">
-                        {chevron}
-                    </button>
+            <tr className="even:bg-gray-100 odd:bg-white border-b hover:bg-gray-400" onClick={handleShowDetails}>
+                {/* <td className="p-1 flex justify-center bg-opacity-0" colSpan="1"></td> */}
+                <td className="border-l text-left p-1" colSpan="2">
+                    <div className='flex items-center'>
+                        <div
+                            className="relative mx-2 shadow h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                            onClick={() => {
+                                setSearchUser(user)
+                            }}
+                        >
+                            <Link to={`/users/${user.username}`} >
+                                <AdvancedImage cldImg={profileImg} />
+                            </Link>
+
+                        </div>
+                        <b>{user.username}</b>
+                    </div>
                 </td>
+                <td className="border-l" colSpan="1">{user.role}</td>
+                <td className="border-l" colSpan="1">{postAmount}</td>
+                <td className="border-l" colSpan="1">{reportAmount}</td>
             </tr>
             <tr className={`even:bg-gray-100 odd:bg-white ${isDetailView ? null : 'hidden'}`}>
-                <td className="table-span" colSpan="7">
+
+                <td className="table-span border-l" colSpan="5">
+
                     <div className="w-full p-3 text-left">
+
                         <div className="w-full flex justify-between">
                             <p>Fullname: {user.fullname}</p>
-                            <p>Last Login: {user.lastLogin === undefined ? "n/a" : user.lastLogin}</p>
+                            <p>Last Login: {user.lastLogin === undefined ? "n/a" : (`${date}, ${time}`)}</p>
                         </div>
-                        <p>eMail: {user.email}</p>
+
+                        <p>eMail: <a href={`mailto:${user.email}`}></a>{user.email}</p>
+
                         <p className="underline mt-3">Description:</p>
 
                         <div className="w-full flex justify-between">
@@ -161,13 +258,15 @@ export function UserTableRow(props) {
                             ) :
                             (
                                 <div className="w-full flex justify-end mt-3">
-                                    <button className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Edit</button>
+                                    <button onClick={toggleEditMode} className="w-auto px-3 mr-2 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Edit</button>
                                     <button onClick={toggleDeleteModal} className="w-auto px-3 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">Delete</button>
                                 </div>
                             )
                         }
 
-
+                        {isEdit &&
+                            <AdminUserEdit userToEdit={user} setIsEdit={setIsEdit} refresh={refresh} />
+                        }
 
 
 

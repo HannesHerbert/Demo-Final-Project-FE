@@ -3,19 +3,19 @@ import { IoMdSearch } from 'react-icons/io';
 import axios from "axios";
 import useAuthStore from "../../store/useAuthStore";
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
-import ReportTableRow from "./ReportTableRow";
+import PostTableRow from "./PostTableRow";
 import useDebounce from "../../hooks/debounce";
 import useNotificationStore from "../../store/useNotificationStore";
 
 
 
-function ReportManagement() {
+function PostManagement() {
 
     const token = useAuthStore(state => state.getToken());
     const [searchString, setSearchString] = useState("");
-    const [reportsArr, setReportsArr] = useState([]);
+    const [postsArr, setPostsArr] = useState([]);
     const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />);
-    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: true, isClosed: false })
+    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false, visible: true })
     const [isInit, setIsInit] = useState(true);
     const debounced = useDebounce(searchString);
     const [isClosed, setIsClosed] = useState(true)
@@ -34,27 +34,28 @@ function ReportManagement() {
 
 
 
-    async function getFilteredAndSortedReports() {
+    async function getFilteredAndSortedPosts() {
 
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/reports?search=${searchString}&state=${sortVal.isClosed}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/posts?search=${searchString}&state=${sortVal.visible}&sort=${sortVal.key}&dir=${sortDir}`, {
+
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
 
-            setReportsArr(response.data.reports);
+            setPostsArr(response.data.posts);
 
-            console.log(response.data.reports);
+            console.log(response.data.posts);
 
             setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 
         } catch (error) {
 
             console.log(error);
-            // Display eine Fehlermeldung
+            
             alertFailHandler(error.message);
         }
     };
@@ -62,20 +63,19 @@ function ReportManagement() {
 
     useEffect(() => {
         if (isInit) {
-            getFilteredAndSortedReports();
+            getFilteredAndSortedPosts();
             setIsInit(false);
         }
     }, []);
 
 
     useEffect(() => {
-        console.log(sortVal);
-        getFilteredAndSortedReports();
+        getFilteredAndSortedPosts();
     }, [sortVal, debounced]);
 
 
     function updateTable() {
-        getFilteredAndSortedReports()
+        getFilteredAndSortedPosts()
     };
 
 
@@ -90,27 +90,27 @@ function ReportManagement() {
 
     function handleSubmit(evt) {
         evt.preventDefault()
-        getFilteredAndSortedReports()
+        getFilteredAndSortedPosts()
     };
 
 
-    const reportsTable = reportsArr.map(report => {
+    const postsTable = postsArr.map(post => {
 
         return (
-            <ReportTableRow report={report} key={report._id} updateTable={updateTable} />
+            <PostTableRow post={post} key={post._id} updateTable={updateTable} />
         )
     });
 
 
     let optionValues = [,
-        { label: 'Open', value: false },
-        { label: 'Closed', value: true }
+        { label: 'Visible', value: true },
+        { label: 'Invisible', value: false }
     ];
 
 
-    const reportSelect = <select onChange={evt => setSortVal({ ...sortVal, isClosed: evt.target.value })}
+    const reportSelect = <select onChange={evt => setSortVal({ ...sortVal, visible: evt.target.value })}
         className="p-1 absolute right-0 rounded-md text-white bg-black hover:text-indigo-200 justify-self-end"
-        defaultValue={sortVal.isClosed ? 'Closed' : 'Open'}>
+        defaultValue={sortVal.visible ? 'Visible' : 'Invisible'}>
         {optionValues.map((state, index) => (
             <option key={index} value={state.value} className="rounded-md p-2">{state.label}</option>
         ))}
@@ -145,34 +145,37 @@ function ReportManagement() {
                         <tr>
                             <th className="border-l" colSpan="2">
                                 <span className="flex">
-                                    <button name="username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                        Reported By
+                                    <button name="author.username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        Author
                                     </button>
-                                    {sortVal.key === "username" ? dirArrow : null}
+                                    {sortVal.key === "author.username" ? dirArrow : null}
+                                </span>
+                            </th>
+
+                            <th className="border-l" colSpan="2">
+                                <span className="flex align-middle pl-1">
+                                <button name="title" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        Title
+                                    </button>
+                                    {sortVal.key === "title" ? dirArrow : null}
                                 </span>
                             </th>
 
                             <th className="border-l" colSpan="1">
                                 <span className="flex">
-                                    <button name="docModel" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                        Doc-Type
+                                    <button name="category" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        Category
                                     </button>
-                                    {sortVal.key === "docModel" ? dirArrow : null}
+                                    {sortVal.key === "category" ? dirArrow : null}
                                 </span>
                             </th>
 
                             <th className="border-l" colSpan="1">
                                 <span className="flex">
                                     <button name="createdAt" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                        Date
+                                        created at
                                     </button>
                                     {sortVal.key === "createdAt" ? dirArrow : null}
-                                </span>
-                            </th>
-
-                            <th className="border-l" colSpan="2">
-                                <span className="flex align-middle pl-1">
-                                    Reason
                                 </span>
                             </th>
 
@@ -180,7 +183,7 @@ function ReportManagement() {
                     </thead>
 
                     <tbody className="text-center text-black">
-                        {reportsTable}
+                        {postsTable}
                     </tbody>
 
                 </table>
@@ -191,4 +194,4 @@ function ReportManagement() {
 }
 
 
-export default ReportManagement;
+export default PostManagement;

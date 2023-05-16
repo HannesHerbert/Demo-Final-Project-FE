@@ -2,11 +2,12 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
-import BaseVideoPlayer from '../services/BaseVideoPlayer';
-import YouTubeVideoPlayer from '../services/YouTubeVideoPlayer';
+import BaseVideoPlayer from '../../services/BaseVideoPlayer';
+import YouTubeVideoPlayer from '../../services/YouTubeVideoPlayer';
+import { VscClose, VscSettings } from 'react-icons/vsc';
 
 
-function ImageSlider({ slides, setCurrSlide }) {
+function ImageSliderAdmin({ slides, setCurrSlide, isEdit, deleteFile }) {
     const [current, setCurrent] = useState(0);
 
 
@@ -66,7 +67,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
     return (
 
-        <section className='container w-full flex items-center h-[50vh] sm:h[50] md:h-[60vh]'>
+        <section className='container w-full flex items-center h-[50vh] md:h-[60vh]'>
 
             {/* NAVH LINKS BUTTON */}
             {slides.length > 1 &&
@@ -90,8 +91,21 @@ function ImageSlider({ slides, setCurrSlide }) {
                         key={index}
                     >
                         {index === current &&
-                            (getSlideElement(slide))
+
+                            <div className='w-full relative'>
+                                {getSlideElement(slide)}
+                                {isEdit ?
+                                    <VscClose
+                                        onClick={() => deleteFile(current)}
+                                        size={24}
+                                        className="hover:text-red-500 absolute top-3 right-3 cursor-pointer text-gray-500"
+                                    />
+                                    : null}
+                            </div>
+
                         }
+
+
                     </div>
                 );
             })}
@@ -114,4 +128,4 @@ function ImageSlider({ slides, setCurrSlide }) {
     );
 };
 
-export default ImageSlider;
+export default ImageSliderAdmin;

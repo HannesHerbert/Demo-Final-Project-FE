@@ -3,17 +3,23 @@ import axios from "axios";
 
 
 const useAuthStore = create( set => ({
-    // Speicherort fuer user objekt
+    // Speicherort fuer user objekt ohne population
     user: null,
 
     isAuthenticated: function() {
       return this.user !== null
-    },    
+    }, 
+    
+    isAdmin: function() {
+        if(this.user === null || this.user.role !== "admin") {
+          return false
+        } else {return true}
+    },
     
     validateToken: async () => {
       const token = localStorage.getItem('token');
       try {
-          let resp = await axios.get('http://localhost:8080/protected/uservalidation', {
+          let resp = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/uservalidation`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }  

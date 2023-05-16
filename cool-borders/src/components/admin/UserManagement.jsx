@@ -15,7 +15,7 @@ function UserManagement() {
     const user = useAuthStore(state => state.user);
     const token = useAuthStore(state => state.getToken());
 
-    const [searchString, setSearchString] = useState("")
+    const [searchString, setSearchString] = useState("");
     const [usersArr, setUsersArr] = useState([]);
     const [isInit, setIsInit] = useState(true);
     const [sortVal, setSortVal] = useState({ key: "username", upDir: false });
@@ -31,15 +31,13 @@ function UserManagement() {
         const sortDir = sortVal.upDir ? -1 : 1
 
         try {
-            const response = await axios.get(`http://localhost:8080/protected/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/users?search=${searchString}&sort=${sortVal.key}&dir=${sortDir}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             });
 
             setUsersArr(response.data.users);
-
-            console.log(response.data.users);
 
             setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 
@@ -72,6 +70,7 @@ function UserManagement() {
 
 
     function handleSortClick(evt) {
+
         if (evt.target.name === sortVal.key) {
             setSortVal({ key: sortVal.key, upDir: !sortVal.upDir })
         } else {
@@ -86,10 +85,15 @@ function UserManagement() {
     };
 
 
+    function refresh() {
+        getFilteredAndSortedUsers()
+    };
+
+
     const userTable = usersArr.map(user => {
 
         return (
-            <UserTableRow user={user} key={user._id} />
+            <UserTableRow user={user} key={user._id} refresh={refresh}/>
         )
     });
 
@@ -115,24 +119,29 @@ function UserManagement() {
 
             </form>
 
-            <div className="flex flex-col justify-center items-center w-full bg-gray-900 rounded mt-4 p-4">
-                <table className="table-fixed w-full w-full md:text-sm">
-                    <thead className="text-white">
+            <div className="w-full relative bg-gray-900 mt-4 table-wrp block h-[60vh] overflow-y-scroll">
+                <table className="table-fixed w-full md:text-sm pb-4">
+                    <thead className="text-white sticky bg-gray-900 z-50 top-0">
                         <tr>
-                            <th className="" colSpan="1"></th>
 
                             <th className="border-l" colSpan="2">
-                                <button name="username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                    User
+                                <span className="flex">
+                                    <button name="username" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        User
+                                    </button>
                                     {sortVal.key === "username" ? dirArrow : null}
-                                </button>
+                                </span>
+
                             </th>
 
                             <th className="border-l">
-                                <button name="role" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
-                                    Role
+                                <span className="flex">
+                                    <button name="role" onClick={(evt) => handleSortClick(evt)} className="flex align-middle w-full pl-1">
+                                        Role
+                                    </button>
                                     {sortVal.key === "role" ? dirArrow : null}
-                                </button>
+                                </span>
+
                             </th>
 
                             <th className="border-l">
@@ -142,7 +151,7 @@ function UserManagement() {
                                 </button>
                             </th>
 
-                            <th className="border-l" colSpan="2">
+                            <th className="border-l" colSpan="1">
                                 <span className="flex align-middle pl-1">
                                     Reports
                                 </span>
