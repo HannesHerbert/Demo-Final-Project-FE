@@ -90,7 +90,7 @@ function Register() {
         // Sende Request an /register endpoint der API
         try {
             const response = await axios.post(`${import.meta.env.VITE_BASE_API_URL}/public/register`, registrationData);
-            console.log(response);
+
             // display eine 'SUCCESS' Meldung und navigiere zu Login
             alertSuccessHandler(`Thank you for registration, ${registrationData.username}!`);
             navigate('/auth/login');

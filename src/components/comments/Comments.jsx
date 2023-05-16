@@ -73,8 +73,7 @@ function Comments({post}) {
     }
 
     async function editComment(id, text) {
-        console.log('Edit!');
-        console.log(text);
+
         try {
             // edit comment Anfrage an server
             await axios.put(`${import.meta.env.VITE_BASE_API_URL}/protected/comments/`+ id, {text}, {

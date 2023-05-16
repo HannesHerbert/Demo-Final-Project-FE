@@ -25,7 +25,7 @@ function ImageSlider({ slides, setCurrSlide }) {
 
     function isVideo(url) {
 
-        console.log(url.substring(url.indexOf(':'), url.indexOf("/")));
+
         let index = url.lastIndexOf('.');
 
         if (url.substring(index + 1, url.length) === 'mp4' || (url.substring(url.indexOf(':'), url.indexOf("/")) === ':video')) {

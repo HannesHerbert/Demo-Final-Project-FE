@@ -48,7 +48,6 @@ function PostManagement() {
 
             setPostsArr(response.data.posts);
 
-            console.log(response.data.posts);
 
             setDirArrow(sortVal.upDir ? <BsArrowUp className="self-center" /> : <BsArrowDown className="self-center" />)
 

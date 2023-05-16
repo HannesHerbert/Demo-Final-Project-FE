@@ -5,6 +5,7 @@ import {RiShieldKeyholeFill } from 'react-icons/ri';
 import useAuthStore from "../store/useAuthStore.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import useNotificationStore from "../store/useNotificationStore";
 import * as Styles from "../services/styles.js";
 
 
@@ -18,6 +19,17 @@ function Login() {
 
     const token = useAuthStore(state => state.getToken());
     const validateToken = useAuthStore(state => state.validateToken);
+    // Notification Handler function
+    const notificationHandler = useNotificationStore(state => state.notificationHandler);
+
+    // Wenn die Daten zum Server korrekt gesendet sind, wird ein Alert mit Success erzeugt
+    function alertSuccessHandler(msg) {
+        notificationHandler('success', msg)
+    }
+    // Wenn bei register ein Fehler, wird ein Alert mit Fehlermeldung erzeugt
+    function alertFailHandler(msg) {
+        notificationHandler('fail', msg)
+    }
 
     const navigate = useNavigate();
 
@@ -44,13 +56,17 @@ function Login() {
         };
 
         try {
-            
             const response = await axios.post(`${import.meta.env.VITE_BASE_API_URL}/public/login`, loginData);
-
+            
             authenticate(response.data.user, response.data.token);
+
+            // display eine 'SUCCESS' Meldung 
+            alertSuccessHandler(`Hey, ${response.data.user.username}!`);
 
         } catch (error) {
             console.log(error);
+            // Display eine Fehlermeldung
+            alertFailHandler(error.response.data.message);
         }
     };
 

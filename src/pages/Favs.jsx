@@ -35,7 +35,7 @@ function Favs() {
         }  
       });
       // speichere favorites in state
-      console.log(resp.data.data);
+
 
       if (favorites.length > 0) {
         setFavorites([...favorites, ...resp.data.data]);

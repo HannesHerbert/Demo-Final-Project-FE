@@ -19,7 +19,7 @@ function Notification() {
 
     return (
         showNotification &&
-            <div className="fixed top-10 right-10 z-50">
+            <div className="fixed top-20 right-20 z-50">
                 {showNotification &&
                     (type === 'success' 
                     ?
