@@ -17,22 +17,6 @@ function UserProfile() {
     const logout = useAuthStore(state => state.logout);
     const token = useAuthStore(state => state.getToken());
 
-    async function main() {
-        try {
-
-            const resources = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/user/files`, {
-                headers: {
-                  'Authorization': `Bearer ${token}`
-                }  
-              });
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    main()
-
 
     function getDateString(date) {
 

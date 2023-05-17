@@ -18,7 +18,6 @@ function ReportManagement() {
     const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: true, isClosed: false })
     const [isInit, setIsInit] = useState(true);
     const debounced = useDebounce(searchString);
-    const [isClosed, setIsClosed] = useState(true)
 
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);

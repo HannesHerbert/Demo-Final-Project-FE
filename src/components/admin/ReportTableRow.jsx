@@ -310,18 +310,26 @@ export function ReportTableRow({ report, updateTable }) {
             <tr className="even:bg-gray-100 odd:bg-white border-b hover:bg-gray-400" key={report._id} onClick={handleShowDetails}>
                 <td className="border-l text-left p-1 " colSpan="2">
                     <div className='flex items-center'>
-                        <div
-                            className="relative mx-2 shadow h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
-                            onClick={() => {
-                                setSearchUser(report.reportedBy)
-                            }}
-                        >
-                            <Link to={`/users/${report.reportedBy.username}`} >
+                        {report.reportedBy === null ?
+                            <div
+                                className="relative shadow mx-2 h-10 w-10 border-white rounded-full overflow-hidden border-4">
                                 <AdvancedImage cldImg={profileImg} />
-                            </Link>
+                            </div>
+                            :
 
-                        </div>
-                        <b>{report.reportedBy.username}</b>
+                            <div
+                                className="relative shadow mx-2 h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
+                                onClick={() => {
+                                    setSearchUser(report.reportedBy)
+                                }}
+                            >
+                                <Link to={`/users/${report.reportedBy.username}`} >
+                                    <AdvancedImage cldImg={profileImg} />
+                                </Link>
+
+                            </div>
+                        }
+                        <b>{!report.reportedBy ? "User deleted" : report.reportedBy.username}</b>
                     </div>
                 </td>
                 <td className="border-l" colSpan="1">{report.docModel}</td>

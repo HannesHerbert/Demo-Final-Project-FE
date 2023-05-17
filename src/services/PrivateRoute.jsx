@@ -3,7 +3,6 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 
 function PrivateRoute() {
-    const authStore = useAuthStore();
     const isAuthenticated = useAuthStore(state => state.isAuthenticated())
     const location = useLocation();
 
