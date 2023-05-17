@@ -55,7 +55,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     async function getCloudFiles() {
         try {
 
-            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/user/files`, {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/user/files/${userToEdit._id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -157,7 +157,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
                 setBackgroundImage(fileData)
             };
 
-            
+
         }
     };
 
@@ -186,7 +186,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     }
 
 
-    
+
 
 
 
@@ -267,6 +267,8 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
                 </>
 
             }
+
+
 
 
             {/* Wenn username kürzer als 3 Zeichen dann Fehlermeldung */}

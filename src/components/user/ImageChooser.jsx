@@ -31,7 +31,7 @@ function ImageChooser({ files, isFor, setIsOpen, setURL }) {
 
 
     return (
-        <div className="absolute bg-white w-[80vw] top-20 left-0 h-auto">
+        <div className="absolute bg-white w-full top-20 left-0 h-auto">
 
             <div className=" flex flex-wrap justify-evenly gap-4 p-4 pb-10">{cards}</div>
 
