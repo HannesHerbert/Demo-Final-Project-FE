@@ -15,6 +15,13 @@ const useAuthStore = create( set => ({
           return false
         } else {return true}
     },
+
+    isAuthor: function() {
+
+      if(this.user === null || this.user.role !== "author") {
+        return false
+      } else {return true}
+    },
     
     validateToken: async () => {
       const token = localStorage.getItem('token');

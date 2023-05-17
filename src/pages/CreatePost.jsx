@@ -18,6 +18,7 @@ function CreatePost() {
     const token = useAuthStore(state => state.getToken());
     const user = useAuthStore(state => state.user);
     const isAdmin = useAuthStore(state => state.isAdmin());
+    const isAuthor = useAuthStore(state => state.isAuthor());
     const navigate = useNavigate();
     const [category, setCategory] = useState('story');
     const [files, setFiles] = useState([]);
@@ -209,7 +210,7 @@ function CreatePost() {
                         name="title"
                         ref={titleInputRef}
                         onChange={(evt) => updatePreview(evt)}
-                        className={`${Styles.input2}`}
+                        className={`${Styles.input2} w-full`}
                         placeholder="Title"
                         required
                     />
@@ -237,7 +238,7 @@ function CreatePost() {
                         <option className="bg-gray-700 " value={'story'}>story</option>
                         <option className="bg-gray-700" value={'review'}>review</option>
                         <option className="bg-gray-700" value={'market'}>market</option>
-                        {isAdmin && <option className="bg-gray-700" value='article'>article</option>}
+                        {(isAdmin || isAuthor) && <option className="bg-gray-700" value='article'>article</option>}
                     </select>
                 </fieldset>
 
