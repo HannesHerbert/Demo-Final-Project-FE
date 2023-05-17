@@ -19,7 +19,7 @@ export const heading2 = "text-4xl mb-2 mt-10 text-title font-bold text-gray-100"
 
 // Navigation
 export const navLink = "hover:text-cyan-700 text-cyan-500"
-export const activeNav = "text-orange-500"
+export const activeNav = "text-cyan-500"
 
 // Inputs
 export const input = "bg-zinc-700 rounded-xl py-2 px-3 text-gray-200 leading-tight";
