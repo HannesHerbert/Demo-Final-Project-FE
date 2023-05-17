@@ -86,23 +86,6 @@ function PostAdmin({ post, updateTable }) {
     };
 
 
-    // async function getAuthor() {
-    //     try {
-
-    //         let response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/admin/user/${post.author}`, {
-    //             headers: {
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
-
-    //         setAuthor(response.data.data);
-
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-
     function deleteFile(index) {
         const updatedFiles = [...files];
         updatedFiles.splice(index, 1);

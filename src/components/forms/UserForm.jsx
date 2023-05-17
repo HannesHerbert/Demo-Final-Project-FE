@@ -20,7 +20,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     const [email, setEmail] = useState(userToEdit.email);
     const [city, setCity] = useState(userToEdit.city);
     const [bday, setBday] = useState(userToEdit.birthday);
-    const [profileImage, setProfileImage] = useState(userToEdit.image);
+    const [profileImage, setProfileImage] = useState('');
     const [backgroundImage, setBackgroundImage] = useState('')
     const [role, setRole] = useState(userToEdit.role);
     const token = useAuthStore(state => state.getToken());
@@ -130,6 +130,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
                 text: text,
             },
             image: profileImage,
+            bgImage: backgroundImage
         };
 
         if (isAdminAct) updatedUser.role = role;
@@ -150,7 +151,13 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
             const fileData = fileReader.result;
 
-            setProfileImage(fileData);
+            if (evt.target.name === "profile") {
+                setProfileImage(fileData)
+            } else {
+                setBackgroundImage(fileData)
+            };
+
+            
         }
     };
 
@@ -179,6 +186,9 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     }
 
 
+    
+
+
 
     // Wenn user nicht eingelogt ist, dann wird ein Formular erzeugt, ansonsten wird der user zu Loginpage navigiert
     return (
@@ -193,8 +203,8 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
             {/* PROFILEIMAGE */}
             <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
-                <input name="profile-image" type="file"
-
+                <input name="profile"
+                    type="file"
                     className={`${Styles.input2}`}
                     id="image-file"
                     onChange={(evt) => setImage(evt)}
@@ -228,8 +238,8 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
             {/* BACKGROUNDIMAGE */}
             <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
-                <input name="profile-image" type="file"
-
+                <input name="background"
+                    type="file"
                     className={`${Styles.input2}`}
                     id="image-file"
                     onChange={(evt) => setImage(evt)}
