@@ -321,7 +321,11 @@ function CreatePost() {
 
                 </div>
                 <div className="flex flex-col items-center">
-                    <button type="submit" className="w-full bg-indigo-500 font-bold text-white py-2 px-4 focus:outline-none focus:shadow-outline rounded-full">Create Post</button>
+                    <button type="submit" 
+                    className="w-fit bg-indigo-500 font-bold text-white py-2 px-4 focus:outline-none focus:shadow-outline rounded-full"
+                    >
+                        Create Post
+                    </button>
 
                 </div>
 
