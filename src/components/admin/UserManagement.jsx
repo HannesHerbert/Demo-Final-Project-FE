@@ -7,6 +7,8 @@ import useAuthStore from "../../store/useAuthStore";
 import UserTableRow from "./UserTableRow";
 import useDebounce from "../../hooks/debounce";
 import useNotificationStore from "../../store/useNotificationStore.js";
+import * as Styles from "../../services/styles.js";
+
 
 
 function UserManagement() {
@@ -104,16 +106,21 @@ function UserManagement() {
 
             <form method="get" onSubmit={handleSubmit} className="w-xs mx-auto w-full md:w-1/2 flex flex-col md:flex-row justify-center items-center">
 
-                <input
-                    type="search"
-                    name="search"
-                    value={searchString}
-                    onChange={(event) => setSearchString(event.target.value)}
-                    className="focus:caret-orange-500 shadow  border rounded w-full py-2 px-3 text-orange-500 leading-tight m-3"
-                    placeholder='Search for User'
-                />
 
-                <button className="w-32 flex justify-center items-center bg-orange-500 font-bold hover:bg-orange-600 text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600 duration-300">
+                <fieldset className="my-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                    <input
+                        type="search"
+                        name="search"
+                        value={searchString}
+                        onChange={(event) => setSearchString(event.target.value)}
+                        className={`${Styles.input2}`}
+                        placeholder='Search for User'
+                    />
+                </fieldset>
+
+                <button 
+                    className={`${Styles.mainButton} w-2/4`}
+                >
                     <IoMdSearch className="text-2xl" />
                 </button>
 

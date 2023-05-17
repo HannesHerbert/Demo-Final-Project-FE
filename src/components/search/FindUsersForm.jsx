@@ -44,7 +44,7 @@ function FindUsersForm({setSearch, search, setCategory, category}) {
                 <button onClick={() => searchCategoryHandler('blogs')} className={`${isActive.blogs}`}>Blogs</button>
             </div>
             {/* Form mit input */}
-            <form className="w-full flex justify-center ">
+            <form className="w-full flex justify-center mt-10">
 
                 <fieldset className="flex justify-center items-center border-b-2 border-cyan-800" >
                 <input 

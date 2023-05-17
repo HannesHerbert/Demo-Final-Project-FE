@@ -13,7 +13,7 @@ function FoundPostLi({post}) {
         <li 
             // beim klick post speichern als aktuellste um dann im PostInfo zu holen
             onClick={() => setSearchPost(post)}
-            className="bg-gray-500 px-3 py-2 w-3/5 text-center rounded-2xl hover:bg-gray-700 hover:text-gray-200 transition-colors duration-200 cursor-pointer shadow-xl"
+            className="bg-gray-500 px-3 py-2 w-5/6 xl:w-3/4 text-center rounded-xl hover:bg-gray-700 hover:text-gray-200 transition-colors duration-200 cursor-pointer shadow-xl"
         >   
             <Link to={`/posts/${post.title}`} > {post.title}</Link>
         </li>
