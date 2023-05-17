@@ -12,7 +12,7 @@ function PostInfo() {
     return (
        <>
          {searchPost &&
-            <div className="container w-2/3 mx-auto mt-10 items-center flex flex-col gap-16 min-h-full justify-center text-white ">
+            <div className="container w-full mx-auto mt-10 items-center flex flex-col gap-16 min-h-full justify-center text-white ">
                 <Post post={searchPost} />
             </div>
         }
