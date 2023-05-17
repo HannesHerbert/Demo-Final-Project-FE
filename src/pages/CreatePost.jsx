@@ -18,6 +18,7 @@ function CreatePost() {
     const token = useAuthStore(state => state.getToken());
     const user = useAuthStore(state => state.user);
     const isAdmin = useAuthStore(state => state.isAdmin());
+    const isAuthor = useAuthStore(state => state.isAuthor());
     const navigate = useNavigate();
     const [category, setCategory] = useState('story');
     const [files, setFiles] = useState([]);
@@ -209,7 +210,7 @@ function CreatePost() {
                         name="title"
                         ref={titleInputRef}
                         onChange={(evt) => updatePreview(evt)}
-                        className={`${Styles.input2}`}
+                        className={`${Styles.input2} w-full`}
                         placeholder="Title"
                         required
                     />
@@ -237,7 +238,7 @@ function CreatePost() {
                         <option className="bg-gray-700 " value={'story'}>story</option>
                         <option className="bg-gray-700" value={'review'}>review</option>
                         <option className="bg-gray-700" value={'market'}>market</option>
-                        {isAdmin && <option className="bg-gray-700" value='article'>article</option>}
+                        {(isAdmin || isAuthor) && <option className="bg-gray-700" value='article'>article</option>}
                     </select>
                 </fieldset>
 
@@ -321,7 +322,11 @@ function CreatePost() {
 
                 </div>
                 <div className="flex flex-col items-center">
-                    <button type="submit" className="w-full bg-indigo-500 font-bold text-white py-2 px-4 focus:outline-none focus:shadow-outline rounded-full">Create Post</button>
+                    <button type="submit" 
+                    className="w-fit bg-indigo-500 font-bold text-white py-2 px-4 focus:outline-none focus:shadow-outline rounded-full"
+                    >
+                        Create Post
+                    </button>
 
                 </div>
 
