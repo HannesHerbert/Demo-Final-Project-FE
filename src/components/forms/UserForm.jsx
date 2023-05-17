@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import useNotificationStore from "../../store/useNotificationStore";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
 import * as Styles from "../../services/styles.js";
-import {RiShieldKeyholeFill } from 'react-icons/ri';
-import {FaCity } from 'react-icons/fa';
-import {AiOutlineMail } from 'react-icons/ai';
+import { RiShieldKeyholeFill } from 'react-icons/ri';
+import { FaCity } from 'react-icons/fa';
+import { AiOutlineMail } from 'react-icons/ai';
 import { FaUser } from 'react-icons/fa';
+import { AiOutlineCloud } from 'react-icons/ai';
+import useAuthStore from "../../store/useAuthStore";
+import axios from 'axios'
+import ImageChooser from "../user/ImageChooser";
+import { VscClose } from 'react-icons/vsc';
 
 
 function UserForm({ userToEdit, sendRequest, isAdminAct }) {
@@ -16,7 +21,9 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     const [city, setCity] = useState(userToEdit.city);
     const [bday, setBday] = useState(userToEdit.birthday);
     const [profileImage, setProfileImage] = useState(userToEdit.image);
+    const [backgroundImage, setBackgroundImage] = useState('')
     const [role, setRole] = useState(userToEdit.role);
+    const token = useAuthStore(state => state.getToken());
 
     // für Description-Sub-Object, wenn description-key nicht vorhanden dann ersetze durch "n/a"
     const [prefStance, setPrefStance] = useState(!userToEdit.description ? "n/a" : userToEdit.description.prefStance);
@@ -38,6 +45,36 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
         { label: 'Author', value: 'author' },
         { label: 'Admin', value: 'admin' }
     ];
+
+    // für Image-Auswahl
+    const [isInit, setIsInit] = useState(true);
+    const [cloudFiles, setCloudFiles] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [filesFor, setFilesFor] = useState('profile');
+
+    async function getCloudFiles() {
+        try {
+
+            const response = await axios.get(`${import.meta.env.VITE_BASE_API_URL}/protected/user/files`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            setCloudFiles([...response.data.urls])
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+    useEffect(() => {
+        if (isInit) {
+            getCloudFiles()
+            setIsInit(false)
+        }
+    }, []);
 
 
     // Notification Handler function
@@ -118,24 +155,108 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     };
 
 
+    function openImageChooser(evt) {
+        evt.preventDefault()
+        setFilesFor(evt.target.name)
+        setIsOpen(true)
+    };
+
+    function setURL(url) {
+        if (filesFor === 'profile') {
+            setProfileImage(url)
+        } else if (filesFor === 'background') {
+            setBackgroundImage(url)
+        }
+    }
+
+
+    function deleteURL(use) {
+        if (use === 'profile') {
+            setProfileImage(null)
+        } else if (use === 'background') {
+            setBackgroundImage(null)
+        }
+    }
+
+
+
     // Wenn user nicht eingelogt ist, dann wird ein Formular erzeugt, ansonsten wird der user zu Loginpage navigiert
     return (
         // FORM
-        <form 
-        id='edit-form' 
-        className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4 gap-5" 
-        onSubmit={submitHandler}
+        <form
+            id='edit-form'
+            className="w-full md:w-1/3 mt-11 flex flex-col justify-start p-4 gap-5"
+            onSubmit={submitHandler}
         >
+
+            {isOpen ? <ImageChooser setURL={setURL} files={cloudFiles} isFor={filesFor} setIsOpen={setIsOpen} /> : null}
 
             {/* PROFILEIMAGE */}
             <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
-                <input type="file"
-                    
+                <input name="profile-image" type="file"
+
                     className={`${Styles.input2}`}
                     id="image-file"
                     onChange={(evt) => setImage(evt)}
                 />
+                <span className="text-cyan-500">||</span>
+                <button
+                    className="border h-[40px] w-[40px] flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
+                    name="profile"
+                    type="button"
+                    onClick={(evt) => openImageChooser(evt)}
+
+                // pointer-events-none: da sonst target.name von icon übergeben wird (= undef.)
+                ><AiOutlineCloud className="pointer-events-none" /></button>
+
             </fieldset>
+
+            {profileImage &&
+                <>
+                    <ul className=" relative text-cyan-500">
+                        <li className="text-white relative  overflow-hidden">{profileImage}</li>
+
+                        <VscClose
+                            onClick={() => deleteURL("profile")}
+                            size={24}
+                            className="hover:text-red-500 absolute -left-8 top-0 cursor-pointer" />
+                    </ul>
+                </>
+
+            }
+
+
+            {/* BACKGROUNDIMAGE */}
+            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+                <input name="profile-image" type="file"
+
+                    className={`${Styles.input2}`}
+                    id="image-file"
+                    onChange={(evt) => setImage(evt)}
+                />
+                <span className="text-cyan-500">||</span>
+                <button
+                    className="border h-[40px] w-[40px] flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
+                    name="background"
+                    type="button"
+                    onClick={(evt) => openImageChooser(evt)}
+                ><AiOutlineCloud className="pointer-events-none" /></button>
+
+            </fieldset>
+
+            {backgroundImage &&
+                <>
+                    <ul className=" relative text-cyan-500">
+                        <li className="text-white relative overflow-hidden">{backgroundImage}</li>
+
+                        <VscClose
+                            onClick={() => deleteURL("background")}
+                            size={24}
+                            className="hover:text-red-500 absolute -left-8 top-0 cursor-pointer" />
+                    </ul>
+                </>
+
+            }
 
 
             {/* Wenn username kürzer als 3 Zeichen dann Fehlermeldung */}
