@@ -23,10 +23,6 @@ function CommentEditForm({text, setIsEdit, editCommentCallback, commentId}) {
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
             />
-            {/* <button type="submit" className='bg-green-600 w-fit px-3 py-1 text-white rounded-md hover:bg-indigo-500 hover:text-black transition-colors duration-150'
-            >
-                Confirm
-            </button> */}
         </form>
     )
 }

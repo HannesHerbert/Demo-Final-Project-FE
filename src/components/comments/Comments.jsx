@@ -107,8 +107,11 @@ function Comments({post}) {
                     onSubmit={addCommentSubmitHandler}
                     >
                         {/* BUTTON */}
-                    <button type="submit" className='bg-indigo-700 w-fit px-3 py-1 text-white rounded-md hover:bg-indigo-500 hover:text-black transition-colors duration-150'
-                    >Add comment
+                    <button 
+                        type="submit" 
+                        className='text-white bg-green-500 hover:bg-gray-300 hover:text-black w-fit px-3 py-1 rounded-md  transition-colors duration-150'
+                    >
+                        Add comment
                     </button>
 
                     {/* Text Feld von Kommentar */}
