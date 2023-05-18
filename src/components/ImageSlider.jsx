@@ -1,13 +1,47 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, TouchEvent } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import BaseVideoPlayer from '../services/BaseVideoPlayer';
 import YouTubeVideoPlayer from '../services/YouTubeVideoPlayer';
+// import useSwipe from '../hooks/useSwipe';
 
 
 function ImageSlider({ slides, setCurrSlide }) {
     const [current, setCurrent] = useState(0);
+
+    // Swipe
+    const [touchStart, setTouchStart] = useState(null)
+    const [touchEnd, setTouchEnd] = useState(null)
+    
+    // the required distance between touchStart and touchEnd to be detected as a swipe
+    const minSwipeDistance = 50 
+    
+    const onTouchStart = (e) => {
+        console.log('start');
+        setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+    
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+    
+    const onTouchEnd = () => {
+        console.log('end');
+        if (!touchStart || !touchEnd) return
+        const distance = touchStart - touchEnd
+        const isLeftSwipe = distance > minSwipeDistance
+        const isRightSwipe = distance < -minSwipeDistance
+        //   if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
+        if (!isLeftSwipe) {
+            prevSlide();
+        } else {
+            nextSlide();
+        }
+        // if (isRightSwipe) {
+        //     nextSlide();
+        // }
+      
+    }
 
 
     // Next picture
@@ -86,7 +120,11 @@ function ImageSlider({ slides, setCurrSlide }) {
             {slides.map((slide, index) => {
                 return (
                     <div
-                        className={index === current ? 'flex items-center justify-center  transition duration-100 w-full h-full' : 'transition duration-100 ease-in'}
+                        onTouchStart={onTouchStart} 
+                        onTouchMove={onTouchMove} 
+                        onTouchEnd={onTouchEnd}   
+
+                        className={index === current ? 'cursor-pointer flex items-center justify-center  transition duration-100 w-full h-full' : 'transition duration-100 ease-in'}
                         key={index}
                     >
                         {index === current &&
