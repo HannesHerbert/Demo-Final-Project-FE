@@ -21,7 +21,6 @@
         "react-router-dom": "^6.9.0",
         "react-youtube": "^10.1.0",
         "sass": "^1.60.0",
-        "swiper": "^9.3.2",
         "url-validator": "^2.0.3",
         "zustand": "^4.3.6"
     },
