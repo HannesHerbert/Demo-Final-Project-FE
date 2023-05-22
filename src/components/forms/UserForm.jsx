@@ -208,25 +208,28 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
             {isOpen ? <ImageChooser setURL={setURL} files={cloudFiles} isFor={filesFor} setIsOpen={setIsOpen} /> : null}
 
             {/* PROFILEIMAGE */}
-            <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
-                <input name="profile"
-                    type="file"
-                    className={`text-cyan-500 focus:outline-none border-none outline-none bg-transparent w-5/6`}
-                    id="image-file"
-                    ref={profileImgRef}
-                    onChange={(evt) => setImage(evt)}
-                />
-               
-                <button
-                    className="border flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
-                    name="profile"
-                    type="button"
-                    onClick={(evt) => openImageChooser(evt)}
+            <div>
+                <h5 className="text-zinc-500">Profile image</h5>
+                <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
+                    <input name="profile"
+                        type="file"
+                        className={`text-cyan-500 focus:outline-none border-none outline-none bg-transparent w-5/6`}
+                        id="prifile-image"
+                        ref={profileImgRef}
+                        onChange={(evt) => setImage(evt)}
+                    />
+                
+                    <button
+                        className="border flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
+                        name="profile"
+                        type="button"
+                        onClick={(evt) => openImageChooser(evt)}
 
-                // pointer-events-none: da sonst target.name von icon übergeben wird (= undef.)
-                ><AiOutlineCloud className="pointer-events-none" /></button>
+                    // pointer-events-none: da sonst target.name von icon übergeben wird (= undef.)
+                    ><AiOutlineCloud className="pointer-events-none" /></button>
+                </fieldset>
+            </div>
 
-            </fieldset>
 
             {profileImage &&
                 <>
@@ -244,23 +247,27 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
 
             {/* BACKGROUNDIMAGE */}
-            <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
-                <input name="background"
-                    type="file"
-                    className={`text-cyan-500 focus:outline-none border-none outline-none bg-transparent w-5/6`}
-                    id="image-file"
-                    ref={bgImgRef}
-                    onChange={(evt) => setImage(evt)}
-                />
+            <div>
+                <h5 className="text-zinc-500">Background image</h5>
+                <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
+                    {/* <label htmlFor="bg-profile-image" className="text-white"></label> */}
+                    <input name="background"
+                        type="file"
+                        className={`text-cyan-500 focus:outline-none border-none outline-none bg-transparent w-5/6`}
+                        id="bg-profile-image"
+                        ref={bgImgRef}
+                        onChange={(evt) => setImage(evt)}
+                    />
 
-                <button
-                    className="border flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
-                    name="background"
-                    type="button"
-                    onClick={(evt) => openImageChooser(evt)}
-                ><AiOutlineCloud className="pointer-events-none" /></button>
+                    <button
+                        className="border flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
+                        name="background"
+                        type="button"
+                        onClick={(evt) => openImageChooser(evt)}
+                    ><AiOutlineCloud className="pointer-events-none" /></button>
 
-            </fieldset>
+                </fieldset>
+            </div>
 
             {backgroundImage &&
                 <>
