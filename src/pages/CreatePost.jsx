@@ -284,6 +284,7 @@ function CreatePost() {
                         })}
 
                     </ol>
+
                         {/* URL INPUT */}
                     <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
 
@@ -303,21 +304,21 @@ function CreatePost() {
                     </fieldset>
 
 
-                    <ol className="flex flex-col gap-5 mb-2 list-decimal overflow-hidden">
+                    <ol className="flex flex-col gap-5 my-5 list-decimal overflow-hidden">
+
                         {urls.map((link, i) => {
-                            return <li
-                                className="text-white relative left-24"
+                            return <li className="text-white relative left-24"
                                 key={i}
                             >
-                                <span className="">{link}</span>
-
                                 < VscClose
                                     onClick={() => deleteUrlsFromList(i)}
                                     size={24}
                                     className="hover:text-red-500 absolute -left-24 cursor-pointer"
                                 />
+                                <span>{link}</span>                       
                             </li>
                         })}
+
                     </ol>
 
                 </div>

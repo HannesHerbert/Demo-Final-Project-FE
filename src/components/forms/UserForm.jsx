@@ -91,11 +91,11 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     };
 
 
-    const roleSelect = <select onChange={evt => setRole(evt.target.value)}
+    const roleSelect = <select defaultValue={userToEdit.role} onChange={evt => setRole(evt.target.value)}
         className="p-1 rounded-md text-white bg-black hover:text-indigo-200 mt-6">
         {optionValues.map((role) => (
             <option key={role.value} value={role.value} className="rounded-md p-2"
-                selected={role.value === userToEdit.role}>{role.label}
+                >{role.label}
             </option>
         ))}
     </select>
