@@ -104,7 +104,10 @@ function UserManagement() {
 
         <div className="container flex flex-col justify-center items-center min-h-full">
 
-            <form method="get" onSubmit={handleSubmit} className="w-xs mx-auto w-full md:w-1/2 flex flex-col md:flex-row justify-center items-center">
+            <form 
+                method="get" onSubmit={handleSubmit} 
+                className="w-xs mx-auto w-full md:w-1/2 flex  md:flex-row justify-center gap-5 items-center"
+            >
 
 
                 <fieldset className="my-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
@@ -119,7 +122,7 @@ function UserManagement() {
                 </fieldset>
 
                 <button 
-                    className={`${Styles.mainButton} w-2/4`}
+                    className={`rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-gray-300 hover:text-indigo-600 w-fit `}
                 >
                     <IoMdSearch className="text-2xl" />
                 </button>

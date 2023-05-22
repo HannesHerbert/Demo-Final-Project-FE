@@ -3,6 +3,8 @@ import useAuthStore from "../../store/useAuthStore";
 import useReportStore from '../../store/useReportStore'
 import axios from 'axios';
 import useNotificationStore from "../../store/useNotificationStore";
+import * as Styles from "../../services/styles.js";
+
 
 function ReportModal() {
     const token = useAuthStore(state => state.getToken())
@@ -80,26 +82,34 @@ function ReportModal() {
 
     return (
         <div className={`${showModal} w-screen h-screen bg-white/30 fixed top-0 left-0 flex justify-center items-center z-50 backdrop-blur-sm`}>
-            <div className="px-4 text-xs text-white bg-gray-900 pb-6 w-full h-fit flex flex-col items-center overflow-hidden md:max-w-sm rounded-lg mx-auto shadow-lg shadow-indigo-500/50 ">
+            <div className="px-4 text-xs text-white bg-zinc-900 pb-6 w-full h-fit flex flex-col items-center overflow-hidden md:max-w-sm rounded-lg mx-auto ">
 
                 <h2 className="text-lg">Create Report</h2>
 
                 <div className="text-left w-full">
 
-                    <p><b>Report on: </b>{reportType}</p>
+                    <h5 >Report on: <span className='text-red-500'>{reportType}</span> </h5>
 
-                    <textarea value={reportText} onChange={evt => setReportText(evt.target.value)} className="text-left text-black w-full self-center mt-3" placeholder="Write your Report" id="reportinput" cols="30" rows="6"></textarea>
+                    <fieldset className="mb-4 p-2 border-b-2 border-cyan-800">
 
+                        <textarea 
+                        value={reportText} 
+                        onChange={evt => setReportText(evt.target.value)} 
+                        className={`${Styles.input2} w-full text-white`} placeholder="Write your Report" id="reportinput"  rows="6"
+                        >
+                    </textarea>
+
+                    </fieldset>
                     <div className="flex justify-evenly mt-2">
                         <button
                             onClick={() => cancelReport()}
-                            className="w-1/4 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">
+                            className="w-1/4 rounded-full p-1 text-gray-200 bg-red-500 hover:bg-white hover:text-indigo-600">
                                 Cancel
                         </button>
 
                         <button
                             onClick={handleSubmit}
-                            className="w-1/4 rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-white hover:text-indigo-600">
+                            className="w-1/4 rounded-full p-1 text-gray-200 bg-green-500 hover:bg-white hover:text-indigo-600">
                             Send
                         </button>
                     </div>

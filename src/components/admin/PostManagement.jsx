@@ -6,6 +6,8 @@ import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import PostTableRow from "./PostTableRow";
 import useDebounce from "../../hooks/debounce";
 import useNotificationStore from "../../store/useNotificationStore";
+import * as Styles from "../../services/styles.js";
+
 
 
 
@@ -119,18 +121,27 @@ function PostManagement() {
     return (
         <div className="relative container flex flex-col justify-center items-center min-h-full">
 
-            <form method="get" onSubmit={handleSubmit} className="w-xs mx-auto w-full md:w-1/2 flex flex-col md:flex-row justify-center items-center">
+            <form 
+                method="get" 
+                onSubmit={handleSubmit} 
+                className="w-xs mx-auto w-full md:w-1/2 flex  md:flex-row justify-center gap-5 items-center"
+            >
+                <fieldset className="my-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
 
-                <input
-                    type="search"
-                    name="search"
-                    value={searchString}
-                    onChange={(event) => setSearchString(event.target.value)}
-                    className="focus:caret-orange-500 shadow  border rounded w-full py-2 px-3 text-orange-500 leading-tight m-3"
-                    placeholder='Search for User'
-                />
+                    <input
+                        type="search"
+                        name="search"
+                        value={searchString}
+                        onChange={(event) => setSearchString(event.target.value)}
+                        className={`${Styles.input2}`}
+                        placeholder='Search for User'
+                    />
+                </fieldset>
 
-                <button className="w-32 flex justify-center items-center bg-orange-500 font-bold hover:bg-orange-600 text-white  py-2 px-4 rounded focus:outline-none focus:shadow-outline ease-in-out delay-150 bg-gradient-to-r from-orange-600 duration-300">
+
+                <button 
+                    className={`rounded-full p-1 text-gray-200 bg-indigo-500 hover:bg-gray-300 hover:text-indigo-600 w-fit `}
+                >
                     <IoMdSearch className="text-2xl" />
                 </button>
 
