@@ -208,17 +208,17 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
             {isOpen ? <ImageChooser setURL={setURL} files={cloudFiles} isFor={filesFor} setIsOpen={setIsOpen} /> : null}
 
             {/* PROFILEIMAGE */}
-            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+            <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
                 <input name="profile"
                     type="file"
-                    className={`${Styles.input2}`}
+                    className={`text-cyan-500 focus:outline-none border-none outline-none bg-transparent w-5/6`}
                     id="image-file"
                     ref={profileImgRef}
                     onChange={(evt) => setImage(evt)}
                 />
-                <span className="text-cyan-500">||</span>
+               
                 <button
-                    className="border h-[40px] w-[40px] flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
+                    className="border flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
                     name="profile"
                     type="button"
                     onClick={(evt) => openImageChooser(evt)}
@@ -244,17 +244,17 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
 
             {/* BACKGROUNDIMAGE */}
-            <fieldset className="mb-4 p-2 flex gap-4 items-center border-b-2 border-cyan-800">
+            <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
                 <input name="background"
                     type="file"
-                    className={`${Styles.input2}`}
+                    className={`text-cyan-500 focus:outline-none border-none outline-none bg-transparent w-5/6`}
                     id="image-file"
                     ref={bgImgRef}
                     onChange={(evt) => setImage(evt)}
                 />
-                <span className="text-cyan-500">||</span>
+
                 <button
-                    className="border h-[40px] w-[40px] flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
+                    className="border flex justify-center items-center rounded-lg border-cyan-500 text-cyan-500 text-[30px]"
                     name="background"
                     type="button"
                     onClick={(evt) => openImageChooser(evt)}

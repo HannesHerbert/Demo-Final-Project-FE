@@ -245,7 +245,7 @@ function CreatePost() {
 
                 <div className=" mb-4 w-full">
                     {/* FILES INPUT */}
-                    <fieldset className="mmb-4 p-2 flex justify-between border-b-2 border-cyan-800">
+                    <fieldset className="mb-4 p-2 flex justify-between border-b-2 border-cyan-800">
 
 
                         {/* FILES */}
