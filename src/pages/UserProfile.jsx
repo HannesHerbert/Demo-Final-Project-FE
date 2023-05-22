@@ -17,33 +17,6 @@ function UserProfile() {
     const logout = useAuthStore(state => state.logout);
     const token = useAuthStore(state => state.getToken());
 
-
-    function getDateString(date) {
-
-        const dateObj = new Date(date);
-        const year = dateObj.getFullYear();
-        const month = dateObj.getMonth() + 1;
-        const dayOfMonth = dateObj.getDate();
-
-        const dateString = `${dayOfMonth < 10 ? 0 : ""}${dayOfMonth}.${month < 10 ? 0 : ""}${month}.${year}`
-
-        return dateString
-    };
-
-    function getTimeString(date) {
-
-        const dateObj = new Date(date);
-        const hour = dateObj.getHours();
-        const min = dateObj.getMinutes();
-        const sec = dateObj.getSeconds();
-
-        const timeString = `${hour < 10 ? 0 : ""}${hour}:${min < 10 ? 0 : ""}${min}:${sec < 10 ? 0 : ""}${sec}`
-
-        return timeString
-    };
-
-
-
     return (
         <>
 
@@ -58,7 +31,7 @@ function UserProfile() {
                         <div className="flex flex-col gap-14 pb-7  bg-gray-900 w-full lg:max-w-3xl rounded-lg mx-auto text-white shadow-gray-800  shadow-lg">
                             <div>
                                 <div className="relative h-40">
-                                    <img className="absolute h-full w-full object-cover" src="https://picjumbo.com/wp-content/uploads/snowboards-and-skis-leaning-against-wooden-fence.jpg" alt="" />
+                                    <img className="absolute h-full w-full object-cover" src={user.bgImage} alt="" />
 
                                 </div>
                                 <div className="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">

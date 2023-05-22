@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useNotificationStore from "../../store/useNotificationStore";
 import { image } from "@cloudinary/url-gen/qualifiers/source";
 import * as Styles from "../../services/styles.js";
@@ -21,9 +21,11 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
     const [city, setCity] = useState(userToEdit.city);
     const [bday, setBday] = useState(userToEdit.birthday);
     const [profileImage, setProfileImage] = useState('');
-    const [backgroundImage, setBackgroundImage] = useState('')
+    const [backgroundImage, setBackgroundImage] = useState('');
     const [role, setRole] = useState(userToEdit.role);
     const token = useAuthStore(state => state.getToken());
+    const profileImgRef = useRef();
+    const bgImgRef = useRef();
 
     // für Description-Sub-Object, wenn description-key nicht vorhanden dann ersetze durch "n/a"
     const [prefStance, setPrefStance] = useState(!userToEdit.description ? "n/a" : userToEdit.description.prefStance);
@@ -141,6 +143,8 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
     function setImage(evt) {
 
+        let use = evt.target.name;
+
         const file = evt.target.files[0];
 
         const fileReader = new FileReader();
@@ -151,10 +155,12 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
             const fileData = fileReader.result;
 
-            if (evt.target.name === "profile") {
-                setProfileImage(fileData)
-            } else {
-                setBackgroundImage(fileData)
+            if (use === "profile") {
+                setProfileImage(fileData);
+                profileImgRef.current.value = null
+            } else if (use === "background") {
+                setBackgroundImage(fileData);
+                bgImgRef.current.value = null
             };
 
 
@@ -170,24 +176,24 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
 
     function setURL(url) {
         if (filesFor === 'profile') {
-            setProfileImage(url)
+            setProfileImage(url);
+            profileImgRef.current.value = null
         } else if (filesFor === 'background') {
-            setBackgroundImage(url)
+            setBackgroundImage(url);
+            bgImgRef.current.value = null
         }
     }
 
 
     function deleteURL(use) {
         if (use === 'profile') {
-            setProfileImage(null)
+            setProfileImage('');
+            profileImgRef.current.value = null
         } else if (use === 'background') {
-            setBackgroundImage(null)
+            setBackgroundImage('');
+            bgImgRef.current.value = null
         }
-    }
-
-
-
-
+    };
 
 
     // Wenn user nicht eingelogt ist, dann wird ein Formular erzeugt, ansonsten wird der user zu Loginpage navigiert
@@ -207,6 +213,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
                     type="file"
                     className={`${Styles.input2}`}
                     id="image-file"
+                    ref={profileImgRef}
                     onChange={(evt) => setImage(evt)}
                 />
                 <span className="text-cyan-500">||</span>
@@ -242,6 +249,7 @@ function UserForm({ userToEdit, sendRequest, isAdminAct }) {
                     type="file"
                     className={`${Styles.input2}`}
                     id="image-file"
+                    ref={bgImgRef}
                     onChange={(evt) => setImage(evt)}
                 />
                 <span className="text-cyan-500">||</span>

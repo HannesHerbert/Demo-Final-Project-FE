@@ -28,6 +28,7 @@ export function UserTableRow({ user, refresh }) {
     const [reportAmount, setReportAmount] = useState(0)
     const setSearchUser = useSearchStore(state => state.setSearchUser);
 
+
     // Notification Handler function
     const notificationHandler = useNotificationStore(state => state.notificationHandler);
 
