@@ -126,7 +126,7 @@ function ImageSliderAdmin({ slides, setCurrSlide, isEdit, deleteFile }) {
                         key={index}
                     >
                         {index === current &&
-                            <div className='h-full relative'>
+                            <div className='h-full w-full relative'>
                                 {getSlideElement(slide)}
                                 {isEdit ?
                                     <VscClose
