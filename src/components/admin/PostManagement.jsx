@@ -17,7 +17,7 @@ function PostManagement() {
     const [searchString, setSearchString] = useState("");
     const [postsArr, setPostsArr] = useState([]);
     const [dirArrow, setDirArrow] = useState(<BsArrowDown className="self-center" />);
-    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: false, visible: true })
+    const [sortVal, setSortVal] = useState({ key: "createdAt", upDir: true, visible: true })
     const [isInit, setIsInit] = useState(true);
     const debounced = useDebounce(searchString);
     const [isClosed, setIsClosed] = useState(true)

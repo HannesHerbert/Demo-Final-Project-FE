@@ -17,7 +17,7 @@ function AdminDashboard() {
         posts: <PostManagement />
     };
     const [view, setView] = useState('users')
-    const display= displays[view];
+    const display = displays[view];
 
     // Style-Parameter
     const choosen = 'pt-3 underline bg-gradient-to-l from-[#FFFFFF09]';
@@ -43,18 +43,18 @@ function AdminDashboard() {
                     Users
                 </button>
 
-                <button className={`w-1/3 text-xs md:text-lg  p-2 bg-gray-900 border-b  text-white rounded-tr focus:outline-none  hover:underline ${view === 'reports' ? choosen : notChoosen}`}
-                    name='reports'
-                    onClick={changeDisplay}
-                >
-                    Reports
-                </button>
-
                 <button className={`w-1/3 text-xs md:text-lg p-2 bg-gray-900 border-b  text-white rounded-tr focus:outline-none  hover:underline ${view === 'article' ? choosen : notChoosen}`}
                     name='posts'
                     onClick={changeDisplay}
                 >
                     Posts
+                </button>
+
+                <button className={`w-1/3 text-xs md:text-lg  p-2 bg-gray-900 border-b  text-white rounded-tr focus:outline-none  hover:underline ${view === 'reports' ? choosen : notChoosen}`}
+                    name='reports'
+                    onClick={changeDisplay}
+                >
+                    Reports
                 </button>
 
             </div>

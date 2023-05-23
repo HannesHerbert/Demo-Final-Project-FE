@@ -154,8 +154,9 @@ function PostAdmin({ post, updateTable }) {
 
 
     return (
+
         // Container
-        <div className="flex container relative justify-center items-center bg-zinc-800 py-10 lg:rounded-2xl min-h-[60vh]" id={post._id}>
+        <div className="flex container justify-center relative items-center bg-zinc-900 py-10 rounded-2xl" id={post._id}>
 
             <>
                 <VscSettings
@@ -171,19 +172,22 @@ function PostAdmin({ post, updateTable }) {
                 />
             </>
 
-            <div className="container flex flex-col sm:gap-3 justify-center items-center w-full  h-full rounded-md">
+            <div className=" container flex flex-col gap-7  justify-center items-center w-3/4 md:w-3/4 h-full rounded-md">
+
                 {/* Section 1 mit Bilder */}
                 {files.length > 0 && <span className='text-white'>{currSlide}/{files.length}</span>}
-                <ImageSliderAdmin slides={files} setCurrSlide={setCurrSlide} isEdit={isEdit} deleteFile={deleteFile} currSlide={currSlide} />
+                <ImageSliderAdmin slides={files} setCurrSlide={setCurrSlide} isEdit={isEdit} deleteFile={deleteFile} />
+
 
                 {/* Section 2 Mit Text content*/}
-                <section className="text-justify flex flex-col mt-10 gap-5 w-5/6">
+                <section className="text-justify flex flex-col w-full gap-5">
 
                     <div className="flex flex-row justify-between gap-2 mb-3">
+
                         {/* Profil image klickbar*/}
                         <div className="flex items-center">
 
-                            {!post.author ?
+                            {post.author === null ?
                                 <div
                                     className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4">
                                     <AdvancedImage cldImg={profileImg} />
@@ -194,7 +198,6 @@ function PostAdmin({ post, updateTable }) {
                                     className="relative shadow mx-auto h-10 w-10 border-white rounded-full overflow-hidden border-4 hover:border-green-400"
                                     onClick={() => {
                                         setSearchUser(post.author)
-                                        // setPrevlocation(fromLocation, post._id)
                                     }}
                                 >
                                     <Link to={`/users/${post.author.username}`} >
@@ -246,8 +249,7 @@ function PostAdmin({ post, updateTable }) {
 
                 </section>
 
-            </div >
-
+            </div>
             {isEdit ?
                 <>
                     <AiOutlineCheckCircle
@@ -263,10 +265,8 @@ function PostAdmin({ post, updateTable }) {
                 </>
                 : null
             }
-
-        </div >
+        </div>
     )
-
 }
 
 export default PostAdmin;

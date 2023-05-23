@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, TouchEvent } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { GrPrevious, GrNext } from 'react-icons/gr';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
@@ -10,38 +10,6 @@ import { VscClose, VscSettings } from 'react-icons/vsc';
 function ImageSliderAdmin({ slides, setCurrSlide, isEdit, deleteFile }) {
     const [current, setCurrent] = useState(0);
 
-    // Swipe
-    const [touchStart, setTouchStart] = useState(null)
-    const [touchEnd, setTouchEnd] = useState(null)
-
-    // the required distance between touchStart and touchEnd to be detected as a swipe
-    const minSwipeDistance = 50
-
-    const onTouchStart = (e) => {
-        console.log('start');
-        setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
-        setTouchStart(e.targetTouches[0].clientX)
-    }
-
-    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
-
-    const onTouchEnd = () => {
-        console.log('end');
-        if (!touchStart || !touchEnd) return
-        const distance = touchStart - touchEnd
-        const isLeftSwipe = distance > minSwipeDistance
-        const isRightSwipe = distance < -minSwipeDistance
-        //   if (isLeftSwipe || isRightSwipe) console.log('swipe', isLeftSwipe ? 'left' : 'right')
-        if (!isLeftSwipe) {
-            prevSlide();
-        } else {
-            nextSlide();
-        }
-        // if (isRightSwipe) {
-        //     nextSlide();
-        // }
-
-    }
 
     // Next picture
     const nextSlide = () => {
@@ -98,35 +66,33 @@ function ImageSliderAdmin({ slides, setCurrSlide, isEdit, deleteFile }) {
 
 
     return (
-        <section className='container w-full flex items-center h-[50vh] sm:h[50] md:h-[60vh]'>
+
+        <section className='container w-full flex items-center h-[50vh] md:h-[60vh]'>
 
             {/* NAVH LINKS BUTTON */}
+            {slides.length > 1 &&
 
+                <button
+                    className='h-full opacity-40 hover:opacity-100  w-1/6 flex justify-center items-center '
+                    onClick={prevSlide}
+                >
+                    {<GrPrevious
 
-            <button
-                className={`h-full opacity-40 hover:opacity-100  w-1/6 flex justify-center items-center`}
-                onClick={prevSlide}
-            >
-                {<GrPrevious
-
-                    size={50}
-                />}
-            </button>
-
+                        size={50}
+                    />}
+                </button>
+            }
 
             {/* CONTENT */}
             {slides.map((slide, index) => {
                 return (
                     <div
-                        onTouchStart={onTouchStart}
-                        onTouchMove={onTouchMove}
-                        onTouchEnd={onTouchEnd}
-
-                        className={index === current ? 'cursor-pointer flex items-center justify-center  transition duration-100 w-full h-full' : 'transition duration-100 ease-in'}
+                        className={index === current ? 'flex items-center justify-center  transition duration-100 w-full h-full' : 'transition duration-100 ease-in'}
                         key={index}
                     >
                         {index === current &&
-                            <div className='h-full relative'>
+
+                            <div className='w-full relative'>
                                 {getSlideElement(slide)}
                                 {isEdit ?
                                     <VscClose
@@ -136,27 +102,29 @@ function ImageSliderAdmin({ slides, setCurrSlide, isEdit, deleteFile }) {
                                     />
                                     : null}
                             </div>
+
                         }
+
+
                     </div>
                 );
             })}
 
             {/* NACH RECHTS BUTTON */}
+            {slides.length > 1 &&
 
+                <button
+                    className='h-full opacity-30 hover:opacity-100 w-1/6 flex justify-center items-center '
+                    onClick={nextSlide}>
 
-            <button
-                className='h-full opacity-30 hover:opacity-100 w-1/6 flex justify-center items-center '
-                onClick={nextSlide}>
+                    <GrNext
+                        size={50}
+                    />
 
-                <GrNext
-                    size={50}
-                />
+                </button>
 
-            </button>
-
-
+            }
         </section>
-
     );
 };
 
